@@ -7,9 +7,9 @@ export default function Home() {
     <div className="animate-fade-in">
       {/* Hero Section */}
       <section className="hero">
-        <h1>Agende seus serviços<br />de forma simples e rápida</h1>
+        <h1>Bem-vindo à Clinica Vita<br />Agende seus serviços de forma simples e rápida</h1>
         <p>
-          O AgendaFácil é a plataforma completa para gerenciar agendamentos
+          A Clinica Vita oferece uma plataforma completa para gerenciar agendamentos
           da sua clínica com praticidade e eficiência.
         </p>
         <div className="hero-actions">

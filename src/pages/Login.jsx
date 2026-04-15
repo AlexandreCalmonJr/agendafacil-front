@@ -156,8 +156,8 @@ export default function Login() {
         {isLogin && (
           <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'rgba(255,255,255,0.03)', borderRadius: 'var(--radius-lg)', fontSize: '0.8rem' }}>
             <p style={{ color: 'var(--dark-400)', marginBottom: '0.5rem', fontWeight: '600' }}>Contas de teste:</p>
-            <p style={{ color: 'var(--dark-500)' }}>👑 admin@agendafacil.com / 123456</p>
-            <p style={{ color: 'var(--dark-500)' }}>🩺 ana.silva@clinica.com / 123456</p>
+            <p style={{ color: 'var(--dark-500)' }}>👑 admin@clinicavita.com / 123456</p>
+            <p style={{ color: 'var(--dark-500)' }}>🩺 ana.silva@clinicavita.com / 123456</p>
             <p style={{ color: 'var(--dark-500)' }}>👤 maria.santos@email.com / 123456</p>
           </div>
         )}

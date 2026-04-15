@@ -28,8 +28,8 @@ export default function Header() {
     <nav className="navbar">
       <div className="navbar-inner">
         <Link to="/" className="navbar-logo">
-          <div className="logo-icon">📅</div>
-          <span>AgendaFácil</span>
+          <div className="logo-icon">🏥</div>
+          <span>Clinica Vita</span>
         </Link>
 
         <button
