@@ -102,8 +102,6 @@ const DashboardStaff = () => {
         </div>
       </div>
 
-      </div>
-
       {/* Visual Insights Section */}
       <div className="analytics-section grid grid-2" style={{ gap: '1.5rem', marginBottom: '2rem' }}>
         <div className="content-card glass">
