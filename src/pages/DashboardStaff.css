@@ -1,0 +1,136 @@
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.metric-card {
+  display: flex;
+  align-items: center;
+  padding: 1.2rem;
+  border-radius: 20px;
+  gap: 1rem;
+}
+
+.metric-icon {
+  font-size: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.metric-info .label {
+  display: block;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.metric-info .value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.staff-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.staff-table th {
+  text-align: left;
+  padding: 1rem;
+  opacity: 0.6;
+  font-size: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.staff-table td {
+  padding: 1.2rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.room-label {
+  background: rgba(139, 92, 246, 0.2);
+  color: #c4b5fd;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem !important;
+}
+
+.status-em_espera {
+  color: #f59e0b;
+}
+
+.status-concluido {
+  color: #10b981;
+}
+
+.btn-action {
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: 0.3s;
+}
+
+.btn-action.checkin {
+  background: #6366f1;
+  color: white;
+}
+
+.btn-action.pay {
+  background: #10b981;
+  color: white;
+}
+
+.btn-action:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
+}
+
+.quick-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.lnk-card {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.lnk-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #6366f1;
+}
+
+.lnk-card .icon {
+  font-size: 1.3rem;
+}
+
+.lnk-card div strong {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.lnk-card div span {
+  font-size: 0.75rem;
+  opacity: 0.5;
+}

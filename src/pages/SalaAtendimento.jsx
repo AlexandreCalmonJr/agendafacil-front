@@ -13,6 +13,7 @@ import {
   CheckCircle,
   FileSearch
 } from 'lucide-react';
+import './SalaAtendimento.css';
 
 export default function SalaAtendimento() {
   const { id } = useParams();
@@ -282,63 +283,6 @@ export default function SalaAtendimento() {
           </div>
         </div>
       )}
-
-      <style jsx>{`
-        .sala-atendimento { padding: 2rem; background: #0f172a; min-height: 100vh; }
-        .atendimento-layout { display: grid; grid-template-columns: 320px 1fr; gap: 2rem; max-width: 1600px; margin: 0 auto; }
-        
-        .paciente-sidebar { height: fit-content; position: sticky; top: 2rem; padding: 2rem; }
-        .paciente-avatar { text-align: center; margin-bottom: 2rem; }
-        .avatar-circle { width: 80px; height: 80px; background: linear-gradient(135deg, #8b5cf6, #d946ef); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: white; margin: 0 auto 1rem; }
-        .badge-online { font-size: 0.75rem; color: #10b981; font-weight: 600; display: block; margin-top: 0.5rem; }
-        
-        .info-list { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2.5rem; }
-        .info-item label { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 0.25rem; }
-        .info-item span { font-weight: 600; color: #f1f5f9; }
-        .tag { display: inline-block; padding: 4px 10px; background: rgba(139, 92, 246, 0.2); color: #c4b5fd; border-radius: 6px; font-size: 0.85rem; font-weight: 500; }
-        
-        .actions-stack { display: flex; flex-direction: column; gap: 1rem; }
-        .btn-concluir { background: linear-gradient(135deg, #8b5cf6, #7c3aed); display: flex; align-items: center; gap: 0.5rem; justify-content: center; padding: 1rem; }
-        
-        .atendimento-main { display: flex; flex-direction: column; gap: 1rem; }
-        .tabs-nav { display: flex; padding: 0.5rem; border-radius: 16px; gap: 0.5rem; }
-        .tabs-nav button { flex: 1; padding: 1rem; background: transparent; border: none; color: #94a3b8; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; justify-content: center; font-weight: 500; transition: 0.3s; }
-        .tabs-nav button:hover { background: rgba(255, 255, 255, 0.05); color: white; }
-        .tabs-nav button.active { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.3); }
-        
-        .workspace-content { padding: 0; min-height: 600px; display: flex; flex-direction: column; }
-        .editor-container { padding: 2rem; flex: 1; display: flex; flex-direction: column; }
-        .editor-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-        .auto-save { font-size: 0.8rem; color: #64748b; font-style: italic; }
-        
-        .atendimento-textarea { width: 100%; flex: 1; background: rgba(15, 23, 42, 0.3); border: 1px solid rgba(139, 92, 246, 0.1); border-radius: 12px; padding: 1.5rem; color: #f1f5f9; font-size: 1.1rem; line-height: 1.6; resize: none; min-height: 400px; }
-        .atendimento-textarea:focus { outline: none; border-color: #8b5cf6; box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1); }
-        .prescription-style { font-family: 'Courier New', Courier, monospace; background: rgba(255, 255, 255, 0.02); }
-        
-        .btn-elite-action { background: #8b5cf6; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 0.5rem; }
-        .btn-elite-action:hover { background: #7c3aed; transform: translateY(-1px); }
-        
-        .quick-exam-viewer { margin-top: 2rem; padding: 1.5rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; }
-        .icon-badge { width: 40px; height: 40px; background: #8b5cf6; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
-        
-        .workspace-footer { padding: 1.5rem 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.01); }
-        
-        .historico-container { padding: 2rem; }
-        .timeline { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
-        .timeline-item { padding: 1.5rem; border-radius: 12px; border-left: 4px solid #8b5cf6; }
-        .timeline-date { font-size: 0.8rem; color: #8b5cf6; font-weight: 700; margin-bottom: 0.5rem; }
-        .mini-badges { display: flex; gap: 0.5rem; margin-top: 1rem; }
-        .mini-badges span { font-size: 0.7rem; background: rgba(255, 255, 255, 0.05); padding: 4px 8px; border-radius: 4px; }
-        
-        .exam-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 9999; display: flex; align-items: center; justify-content: center; }
-        .exam-modal { width: 90%; max-width: 1000px; height: 80vh; background: #1e293b; border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0,0,0,1); display: flex; flex-direction: column; overflow: hidden; }
-        .exam-modal header { padding: 1.5rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; color: white; }
-        .exam-modal header button { background: transparent; border: none; color: #94a3b8; font-size: 2rem; cursor: pointer; }
-        .exam-body { padding: 2rem; flex: 1; display: flex; align-items: center; justify-content: center; }
-        .exam-file-sim { width: 100%; max-width: 600px; height: 400px; background: white; border-radius: 8px; color: #0f172a; display: flex; flex-direction: column; }
-        .exam-file-sim header { background: #334155; color: white; padding: 0.75rem; font-size: 0.9rem; }
-        .sim-viewer { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-      `}</style>
     </div>
   );
 }
