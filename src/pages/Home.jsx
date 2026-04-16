@@ -25,9 +25,9 @@ const Home = () => {
 
   return (
     <div className="landing-page">
+      <div className="hero-overlay"></div>
       {/* Hero Section */}
       <section className="hero-section">
-        <div className="hero-overlay"></div>
         <motion.div 
           className="hero-content"
           initial={{ y: 50, opacity: 0 }}
@@ -153,9 +153,10 @@ const Home = () => {
 
       <style jsx>{`
         .landing-page {
-          background: #0a0a0b;
+          background: url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053&auto=format&fit=crop') center/cover fixed;
           color: white;
           overflow-x: hidden;
+          min-height: 100vh;
         }
 
         .hero-section {
@@ -164,16 +165,21 @@ const Home = () => {
           align-items: center;
           justify-content: center;
           position: relative;
-          background: url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053&auto=format&fit=crop') center/cover;
           text-align: center;
           padding: 2rem;
         }
 
         .hero-overlay {
-          position: absolute;
+          position: fixed;
           inset: 0;
           background: radial-gradient(circle at center, rgba(10, 10, 11, 0.4) 0%, rgba(10, 10, 11, 0.98) 80%);
           backdrop-filter: blur(2px);
+          z-index: 1;
+        }
+
+        .hero-content, .features-section, .trust-section, .landing-footer {
+          position: relative;
+          z-index: 2;
         }
 
         .hero-content {

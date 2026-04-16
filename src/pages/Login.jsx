@@ -81,6 +81,7 @@ export default function Login() {
       backgroundImage: "url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080&auto=format&fit=crop')",
       backgroundSize: 'cover',
       backgroundPosition: 'center',
+      backgroundAttachment: 'fixed',
       position: 'relative',
       padding: '2rem',
       fontFamily: 'Inter, sans-serif'
