@@ -11,14 +11,25 @@ export const useNotifications = (usuario) => {
 
   // Função para tocar o sino (som suave de notificação)
   const playSound = () => {
-    try {
-      const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
-      audio.volume = 0.5;
-      audio.play();
-    } catch (e) {
-      console.warn('Audio play blocked by browser policy');
+  try {
+    // Garante que Audio está disponível no contexto (não funciona em Workers)
+    if (typeof window === 'undefined' || typeof window.Audio === 'undefined') return;
+    
+    const audio = new window.Audio(
+      'https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3'
+    );
+    audio.volume = 0.5;
+    
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Bloqueado por política do navegador (sem interação prévia) — ignora silenciosamente
+      });
     }
-  };
+  } catch (e) {
+    // Illegal constructor ou outro erro de ambiente — ignora silenciosamente
+  }
+};
 
   const checkNewPatients = useCallback(async () => {
     if (!usuario || (usuario.perfil !== 'profissional' && usuario.perfil !== 'admin')) return;
