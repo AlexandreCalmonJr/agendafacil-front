@@ -6,6 +6,8 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
   const statusConfig = {
     agendado: { label: 'Agendado', className: 'badge-agendado', icon: '🕐' },
     confirmado: { label: 'Confirmado', className: 'badge-confirmado', icon: '✅' },
+    em_espera: { label: 'Em Espera', className: 'badge', icon: '⏳', style: { background: 'var(--warning)', color: 'black' } },
+    em_atendimento: { label: 'Atendendo', className: 'badge', icon: '👨‍⚕️', style: { background: 'var(--primary-500)', color: 'white' } },
     cancelado: { label: 'Cancelado', className: 'badge-cancelado', icon: '❌' },
     concluido: { label: 'Concluído', className: 'badge-concluido', icon: '✔️' }
   };
@@ -24,7 +26,7 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
       <div className="card-body">
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
           <h4>{agendamento.servico_nome}</h4>
-          <span className={`badge ${statusInfo.className}`}>
+          <span className={`badge ${statusInfo.className}`} style={statusInfo.style || {}}>
             {statusInfo.icon} {statusInfo.label}
           </span>
         </div>

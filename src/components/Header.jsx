@@ -28,8 +28,8 @@ export default function Header() {
     <nav className="navbar">
       <div className="navbar-inner">
         <Link to="/" className="navbar-logo">
-          <div className="logo-icon">📅</div>
-          <span>AgendaFácil</span>
+          <div className="logo-icon" style={{ background: 'var(--primary-600)' }}>⚕️</div>
+          <span style={{ fontWeight: '700', letterSpacing: '-0.5px' }}>Clínica Vita</span>
         </Link>
 
         <button
@@ -46,52 +46,12 @@ export default function Header() {
               Início
             </Link>
           </li>
-
-          {isLoggedIn && (
-            <>
-              <li>
-                <Link to="/agenda" className={isActive('/agenda')} onClick={() => setMenuOpen(false)}>
-                  Agenda
-                </Link>
-              </li>
-              <li>
-                <Link to="/agendar" className={isActive('/agendar')} onClick={() => setMenuOpen(false)}>
-                  Agendar
-                </Link>
-              </li>
-              {usuario?.perfil !== 'cliente' && (
-                <li>
-                  <Link to="/clientes" className={isActive('/clientes')} onClick={() => setMenuOpen(false)}>
-                    Clientes
-                  </Link>
-                </li>
-              )}
-              <li>
-                <Link to="/profissionais" className={isActive('/profissionais')} onClick={() => setMenuOpen(false)}>
-                  Profissionais
-                </Link>
-              </li>
-            </>
-          )}
         </ul>
 
         <div className="navbar-user">
-          {isLoggedIn && usuario ? (
-            <>
-              <div className="user-info">
-                <div className="user-name">{usuario.nome}</div>
-                <div className="user-role">{usuario.perfil}</div>
-              </div>
-              <div className="user-avatar">{getInitials(usuario.nome)}</div>
-              <button className="btn btn-sm btn-secondary" onClick={handleLogout}>
-                Sair
-              </button>
-            </>
-          ) : (
-            <Link to="/login" className="btn btn-sm btn-primary">
-              Entrar
-            </Link>
-          )}
+          <Link to="/login" className="btn btn-sm btn-outline">
+            Painel do Profissional
+          </Link>
         </div>
       </div>
     </nav>

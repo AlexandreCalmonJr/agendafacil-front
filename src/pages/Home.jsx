@@ -1,120 +1,77 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Home() {
   const isLoggedIn = !!localStorage.getItem('token');
+  const navigate = useNavigate();
+
+  const handleAgendar = () => {
+    if (isLoggedIn) {
+      navigate('/agendar');
+    } else {
+      navigate('/login');
+    }
+  };
 
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', minHeight: '80vh', padding: '4rem 0' }}>
+      
       {/* Hero Section */}
-      <section className="hero">
-        <h1>Agende seus serviços<br />de forma simples e rápida</h1>
-        <p>
-          O AgendaFácil é a plataforma completa para gerenciar agendamentos
-          da sua clínica com praticidade e eficiência.
+      <section className="hero" style={{ width: '100%', maxWidth: '900px', margin: '0 auto', textAlign: 'center', paddingBottom: '4rem' }}>
+        <div style={{
+          width: '90px', height: '90px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--primary-600), var(--primary-400))',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', margin: '0 auto 2rem', color: 'white',
+          boxShadow: '0 10px 25px rgba(0,0,0,0.2)'
+        }}>
+          ⚕️
+        </div>
+        <h1 style={{ fontSize: '3.8rem', letterSpacing: '-1px', marginBottom: '1.5rem', lineHeight: '1.2' }}>
+          Clínica Vita<br />
+          <span style={{ color: 'var(--primary-400)', fontWeight: '300' }}>Excelência em Saúde</span>
+        </h1>
+        <p style={{ fontSize: '1.25rem', color: 'var(--dark-300)', lineHeight: '1.6', maxWidth: '650px', margin: '0 auto' }}>
+          Agende sua consulta com nossos especialistas. Oferecemos atendimento humanizado, corpo clínico de excelência e ambientes exclusivos para o seu bem-estar.
         </p>
-        <div className="hero-actions">
-          {isLoggedIn ? (
+        <div className="hero-actions" style={{ justifyContent: 'center', marginTop: '3rem', gap: '1rem' }}>
+          <button onClick={handleAgendar} className="btn btn-primary btn-lg" style={{ padding: '1rem 2.5rem', fontSize: '1.1rem' }}>
+            📅 Agendar Consulta
+          </button>
+          
+          {!isLoggedIn ? (
             <>
-              <Link to="/agendar" className="btn btn-primary btn-lg">
-                📅 Novo Agendamento
+              <Link to="/login" className="btn btn-secondary btn-lg" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
+                👤 Área do Paciente
               </Link>
-              <Link to="/agenda" className="btn btn-secondary btn-lg">
-                📋 Ver Agenda
+              <Link to="/profissionais" className="btn btn-outline btn-lg" style={{ padding: '1rem 2rem', fontSize: '1.1rem', color: 'white', borderColor: 'rgba(255,255,255,0.2)' }}>
+                👥 Corpo Clínico
               </Link>
             </>
           ) : (
-            <>
-              <Link to="/login" className="btn btn-primary btn-lg">
-                🚀 Começar Agora
-              </Link>
-              <Link to="/profissionais" className="btn btn-secondary btn-lg">
-                👥 Ver Profissionais
-              </Link>
-            </>
+            <Link to="/agenda" className="btn btn-secondary btn-lg" style={{ padding: '1rem 2.5rem', fontSize: '1.1rem' }}>
+              📋 Minhas Consultas
+            </Link>
           )}
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="stats-grid">
-        <div className="stat-card">
-          <div className="stat-icon blue">👨‍⚕️</div>
-          <div>
-            <div className="stat-value">3+</div>
-            <div className="stat-label">Profissionais</div>
-          </div>
+      {/* Premium Features Section */}
+      <section className="features-grid" style={{ marginTop: '2rem', borderTop: '1px solid var(--glass-border)', paddingTop: '4rem', maxWidth: '1000px', margin: '0 auto' }}>
+        <div className="feature-card" style={{ background: 'transparent', border: 'none', boxShadow: 'none' }}>
+          <div className="feature-icon" style={{ background: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary-400)' }}>⚕️</div>
+          <h3 style={{ color: 'white', fontSize: '1.3rem' }}>Corpo Clínico Seleto</h3>
+          <p style={{ color: 'var(--dark-400)' }}>Especialistas altamente qualificados e dedicados ao seu bem-estar, proporcionando diagnósticos e tratamentos precisos.</p>
         </div>
-        <div className="stat-card">
-          <div className="stat-icon green">✅</div>
-          <div>
-            <div className="stat-value">7+</div>
-            <div className="stat-label">Serviços</div>
-          </div>
+        <div className="feature-card" style={{ background: 'transparent', border: 'none', boxShadow: 'none' }}>
+          <div className="feature-icon" style={{ background: 'rgba(16, 185, 129, 0.1)', color: 'var(--success)' }}>🩺</div>
+          <h3 style={{ color: 'white', fontSize: '1.3rem' }}>Atendimento Humanizado</h3>
+          <p style={{ color: 'var(--dark-400)' }}>Foco total no paciente, com consultas rigorosas que respeitam o seu tempo e as suas necessidades individuais.</p>
         </div>
-        <div className="stat-card">
-          <div className="stat-icon violet">👥</div>
-          <div>
-            <div className="stat-value">100+</div>
-            <div className="stat-label">Clientes</div>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon cyan">📅</div>
-          <div>
-            <div className="stat-value">500+</div>
-            <div className="stat-label">Agendamentos</div>
-          </div>
+        <div className="feature-card" style={{ background: 'transparent', border: 'none', boxShadow: 'none' }}>
+          <div className="feature-icon" style={{ background: 'rgba(139, 92, 246, 0.1)', color: 'var(--violet-400)' }}>🔬</div>
+          <h3 style={{ color: 'white', fontSize: '1.3rem' }}>Tecnologia de Ponta</h3>
+          <p style={{ color: 'var(--dark-400)' }}>Acompanhamento integrado com prontuários eletrônicos modernos, garantindo máxima segurança e agilidade.</p>
         </div>
       </section>
 
-      {/* Features */}
-      <section className="features-grid">
-        <div className="glass-card feature-card">
-          <div className="feature-icon">📅</div>
-          <h3>Agendamento Online</h3>
-          <p>Agende consultas e serviços diretamente pela plataforma, escolhendo profissional, serviço, data e horário.</p>
-        </div>
-        <div className="glass-card feature-card">
-          <div className="feature-icon">📊</div>
-          <h3>Agenda Visual</h3>
-          <p>Visualize a agenda diária ou semanal de cada profissional com cards informativos e status em tempo real.</p>
-        </div>
-        <div className="glass-card feature-card">
-          <div className="feature-icon">🔒</div>
-          <h3>Controle de Acesso</h3>
-          <p>Sistema de perfis (admin, profissional, cliente) com permissões específicas para cada tipo de usuário.</p>
-        </div>
-        <div className="glass-card feature-card">
-          <div className="feature-icon">🔄</div>
-          <h3>Reagendamento Fácil</h3>
-          <p>Cancele ou reagende seus compromissos com apenas alguns cliques, sem complicação.</p>
-        </div>
-        <div className="glass-card feature-card">
-          <div className="feature-icon">👤</div>
-          <h3>Cadastro de Clientes</h3>
-          <p>Gerencie seus clientes com informações completas de contato, CPF e histórico de agendamentos.</p>
-        </div>
-        <div className="glass-card feature-card">
-          <div className="feature-icon">📱</div>
-          <h3>Design Responsivo</h3>
-          <p>Acesse de qualquer dispositivo — desktop, tablet ou smartphone — com uma interface moderna e intuitiva.</p>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section style={{ textAlign: 'center', padding: '3rem 1rem' }}>
-        <div className="glass-card" style={{ maxWidth: '600px', margin: '0 auto', padding: '2.5rem' }}>
-          <h2 style={{ color: 'white', fontSize: 'var(--font-size-2xl)', fontWeight: '700', marginBottom: '1rem' }}>
-            Pronto para começar?
-          </h2>
-          <p style={{ color: 'var(--dark-400)', marginBottom: '1.5rem' }}>
-            Crie sua conta gratuitamente e comece a gerenciar seus agendamentos agora mesmo.
-          </p>
-          <Link to={isLoggedIn ? '/agendar' : '/login'} className="btn btn-primary btn-lg">
-            {isLoggedIn ? '📅 Agendar Agora' : '🚀 Criar Conta Grátis'}
-          </Link>
-        </div>
-      </section>
     </div>
   );
 }

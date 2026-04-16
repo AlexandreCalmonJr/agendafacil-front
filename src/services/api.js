@@ -81,4 +81,11 @@ export const atualizarAgendamento = (id, dados) =>
 export const cancelarAgendamento = (id) =>
   api.delete(`/agendamentos/${id}`);
 
+// ========== PRONTUARIOS ===========
+export const buscarProntuario = (agendamentoId) =>
+  api.get(`/agendamentos/${agendamentoId}/prontuario`);
+
+export const salvarProntuario = (agendamentoId, dados) =>
+  api.put(`/agendamentos/${agendamentoId}/prontuario`, dados);
+
 export default api;
