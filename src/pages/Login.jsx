@@ -4,7 +4,7 @@ import { login, registro } from '../services/api';
 
 export default function Login() {
   const [isPacienteLogin, setIsPacienteLogin] = useState(true);
-  
+
   const [pacienteLoading, setPacienteLoading] = useState(false);
   const [pacienteErro, setPacienteErro] = useState('');
   const [formPaciente, setFormPaciente] = useState({ nome: '', email: '', senha: '', telefone: '' });
@@ -76,7 +76,7 @@ export default function Login() {
     <div className="login-page fade-in" style={{ padding: '4rem 2rem' }}>
 
       <div style={{ width: '100%', maxWidth: '900px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>
-        
+
         {/* CARD DO PACIENTE */}
         <div className="glass-card login-card animate-slide-up" style={{ padding: '2.5rem', width: '100%', maxWidth: 'none', position: 'relative' }}>
           <div className="login-header">
@@ -93,27 +93,27 @@ export default function Login() {
 
           <form onSubmit={handlePacienteSubmit}>
             {!isPacienteLogin && (
-               <div className="form-group">
-                 <label className="form-label">Nome completo</label>
-                 <input type="text" value={formPaciente.nome} onChange={(e) => setFormPaciente({...formPaciente, nome: e.target.value})} className="form-input" placeholder="Seu nome completo" required />
-               </div>
+              <div className="form-group">
+                <label className="form-label">Nome completo</label>
+                <input type="text" value={formPaciente.nome} onChange={(e) => setFormPaciente({ ...formPaciente, nome: e.target.value })} className="form-input" placeholder="Seu nome completo" required />
+              </div>
             )}
-            
+
             <div className="form-group">
               <label className="form-label">Email</label>
-              <input type="email" value={formPaciente.email} onChange={(e) => setFormPaciente({...formPaciente, email: e.target.value})} className="form-input" placeholder="seu@email.com" required />
+              <input type="email" value={formPaciente.email} onChange={(e) => setFormPaciente({ ...formPaciente, email: e.target.value })} className="form-input" placeholder="seu@email.com" required />
             </div>
 
             <div className="form-group">
               <label className="form-label">Senha</label>
-              <input type="password" value={formPaciente.senha} onChange={(e) => setFormPaciente({...formPaciente, senha: e.target.value})} className="form-input" placeholder="••••••" required />
+              <input type="password" value={formPaciente.senha} onChange={(e) => setFormPaciente({ ...formPaciente, senha: e.target.value })} className="form-input" placeholder="••••••" required />
             </div>
 
             {!isPacienteLogin && (
-               <div className="form-group">
-                 <label className="form-label">WhatsApp</label>
-                 <input type="text" value={formPaciente.telefone} onChange={(e) => setFormPaciente({...formPaciente, telefone: e.target.value})} className="form-input" placeholder="(11) 99999-9999" />
-               </div>
+              <div className="form-group">
+                <label className="form-label">WhatsApp</label>
+                <input type="text" value={formPaciente.telefone} onChange={(e) => setFormPaciente({ ...formPaciente, telefone: e.target.value })} className="form-input" placeholder="(11) 99999-9999" />
+              </div>
             )}
 
             <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '0.5rem' }} disabled={pacienteLoading}>
@@ -126,7 +126,7 @@ export default function Login() {
               {isPacienteLogin ? '📝 Primeira vez? Cadastre-se' : '🔐 Já sou paciente e tenho conta'}
             </button>
           </div>
-          
+
           <div style={{ marginTop: '1rem', textAlign: 'center', fontSize: '0.75rem', color: 'var(--dark-500)' }}>
             Exemplo: maria.santos@email.com / 123456
           </div>
@@ -149,12 +149,12 @@ export default function Login() {
           <form onSubmit={handleProfissionalSubmit}>
             <div className="form-group">
               <label className="form-label" style={{ color: 'var(--violet-200)' }}>Email Corporativo</label>
-              <input type="email" value={formProfissional.email} onChange={(e) => setFormProfissional({...formProfissional, email: e.target.value})} className="form-input" placeholder="seu.nome@clinica.com" style={{ border: '1px solid rgba(139, 92, 246, 0.2)' }} required />
+              <input type="email" value={formProfissional.email} onChange={(e) => setFormProfissional({ ...formProfissional, email: e.target.value })} className="form-input" placeholder="seu.nome@clinica.com" style={{ border: '1px solid rgba(139, 92, 246, 0.2)' }} required />
             </div>
 
             <div className="form-group">
               <label className="form-label" style={{ color: 'var(--violet-200)' }}>Senha de Rede</label>
-              <input type="password" value={formProfissional.senha} onChange={(e) => setFormProfissional({...formProfissional, senha: e.target.value})} className="form-input" placeholder="••••••" style={{ border: '1px solid rgba(139, 92, 246, 0.2)' }} required />
+              <input type="password" value={formProfissional.senha} onChange={(e) => setFormProfissional({ ...formProfissional, senha: e.target.value })} className="form-input" placeholder="••••••" style={{ border: '1px solid rgba(139, 92, 246, 0.2)' }} required />
             </div>
 
             <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '0.5rem', background: 'linear-gradient(135deg, var(--violet-600), var(--violet-500))', boxShadow: '0 4px 15px rgba(139, 92, 246, 0.3)' }} disabled={profissionalLoading}>
@@ -162,13 +162,23 @@ export default function Login() {
             </button>
           </form>
 
-          <div style={{ marginTop: '2.5rem', textAlign: 'center', borderTop: '1px solid rgba(139, 92, 246, 0.1)', paddingTop: '1.5rem' }}>
-            <p style={{ color: 'var(--dark-400)', fontSize: '0.8rem' }}>Precisa de ajuda? Contate o suporte interno.</p>
-          </div>
-          
-          <div style={{ marginTop: '1rem', textAlign: 'center', fontSize: '0.75rem', color: 'var(--dark-500)' }}>
-             Exemplo: ana.silva@clinica.com / 123456
-          </div>
+          <div className="login-divider">ou</div>
+
+          <button
+            className="btn btn-secondary"
+            style={{ width: '100%' }}
+            onClick={() => { setIsLogin(!isLogin); setErro(''); }}
+          >
+            {isLogin ? '📝 Criar uma conta' : '🔐 Já tenho uma conta'}
+          </button>
+
+          {isLogin && (
+            <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'rgba(255,255,255,0.03)', borderRadius: 'var(--radius-lg)', fontSize: '0.8rem' }}>
+              <p style={{ color: 'var(--dark-400)', marginBottom: '0.5rem', fontWeight: '600' }}>Contas de teste:</p>
+              <p style={{ color: 'var(--dark-500)' }}>👑 admin@agendafacil.com / 123456</p>
+              <p style={{ color: 'var(--dark-500)' }}>🩺 ana.silva@clinica.com / 123456</p>
+              <p style={{ color: 'var(--dark-500)' }}>👤 maria.santos@email.com / 123456</p>
+            </div>
         </div>
 
       </div>
