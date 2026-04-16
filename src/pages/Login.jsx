@@ -75,7 +75,7 @@ export default function Login() {
   return (
     <div className="login-page fade-in" style={{ padding: '4rem 2rem' }}>
 
-      <div style={{ width: '100%', maxWidth: '900px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>
+      <div style={{ width: '100%', maxWidth: '900px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem', margin: '0 auto' }}>
 
         {/* CARD DO PACIENTE */}
         <div className="glass-card login-card animate-slide-up" style={{ padding: '2.5rem', width: '100%', maxWidth: 'none', position: 'relative' }}>
@@ -128,7 +128,7 @@ export default function Login() {
           </div>
 
           <div style={{ marginTop: '1rem', textAlign: 'center', fontSize: '0.75rem', color: 'var(--dark-500)' }}>
-            Exemplo: maria.santos@email.com / 123456
+            Conta teste: maria.santos@email.com / 123456
           </div>
         </div>
 
@@ -162,23 +162,9 @@ export default function Login() {
             </button>
           </form>
 
-          <div className="login-divider">ou</div>
-
-          <button
-            className="btn btn-secondary"
-            style={{ width: '100%' }}
-            onClick={() => { setIsLogin(!isLogin); setErro(''); }}
-          >
-            {isLogin ? '📝 Criar uma conta' : '🔐 Já tenho uma conta'}
-          </button>
-
-          {isLogin && (
-            <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'rgba(255,255,255,0.03)', borderRadius: 'var(--radius-lg)', fontSize: '0.8rem' }}>
-              <p style={{ color: 'var(--dark-400)', marginBottom: '0.5rem', fontWeight: '600' }}>Contas de teste:</p>
-              <p style={{ color: 'var(--dark-500)' }}>👑 admin@agendafacil.com / 123456</p>
-              <p style={{ color: 'var(--dark-500)' }}>🩺 ana.silva@clinica.com / 123456</p>
-              <p style={{ color: 'var(--dark-500)' }}>👤 maria.santos@email.com / 123456</p>
-            </div>
+          <div style={{ marginTop: '2.5rem', textAlign: 'center', borderTop: '1px solid rgba(139, 92, 246, 0.1)', paddingTop: '1.5rem' }}>
+            <p style={{ color: 'var(--dark-400)', fontSize: '0.8rem' }}>Conta teste: ana.silva@clinica.com / 123456</p>
+          </div>
         </div>
 
       </div>
