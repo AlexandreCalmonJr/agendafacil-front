@@ -24,9 +24,9 @@ const DashboardStaff = () => {
     fetchAgendamentos({ data: hoje });
   }, [fetchAgendamentos]);
 
-  // OTIMIZAÇÃO: useMemo evita recálculo das métricas em renders desnecessários
+  // CORREÇÃO: Adicionada proteção (agendamentos || []) para evitar erro de reduce em null
   const metricas = useMemo(() => {
-    return agendamentos.reduce((acc, curr) => {
+    return (agendamentos || []).reduce((acc, curr) => {
       if (curr.status === 'em_espera' || curr.status === 'em_atendimento') acc.naClinica++;
       
       const valor = Number(curr.valor_consulta || curr.preco || 0);
@@ -41,8 +41,7 @@ const DashboardStaff = () => {
   const handleCheckIn = async (id) => {
     try {
       await atualizarAgendamento(id, { status: 'em_espera' });
-      // Atualização otimista local para evitar refetch completo se não necessário
-      setAgendamentos(prev => prev.map(ag => ag.id === id ? { ...ag, status: 'em_espera' } : ag));
+      setAgendamentos(prev => (prev || []).map(ag => ag.id === id ? { ...ag, status: 'em_espera' } : ag));
     } catch (err) {
       alert('Erro ao confirmar chegada');
     }
@@ -51,13 +50,13 @@ const DashboardStaff = () => {
   const handlePagamento = async (id) => {
     try {
       await atualizarAgendamento(id, { pagamento_status: 'pago' });
-      setAgendamentos(prev => prev.map(ag => ag.id === id ? { ...ag, pagamento_status: 'pago' } : ag));
+      setAgendamentos(prev => (prev || []).map(ag => ag.id === id ? { ...ag, pagamento_status: 'pago' } : ag));
     } catch (err) {
       alert('Erro ao dar baixa no pagamento');
     }
   };
 
-  if (loading && agendamentos.length === 0) return <Loading text="Carregando VitalStaff Hub..." />;
+  if (loading && (!agendamentos || agendamentos.length === 0)) return <Loading text="Carregando VitalStaff Hub..." />;
 
   return (
     <div className="dashboard-container animate-fade-in">
@@ -103,7 +102,6 @@ const DashboardStaff = () => {
         </div>
       </div>
 
-      {/* Visual Insights Section */}
       <div className="analytics-section grid grid-2" style={{ gap: '1.5rem', marginBottom: '2rem' }}>
         <div className="content-card glass">
           <div className="card-header">
@@ -123,10 +121,23 @@ const DashboardStaff = () => {
           <div className="card-header">
             <h3>💰 Faturamento por Modalidade</h3>
           </div>
+          {/* CORREÇÃO: Adicionada proteção (agendamentos || []) nos filtros do gráfico */}
           <RevenueChart data={[
-            { name: 'Presencial', total: agendamentos.filter(a => a.modalidade === 'presencial').reduce((acc, curr) => acc + Number(curr.valor_consulta || curr.preco || 0), 0) },
-            { name: 'Teleconsulta', total: agendamentos.filter(a => a.modalidade === 'teleconsulta').reduce((acc, curr) => acc + Number(curr.valor_consulta || curr.preco || 0), 0) },
-            { name: 'Check-up', total: agendamentos.filter(a => a.servico_nome.includes('Check')).reduce((acc, curr) => acc + Number(curr.valor_consulta || curr.preco || 0), 0) },
+            { 
+              name: 'Presencial', 
+              total: (agendamentos || []).filter(a => a.modalidade === 'presencial')
+                                         .reduce((acc, curr) => acc + Number(curr.valor_consulta || curr.preco || 0), 0) 
+            },
+            { 
+              name: 'Teleconsulta', 
+              total: (agendamentos || []).filter(a => a.modalidade === 'teleconsulta')
+                                         .reduce((acc, curr) => acc + Number(curr.valor_consulta || curr.preco || 0), 0) 
+            },
+            { 
+              name: 'Check-up', 
+              total: (agendamentos || []).filter(a => a.servico_nome?.includes('Check'))
+                                         .reduce((acc, curr) => acc + Number(curr.valor_consulta || curr.preco || 0), 0) 
+            },
           ]} />
         </div>
       </div>
@@ -150,9 +161,9 @@ const DashboardStaff = () => {
                 </tr>
               </thead>
               <tbody>
-                {agendamentos.length > 0 ? agendamentos.map(ag => (
+                {agendamentos && agendamentos.length > 0 ? agendamentos.map(ag => (
                   <tr key={ag.id} className={ag.status}>
-                    <td className="time-col">{ag.data_hora.split('T')[1]?.substring(0, 5) || '--:--'}</td>
+                    <td className="time-col">{ag.data_hora?.split('T')[1]?.substring(0, 5) || '--:--'}</td>
                     <td>
                       <div className="name-cell">
                         <strong>{ag.cliente_nome}</strong>
@@ -167,7 +178,7 @@ const DashboardStaff = () => {
                     </td>
                     <td>
                       <span className={`badge status-${ag.status}`}>
-                        {ag.status.replace('_', ' ')}
+                        {ag.status?.replace('_', ' ')}
                       </span>
                     </td>
                     <td>
@@ -178,20 +189,12 @@ const DashboardStaff = () => {
                     <td>
                       <div className="action-buttons">
                         {ag.status === 'agendado' && (
-                          <button 
-                            onClick={() => handleCheckIn(ag.id)}
-                            className="btn-action checkin" 
-                            title="Confirmar Chegada"
-                          >
+                          <button onClick={() => handleCheckIn(ag.id)} className="btn-action checkin">
                             📍 Check-in
                           </button>
                         )}
                         {ag.pagamento_status === 'pendente' && (
-                          <button 
-                            onClick={() => handlePagamento(ag.id)}
-                            className="btn-action pay" 
-                            title="Baixa no Pagamento"
-                          >
+                          <button onClick={() => handlePagamento(ag.id)} className="btn-action pay">
                             💵 Receber
                           </button>
                         )}
@@ -205,33 +208,6 @@ const DashboardStaff = () => {
                 )}
               </tbody>
             </table>
-          </div>
-        </div>
-
-        <div className="content-card glass side-actions">
-          <h3>Acesso Rápido</h3>
-          <div className="quick-links">
-            <button className="lnk-card">
-              <span className="icon">🩺</span>
-              <div>
-                <strong>Cadastrar Médico</strong>
-                <span>Novo profissional</span>
-              </div>
-            </button>
-            <button className="lnk-card">
-              <span className="icon">👤</span>
-              <div>
-                <strong>Novo Paciente</strong>
-                <span>Criar cadastro</span>
-              </div>
-            </button>
-            <button className="lnk-card">
-              <span className="icon">📊</span>
-              <div>
-                <strong>Financeiro</strong>
-                <span>Relatórios</span>
-              </div>
-            </button>
           </div>
         </div>
       </div>
