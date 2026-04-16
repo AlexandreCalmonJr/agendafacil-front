@@ -11,25 +11,30 @@ export const useNotifications = (usuario) => {
 
   // Função para tocar o sino (som suave de notificação)
   const playSound = () => {
-  try {
-    // Garante que Audio está disponível no contexto (não funciona em Workers)
-    if (typeof window === 'undefined' || typeof window.Audio === 'undefined') return;
-    
-    const audio = new window.Audio(
-      'https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3'
-    );
-    audio.volume = 0.5;
-    
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // Bloqueado por política do navegador (sem interação prévia) — ignora silenciosamente
-      });
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+
+      const ctx = new AudioContext();
+      const oscillator = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+
+      oscillator.connect(gainNode);
+      gainNode.connect(ctx.destination);
+
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(880, ctx.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.3);
+
+      gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+
+      oscillator.start(ctx.currentTime);
+      oscillator.stop(ctx.currentTime + 0.5);
+    } catch (e) {
+      // silencia erros de contexto
     }
-  } catch (e) {
-    // Illegal constructor ou outro erro de ambiente — ignora silenciosamente
-  }
-};
+  };
 
   const checkNewPatients = useCallback(async () => {
     if (!usuario || (usuario.perfil !== 'profissional' && usuario.perfil !== 'admin')) return;
