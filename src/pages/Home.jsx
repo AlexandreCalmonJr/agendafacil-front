@@ -172,7 +172,8 @@ const Home = () => {
         .hero-overlay {
           position: absolute;
           inset: 0;
-          background: radial-gradient(circle at center, rgba(139, 92, 246, 0.2) 0%, rgba(10, 10, 11, 0.95) 70%);
+          background: radial-gradient(circle at center, rgba(10, 10, 11, 0.4) 0%, rgba(10, 10, 11, 0.98) 80%);
+          backdrop-filter: blur(2px);
         }
 
         .hero-content {
@@ -200,6 +201,7 @@ const Home = () => {
           line-height: 1.1;
           margin-bottom: 1.5rem;
           color: #f8f9fa;
+          text-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
         .hero-content h1 span {
@@ -211,9 +213,13 @@ const Home = () => {
 
         .hero-content p {
           font-size: 1.25rem;
-          opacity: 0.8;
+          opacity: 0.9;
           margin-bottom: 2.5rem;
           line-height: 1.6;
+          text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+          max-width: 650px;
+          margin-left: auto;
+          margin-right: auto;
         }
 
         .hero-cta {
