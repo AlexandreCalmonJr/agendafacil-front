@@ -1,15 +1,13 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Sidebar() {
   const location = useLocation();
+  const { usuario, logoutContext } = useAuth();
   const navigate = useNavigate();
 
-  const usuarioStr = localStorage.getItem('usuario');
-  const usuario = usuarioStr ? JSON.parse(usuarioStr) : null;
-
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('usuario');
+    logoutContext();
     navigate('/login');
   };
 
@@ -82,22 +80,22 @@ export default function Sidebar() {
             </>
           )}
 
-          {/* LINKS DO ADMINISTRADOR/RECEPÇÃO */}
-          {usuario?.perfil === 'admin' && (
+          {/* LINKS DO ADMINISTRADOR E RECEPCIONISTA */}
+          {(usuario?.perfil === 'admin' || usuario?.perfil === 'recepcionista') && (
             <>
               <li>
+                <Link to="/dashboard-staff" className={`nav-link ${isActive('/dashboard-staff')}`}>
+                  <span className="nav-icon">🏢</span> VitalStaff Hub
+                </Link>
+              </li>
+              <li>
+                <Link to="/gestao-global" className={`nav-link ${isActive('/gestao-global')}`}>
+                  <span className="nav-icon">🌐</span> Agenda Global
+                </Link>
+              </li>
+              <li>
                 <Link to="/agenda" className={`nav-link ${isActive('/agenda')}`}>
-                  <span className="nav-icon">📋</span> Agenda Geral
-                </Link>
-              </li>
-              <li>
-                <Link to="/atendimento" className={`nav-link ${isActive('/atendimento') || location.pathname.startsWith('/atendimento') ? 'active' : ''}`}>
-                  <span className="nav-icon">💡</span> Monitorar Fila
-                </Link>
-              </li>
-              <li>
-                <Link to="/agendar" className={`nav-link ${isActive('/agendar')}`}>
-                  <span className="nav-icon">📅</span> Lançar Agendamento
+                  <span className="nav-icon">📋</span> Listagem Simples
                 </Link>
               </li>
               <li>

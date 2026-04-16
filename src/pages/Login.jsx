@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import { login, registro } from '../services/api';
 
 export default function Login() {
@@ -12,16 +12,17 @@ export default function Login() {
   const [profissionalLoading, setProfissionalLoading] = useState(false);
   const [profissionalErro, setProfissionalErro] = useState('');
   const [formProfissional, setFormProfissional] = useState({ email: '', senha: '' });
-
+ 
   const navigate = useNavigate();
+  const { loginContext } = useAuth();
 
   const redirecionarPorPerfil = (usuario) => {
-    if (usuario.perfil === 'admin') {
-      navigate('/clientes');
+    if (usuario.perfil === 'admin' || usuario.perfil === 'recepcionista') {
+      navigate('/dashboard-staff');
     } else if (usuario.perfil === 'profissional') {
-      navigate('/atendimento');
+      navigate('/dashboard-profissional');
     } else {
-      navigate('/agenda');
+      navigate('/dashboard');
     }
   };
 
@@ -33,8 +34,7 @@ export default function Login() {
     try {
       if (isPacienteLogin) {
         const res = await login(formPaciente.email, formPaciente.senha);
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('usuario', JSON.stringify(res.data.usuario));
+        loginContext(res.data.usuario, res.data.token);
         redirecionarPorPerfil(res.data.usuario);
       } else {
         await registro({
@@ -44,8 +44,7 @@ export default function Login() {
           telefone: formPaciente.telefone
         });
         const res = await login(formPaciente.email, formPaciente.senha);
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('usuario', JSON.stringify(res.data.usuario));
+        loginContext(res.data.usuario, res.data.token);
         redirecionarPorPerfil(res.data.usuario);
       }
     } catch (err) {
@@ -62,8 +61,7 @@ export default function Login() {
 
     try {
       const res = await login(formProfissional.email, formProfissional.senha);
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('usuario', JSON.stringify(res.data.usuario));
+      loginContext(res.data.usuario, res.data.token);
       redirecionarPorPerfil(res.data.usuario);
     } catch (err) {
       setProfissionalErro(err.response?.data?.erro || 'Credenciais inválidas.');

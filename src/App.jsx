@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
@@ -11,18 +12,22 @@ import PainelMedico from './pages/PainelMedico';
 import SalaAtendimento from './pages/SalaAtendimento';
 import DashboardPaciente from './pages/DashboardPaciente';
 import DashboardProfissional from './pages/DashboardProfissional';
+import DashboardStaff from './pages/DashboardStaff';
+import GestaoGlobal from './pages/GestaoGlobal';
+import Loading from './components/Loading';
 import './App.css';
 
-// Rota protegida
+// Rota protegida otimizada
 function ProtectedRoute({ children, perfisPermitidos }) {
-  const token = localStorage.getItem('token');
-  const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+  const { usuario, authenticated, loading } = useAuth();
 
-  if (!token) {
+  if (loading) return <Loading text="Validando acesso..." />;
+
+  if (!authenticated) {
     return <Navigate to="/login" replace />;
   }
 
-  if (perfisPermitidos && !perfisPermitidos.includes(usuario.perfil)) {
+  if (perfisPermitidos && !perfisPermitidos.includes(usuario?.perfil)) {
     return <Navigate to="/" replace />;
   }
 
@@ -30,17 +35,23 @@ function ProtectedRoute({ children, perfisPermitidos }) {
 }
 
 function AppLayout() {
-  const location = useLocation();
-  const isLoggedIn = !!localStorage.getItem('token');
+  const { authenticated, usuario, loading } = useAuth();
+  
+  if (loading) return <Loading text="Carregando Clínica Vita..." />;
 
   return (
-    <div className={`app-container ${isLoggedIn ? 'layout-sidebar' : 'layout-vertical'}`}>
-      {isLoggedIn ? <Sidebar /> : <Header />}
+    <div className={`app-container ${authenticated ? 'layout-sidebar' : 'layout-vertical'}`}>
+      {authenticated ? <Sidebar /> : <Header />}
       <main className="main-content">
         <Routes>
-          <Route path="/" element={!isLoggedIn ? <Home /> : <Navigate to={
-            JSON.parse(localStorage.getItem('usuario') || '{}').perfil === 'cliente' ? '/dashboard' : '/dashboard-profissional'
+          <Route path="/" element={!authenticated ? <Home /> : <Navigate to={
+            (() => {
+              if (usuario?.perfil === 'cliente') return '/dashboard';
+              if (usuario?.perfil === 'recepcionista') return '/dashboard-staff';
+              return '/dashboard-profissional';
+            })()
           } replace />} />
+          
           <Route path="/login" element={<Login />} />
           <Route path="/profissionais" element={<Profissionais />} />
 
@@ -73,6 +84,7 @@ function AppLayout() {
               <DashboardProfissional />
             </ProtectedRoute>
           } />
+          
           <Route path="/atendimento/:id" element={
             <ProtectedRoute perfisPermitidos={['profissional', 'admin']}>
               <SalaAtendimento />
@@ -80,8 +92,20 @@ function AppLayout() {
           } />
 
           <Route path="/clientes" element={
-            <ProtectedRoute perfisPermitidos={['admin', 'profissional']}>
+            <ProtectedRoute perfisPermitidos={['admin', 'profissional', 'recepcionista']}>
               <Clientes />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/dashboard-staff" element={
+            <ProtectedRoute perfisPermitidos={['recepcionista', 'admin']}>
+              <DashboardStaff />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/gestao-global" element={
+            <ProtectedRoute perfisPermitidos={['recepcionista', 'admin']}>
+              <GestaoGlobal />
             </ProtectedRoute>
           } />
 
@@ -95,7 +119,9 @@ function AppLayout() {
 export default function App() {
   return (
     <Router>
-      <AppLayout />
+      <AuthProvider>
+        <AppLayout />
+      </AuthProvider>
     </Router>
   );
 }
