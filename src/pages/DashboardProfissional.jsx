@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { listarAgendamentos } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
-import { useNotifications } from '../hooks/useNotifications';
 import Loading from '../components/Loading';
 import { Bell, BellRing, Sparkles, TrendingUp, CheckCircle2 } from 'lucide-react';
 import './DashboardProfissional.css';
@@ -12,9 +11,6 @@ export default function DashboardProfissional() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { usuario } = useAuth();
-  
-  // Feature 4: Notificações em Tempo Real
-  const { notification, clearNotification } = useNotifications(usuario);
 
   useEffect(() => {
     carregarResumo();
@@ -50,22 +46,6 @@ export default function DashboardProfissional() {
 
   return (
     <div className="dashboard-profissional fade-in">
-      
-      {/* ALERTA DE NOTIFICAÇÃO (FEATURE 4) */}
-      {notification && (
-        <div className="notification-toast glass animate-slide-down">
-          <div className="toast-content">
-            <div className="toast-icon pulse"><BellRing size={24} /></div>
-            <div className="toast-text">
-              <strong>Check-in Realizado!</strong>
-              <p>{notification.msg}</p>
-            </div>
-            <button className="toast-close" onClick={clearNotification}>×</button>
-          </div>
-          <div className="toast-progress"></div>
-        </div>
-      )}
-
       <div className="dashboard-header">
         <div className="welcome-section">
           <span className="welcome-badge"><Sparkles size={14} /> Hub de Excelência</span>
