@@ -1,0 +1,144 @@
+/* Clientes.jsx Styles */
+
+.clientes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.clientes-search-container {
+  margin-bottom: 1.5rem;
+}
+
+.clientes-search-input {
+  max-width: 400px;
+}
+
+/* Form Card */
+.clientes-form-card {
+  margin-bottom: 2rem;
+}
+
+.clientes-form-title {
+  color: white;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* Table Styles */
+.table-container {
+  overflow-x: auto;
+  border-radius: 18px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead {
+  background: rgba(139, 92, 246, 0.1);
+  border-bottom: 2px solid var(--glass-border);
+}
+
+.table th {
+  padding: 1.25rem 1rem;
+  text-align: left;
+  color: var(--primary-300);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--glass-border);
+  color: var(--dark-300);
+  font-size: 0.9rem;
+}
+
+.table tbody tr {
+  transition: background 0.3s;
+}
+
+.table tbody tr:hover {
+  background: rgba(139, 92, 246, 0.05);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Client Avatar in Table */
+.client-avatar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.client-avatar-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-500), var(--primary-500));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.client-name {
+  font-weight: 500;
+  color: white;
+}
+
+.client-cpf {
+  font-family: monospace;
+  font-size: 0.8rem;
+}
+
+/* Counter Info */
+.clientes-counter {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--dark-500);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .clientes-header {
+    flex-direction: column;
+  }
+
+  .clientes-search-input {
+    max-width: 100%;
+  }
+
+  .table {
+    font-size: 0.8rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .client-avatar-circle {
+    width: 28px;
+    height: 28px;
+    font-size: 0.7rem;
+  }
+
+  .table-container {
+    border-radius: 12px;
+  }
+}

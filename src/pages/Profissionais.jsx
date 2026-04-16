@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { listarProfissionais, listarServicos } from '../services/api';
 import Loading from '../components/Loading';
+import '../styles/Profissionais.css';
 
 export default function Profissionais() {
   const [profissionais, setProfissionais] = useState([]);

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { listarAgendamentos, cancelarAgendamento, atualizarAgendamento } from '../services/api';
 import AgendamentoCard from '../components/AgendamentoCard';
 import Loading from '../components/Loading';
+import '../styles/Agenda.css';
 
 export default function Agenda() {
   const [agendamentos, setAgendamentos] = useState([]);

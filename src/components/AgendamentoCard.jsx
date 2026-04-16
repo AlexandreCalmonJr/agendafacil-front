@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import '../styles/AgendamentoCard.css';
 
 export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }) {
   const dataHora = new Date(agendamento.data_hora);
@@ -48,7 +49,7 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
       </div>
 
       <div className="card-body">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+        <div className="card-header">
           <h4>{agendamento.servico_nome}</h4>
           <span className={`badge ${statusInfo.className}`} style={statusInfo.style || {}}>
             {statusInfo.icon} {statusInfo.label}
@@ -63,18 +64,17 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
             <span>💰 R$ {Number(agendamento.preco).toFixed(2)}</span>
           )}
           {agendamento.notificado && (
-            <span style={{ color: 'var(--success)', fontSize: '0.75rem' }} title="Lembrete enviado com sucesso">🔔 Notificado</span>
+            <span className="agendamento-notificado" title="Lembrete enviado com sucesso">🔔 Notificado</span>
           )}
         </div>
         
         {agendamento.link_telemedicina && (
-          <div style={{ marginTop: '0.75rem' }}>
+          <div className="agendamento-link">
             <a 
               href={agendamento.link_telemedicina} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="btn btn-sm" 
-              style={{ background: 'var(--primary-600)', color: 'white', width: '100%', textDecoration: 'none', display: 'flex', justifyContent: 'center', gap: '0.5rem' }}
+              className="btn btn-sm"
             >
               📹 Entrar na Teleconsulta
             </a>
@@ -82,10 +82,9 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
         )}
 
         {isProfissional && agendamento.modalidade === 'teleconsulta' && (
-          <div style={{ marginTop: '0.5rem' }}>
+          <div className="agendamento-link-edit">
             <button 
               className="btn btn-sm btn-outline" 
-              style={{ width: '100%', fontSize: '0.75rem' }}
               onClick={handleEditLink}
             >
               🔗 {agendamento.link_telemedicina ? 'Alterar Link de Vídeo' : 'Definir Link de Vídeo'}
@@ -93,7 +92,7 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
           </div>
         )}
         {agendamento.observacoes && (
-          <p style={{ fontSize: '0.8rem', color: 'var(--dark-500)', marginTop: '0.5rem', fontStyle: 'italic' }}>
+          <p className="agendamento-observacao">
             📝 {agendamento.observacoes}
           </p>
         )}

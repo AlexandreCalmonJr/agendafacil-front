@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import FormAgendamento from '../components/FormAgendamento';
+import '../styles/Agendar.css';
 
 export default function Agendar() {
   const navigate = useNavigate();

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { criarCliente } from '../services/api';
+import '../styles/FormCliente.css';
 
 export default function FormCliente({ onSuccess, onCancel }) {
   const [loading, setLoading] = useState(false);

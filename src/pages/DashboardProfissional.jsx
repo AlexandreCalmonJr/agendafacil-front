@@ -4,7 +4,7 @@ import { listarAgendamentos } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
 import Loading from '../components/Loading';
 import { Bell, BellRing, Sparkles, TrendingUp, CheckCircle2, History as HistoryIcon } from 'lucide-react';
-import './DashboardProfissional.css';
+import '../styles/DashboardProfissional.css';
 
 export default function DashboardProfissional() {
   const [agendamentos, setAgendamentos] = useState([]);

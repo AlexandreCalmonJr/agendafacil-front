@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { listarAgendamentos, atualizarAgendamento } from '../services/api';
 import Loading from '../components/Loading';
+import '../styles/PainelMedico.css';
 
 export default function PainelMedico() {
   const [agendamentos, setAgendamentos] = useState([]);

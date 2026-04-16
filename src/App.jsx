@@ -15,7 +15,7 @@ import DashboardProfissional from './pages/DashboardProfissional';
 import DashboardStaff from './pages/DashboardStaff';
 import GestaoGlobal from './pages/GestaoGlobal';
 import Loading from './components/Loading';
-import './App.css';
+import './styles/App.css';
 
 // Rota protegida otimizada
 function ProtectedRoute({ children, perfisPermitidos }) {

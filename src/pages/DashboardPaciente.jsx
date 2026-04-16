@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { listarAgendamentos, buscarHistoricoSaude } from '../services/api';
 import Loading from '../components/Loading';
+import '../styles/DashboardPaciente.css';
 
 export default function DashboardPaciente() {
   const [agendamentos, setAgendamentos] = useState([]);
@@ -50,82 +51,59 @@ export default function DashboardPaciente() {
 
   return (
     <div className="dashboard-paciente fade-in">
-      <div className="dashboard-header" style={{ marginBottom: '2.5rem' }}>
+      <div className="paciente-dashboard-header">
         <div>
-          <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>
-            {getSaudacao()}, <span style={{ color: 'var(--primary-400)' }}>{usuario.nome.split(' ')[0]}</span>! ✨
+          <h1 className="paciente-saudacao">
+            {getSaudacao()}, <span className="paciente-nome">{usuario.nome.split(' ')[0]}</span>! ✨
           </h1>
-          <p style={{ color: 'var(--dark-400)' }}>Bem-vindo ao seu VitalHub. Aqui está o resumo da sua saúde.</p>
+          <p className="paciente-subtitulo">Bem-vindo ao seu VitalHub. Aqui está o resumo da sua saúde.</p>
         </div>
       </div>
 
-      <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+      <div className="paciente-dashboard-grid">
         
         {/* COLUNA ESQUERDA: RESUMO E AÇÕES */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+        <div className="paciente-sidebar-col">
           
           {/* CARD PRÓXIMA CONSULTA */}
-          <div className="glass-card premium-card animate-slide-up" style={{ 
-            background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2))',
-            border: '1px solid rgba(139, 92, 246, 0.3)',
-            padding: '2rem'
-          }}>
-            <h3 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <div className="glass-card premium-card animate-slide-up proxima-consulta-card">
+            <h3 className="proxima-consulta-title">
               <span>📅</span> Próximo Compromisso
             </h3>
             
             {proximaConsulta ? (
               <div>
-                <div style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '0.5rem' }}>
+                <div className="proxima-consulta-numero">
                   {new Date(proximaConsulta.data_hora).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
                 </div>
-                <div style={{ color: 'var(--primary-200)', marginBottom: '1rem' }}>
+                <div className="proxima-consulta-label">
                   {new Date(proximaConsulta.data_hora).toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' })}
                 </div>
-                <div style={{ padding: '1rem', background: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius-md)', marginBottom: '1.5rem' }}>
-                  <div style={{ fontWeight: '600' }}>{proximaConsulta.servico_nome}</div>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--dark-400)' }}>Dr(a). {proximaConsulta.profissional_nome}</div>
+                <div className="proxima-consulta-details">
+                  <div className="proxima-consulta-servico">{proximaConsulta.servico_nome}</div>
+                  <div className="proxima-consulta-doctor">Dr(a). {proximaConsulta.profissional_nome}</div>
                 </div>
-                <button className="btn btn-primary" style={{ width: '100%' }} onClick={() => navigate('/agenda')}>
+                <button className="btn btn-primary proxima-consulta-button" onClick={() => navigate('/agenda')}>
                   Ver Detalhes
                 </button>
               </div>
             ) : (
-              <div style={{ textAlign: 'center', padding: '1.5rem' }}>
-                <p style={{ color: 'var(--dark-400)', marginBottom: '1.5rem' }}>Você não tem consultas agendadas.</p>
+              <div className="proxima-consulta-empty">
+                <p className="proxima-consulta-empty-text">Você não tem consultas agendadas.</p>
                 <Link to="/agendar" className="btn btn-primary">Agendar Agora</Link>
               </div>
             )}
           </div>
 
           {/* ATALHOS RÁPIDOS */}
-          <div className="grid grid-2" style={{ gap: '1rem' }}>
-            <Link to="/agendar" className="glass-card action-card" style={{ 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              justifyContent: 'center',
-              textAlign: 'center', 
-              padding: '1.5rem', 
-              textDecoration: 'none', 
-              transition: 'transform 0.2s',
-              minHeight: '140px'
-            }}>
-              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>➕</div>
-              <div style={{ fontWeight: '600', color: 'white' }}>Novo Agendamento</div>
+          <div className="action-cards-grid">
+            <Link to="/agendar" className="glass-card action-card">
+              <div className="action-card-icon">➕</div>
+              <div className="action-card-title">Novo Agendamento</div>
             </Link>
-            <Link to="/profissionais" className="glass-card action-card" style={{ 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              justifyContent: 'center',
-              textAlign: 'center', 
-              padding: '1.5rem', 
-              textDecoration: 'none',
-              minHeight: '140px'
-            }}>
-              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>👥</div>
-              <div style={{ fontWeight: '600', color: 'white' }}>Corpo Clínico</div>
+            <Link to="/profissionais" className="glass-card action-card">
+              <div className="action-card-icon">👥</div>
+              <div className="action-card-title">Corpo Clínico</div>
             </Link>
           </div>
         </div>

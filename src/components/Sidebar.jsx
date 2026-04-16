@@ -1,5 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import '../styles/Sidebar.css';
 
 export default function Sidebar() {
   const location = useLocation();
@@ -24,8 +25,8 @@ export default function Sidebar() {
     <aside className="sidebar">
       <div className="sidebar-header">
         <Link to="/" className="sidebar-logo">
-          <div className="logo-icon" style={{ background: 'var(--primary-600)' }}>⚕️</div>
-          <span style={{ fontWeight: '700', letterSpacing: '-0.5px' }}>Clínica Vita</span>
+          <div className="logo-icon">⚕️</div>
+          <span>Clínica Vita</span>
         </Link>
       </div>
 
@@ -122,7 +123,7 @@ export default function Sidebar() {
           </div>
         </div>
         <button className="btn btn-outline btn-logout" onClick={handleLogout}>
-          <span style={{marginRight: '0.5rem'}}>🚪</span> Sair do Sistema
+          <span className="logout-icon">🚪</span> Sair do Sistema
         </button>
       </div>
     </aside>

@@ -1,0 +1,133 @@
+/* Agenda.jsx Styles */
+
+.agenda-controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  padding: 1.5rem;
+  background: rgba(139, 92, 246, 0.05);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 18px;
+}
+
+.agenda-toggle {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+  border-radius: 12px;
+}
+
+.agenda-toggle button {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: none;
+  color: var(--dark-400);
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.agenda-toggle button.active {
+  background: var(--primary-500);
+  color: white;
+  font-weight: 600;
+}
+
+.agenda-toggle button:hover {
+  color: white;
+}
+
+.agenda-date-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.date-display {
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  min-width: 250px;
+  text-align: center;
+}
+
+/* Summary */
+.agenda-summary {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.agenda-summary-card {
+  display: inline-flex;
+  gap: 2rem;
+  padding: 1rem 2rem;
+}
+
+.agenda-summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.agenda-summary-label {
+  color: var(--dark-400);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.agenda-summary-value {
+  color: white;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.agenda-summary-value.info {
+  color: var(--info);
+}
+
+.agenda-summary-value.success {
+  color: var(--success);
+}
+
+/* Data separator in weekly view */
+.agenda-data-section h3 {
+  color: var(--primary-300);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  text-transform: capitalize;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .agenda-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .agenda-date-nav {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .date-display {
+    min-width: auto;
+  }
+
+  .agenda-toggle {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .agenda-summary-card {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+}

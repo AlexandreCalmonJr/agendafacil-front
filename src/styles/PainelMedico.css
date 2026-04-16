@@ -1,0 +1,168 @@
+/* PainelMedico.jsx Styles */
+
+.painel-medico-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Fila Section */
+.painel-fila-title {
+  color: white;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 0.5rem;
+}
+
+.painel-fila-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Agendamento Card in Queue */
+.painel-agendamento-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.painel-agendamento-info {
+  flex: 1;
+}
+
+.painel-agendamento-hora {
+  color: var(--primary-300);
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+}
+
+.painel-agendamento-nome {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.painel-agendamento-servico {
+  color: var(--dark-400);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.painel-agendamento-status {
+  margin-top: 0.5rem;
+}
+
+.painel-agendamento-border-em-espera {
+  border-left: 4px solid var(--warning);
+}
+
+.painel-agendamento-border-atendimento {
+  border-left: 4px solid var(--primary-500);
+}
+
+.painel-agendamento-border-default {
+  border-left: 4px solid transparent;
+}
+
+.painel-agendamento-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Historic Section */
+.painel-historico-card {
+  padding: 1.5rem;
+  border-radius: 20px;
+}
+
+.painel-historico-title {
+  color: var(--dark-300);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.painel-historico-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.painel-historico-empty {
+  color: var(--dark-500);
+  font-size: 0.85rem;
+}
+
+.painel-historico-item {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.painel-historico-item-info {
+  flex: 1;
+}
+
+.painel-historico-item-nome {
+  color: white;
+  font-size: 0.9rem;
+}
+
+.painel-historico-item-servico {
+  color: var(--dark-500);
+  font-size: 0.75rem;
+}
+
+.painel-historico-item-badge {
+  display: flex;
+  align-items: center;
+}
+
+/* Empty State */
+.painel-empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: rgba(139, 92, 246, 0.05);
+  border-radius: 18px;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.painel-empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.painel-empty-title {
+  color: white;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.painel-empty-text {
+  color: var(--dark-400);
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .painel-medico-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .painel-agendamento-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .painel-agendamento-actions {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .painel-agendamento-actions .btn {
+    width: 100%;
+  }
+}

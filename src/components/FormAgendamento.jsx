@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { listarProfissionais, listarServicos, criarAgendamento } from '../services/api';
+import '../styles/FormAgendamento.css';
 
 export default function FormAgendamento({ onSuccess, onCancel }) {
   const [step, setStep] = useState(1);

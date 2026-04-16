@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { listarAgendamentos, listarProfissionais } from '../services/api';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import './GestaoGlobal.css';
+import '../styles/GestaoGlobal.css';
 
 const GestaoGlobal = () => {
   const [profissionais, setProfissionais] = useState([]);

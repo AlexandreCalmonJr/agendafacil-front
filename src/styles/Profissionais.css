@@ -1,0 +1,200 @@
+/* Profissionais.jsx Styles */
+
+.profissionais-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+/* Card */
+.prof-card {
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.prof-card-header {
+  display: flex;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Avatar */
+.prof-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.prof-avatar.gradient-1 {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+}
+
+.prof-avatar.gradient-2 {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+}
+
+.prof-avatar.gradient-3 {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+}
+
+.prof-avatar.gradient-4 {
+  background: linear-gradient(135deg, #10b981, #06b6d4);
+}
+
+/* Info */
+.prof-info {
+  flex: 1;
+}
+
+.prof-nome {
+  color: white;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.prof-especialidade {
+  background: rgba(139, 92, 246, 0.15);
+  color: var(--violet-400);
+  margin-bottom: 0.5rem;
+  display: inline-flex;
+}
+
+.prof-descricao {
+  font-size: 0.85rem;
+  color: var(--dark-400);
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+
+.prof-contato {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--dark-500);
+}
+
+/* Expand Icon */
+.prof-expand-icon {
+  color: var(--dark-500);
+  font-size: 1.25rem;
+  transition: transform 0.3s;
+}
+
+.prof-expand-icon.expanded {
+  transform: rotate(180deg);
+}
+
+/* Services Section */
+.prof-services {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--glass-border);
+  animation: slideUp 0.3s ease;
+}
+
+.prof-services-title {
+  color: var(--dark-300);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.prof-services-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* Service Item */
+.prof-service-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s;
+}
+
+.prof-service-item:hover {
+  background: rgba(139, 92, 246, 0.05);
+  border-color: rgba(139, 92, 246, 0.2);
+}
+
+.prof-service-name {
+  color: white;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.prof-service-duration {
+  color: var(--dark-500);
+  font-size: 0.8rem;
+  margin-top: 0.15rem;
+}
+
+.prof-service-value {
+  color: var(--primary-400);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.prof-service-cta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .prof-card-header {
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .prof-avatar {
+    width: 56px;
+    height: 56px;
+    font-size: 1.5rem;
+  }
+
+  .prof-nome {
+    font-size: var(--font-size-base);
+  }
+
+  .prof-contato {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .prof-services-grid {
+    gap: 0.5rem;
+  }
+
+  .prof-service-item {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .prof-expand-icon {
+    font-size: 1rem;
+  }
+}

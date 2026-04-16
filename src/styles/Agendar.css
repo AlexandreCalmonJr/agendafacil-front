@@ -1,0 +1,26 @@
+/* Agendar.jsx Styles */
+
+.agendar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.agendar-form-card {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .agendar-form-card {
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+
+  .agendar-container {
+    gap: 1.5rem;
+  }
+}

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import '../styles/Header.css';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -28,8 +29,8 @@ export default function Header() {
     <nav className="navbar">
       <div className="navbar-inner">
         <Link to="/" className="navbar-logo">
-          <div className="logo-icon" style={{ background: 'var(--primary-600)' }}>⚕️</div>
-          <span style={{ fontWeight: '700', letterSpacing: '-0.5px' }}>Clínica Vita</span>
+          <div className="logo-icon">⚕️</div>
+          <span>Clínica Vita</span>
         </Link>
 
         <button

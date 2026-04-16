@@ -13,7 +13,7 @@ import {
   CheckCircle,
   FileSearch
 } from 'lucide-react';
-import './SalaAtendimento.css';
+import '../styles/SalaAtendimento.css';
 
 export default function SalaAtendimento() {
   const { id } = useParams();

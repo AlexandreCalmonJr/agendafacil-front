@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { login, registro } from '../services/api';
+import '../styles/Login.css';
 
 export default function Login() {
   const [isPacienteLogin, setIsPacienteLogin] = useState(true);
@@ -71,129 +72,78 @@ export default function Login() {
     }
   };
 
-  // Estilos Elite Inline para evitar conflitos de parser
-  const styles = {
-    page: {
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundImage: "url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080&auto=format&fit=crop')",
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundAttachment: 'fixed',
-      position: 'relative',
-      padding: '2rem',
-      fontFamily: 'Inter, sans-serif'
-    },
-    overlay: {
-      position: 'absolute',
-      inset: 0,
-      background: 'radial-gradient(circle at center, rgba(10, 10, 11, 0.6) 0%, rgba(2, 6, 23, 0.95) 100%)',
-      backdropFilter: 'blur(8px)',
-    },
-    container: {
-      position: 'relative',
-      zIndex: 10,
-      width: '100%',
-      maxWidth: '1000px',
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-      gap: '2rem',
-    },
-    card: {
-      padding: '2.5rem',
-      borderRadius: '24px',
-      background: 'rgba(30, 41, 59, 0.7)',
-      backdropFilter: 'blur(20px)',
-      border: '1px solid rgba(139, 92, 246, 0.3)',
-      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-      color: 'white'
-    }
-  };
-
   return (
-    <div style={styles.page}>
-      <div style={styles.overlay}></div>
+    <div className="login-page">
+      <div className="login-overlay"></div>
       
-      <div style={styles.container}>
+      <div className="login-container">
         {/* CARD DO PACIENTE */}
-        <div style={styles.card} className="animate-slide-up">
-          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <div style={{
-              width: '64px', height: '64px', margin: '0 auto 1rem', borderRadius: '50%',
-              background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem'
-            }}>👤</div>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: '800' }}>{isPacienteLogin ? 'Área do Paciente' : 'Criar Conta (Paciente)'}</h2>
-            <p style={{ fontSize: '0.9rem', color: '#94a3b8' }}>{isPacienteLogin ? 'Faça login para ver suas consultas' : 'Agende com nossos especialistas'}</p>
+        <div className="login-card animate-slide-up">
+          <div className="login-card-header">
+            <div className="login-card-icon patient">👤</div>
+            <h2 className="login-card-title">{isPacienteLogin ? 'Área do Paciente' : 'Criar Conta (Paciente)'}</h2>
+            <p className="login-card-subtitle">{isPacienteLogin ? 'Faça login para ver suas consultas' : 'Agende com nossos especialistas'}</p>
           </div>
 
-          {pacienteErro && <div style={{ marginBottom: '1rem', color: '#ef4444', padding: '0.75rem', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '8px', fontSize: '0.8rem' }}>⚠️ {pacienteErro}</div>}
+          {pacienteErro && <div className="login-error">⚠️ {pacienteErro}</div>}
 
-          <form onSubmit={handlePacienteSubmit}>
+          <form onSubmit={handlePacienteSubmit} className="login-form">
             {!isPacienteLogin && (
               <div className="form-group">
-                <label className="form-label" style={{ color: '#94a3b8' }}>Nome completo</label>
+                <label className="form-label">Nome completo</label>
                 <input type="text" value={formPaciente.nome} onChange={(e) => setFormPaciente({ ...formPaciente, nome: e.target.value })} className="form-input" placeholder="Seu nome completo" required />
               </div>
             )}
 
             <div className="form-group">
-              <label className="form-label" style={{ color: '#94a3b8' }}>Email</label>
+              <label className="form-label">Email</label>
               <input type="email" value={formPaciente.email} onChange={(e) => setFormPaciente({ ...formPaciente, email: e.target.value })} className="form-input" placeholder="seu@email.com" required />
             </div>
 
             <div className="form-group">
-              <label className="form-label" style={{ color: '#94a3b8' }}>Senha</label>
+              <label className="form-label">Senha</label>
               <input type="password" value={formPaciente.senha} onChange={(e) => setFormPaciente({ ...formPaciente, senha: e.target.value })} className="form-input" placeholder="••••••" required />
             </div>
 
             {!isPacienteLogin && (
               <div className="form-group">
-                <label className="form-label" style={{ color: '#94a3b8' }}>WhatsApp</label>
+                <label className="form-label">WhatsApp</label>
                 <input type="text" value={formPaciente.telefone} onChange={(e) => setFormPaciente({ ...formPaciente, telefone: e.target.value })} className="form-input" placeholder="(11) 99999-9999" />
               </div>
             )}
 
-            <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '0.5rem', background: '#3b82f6' }} disabled={pacienteLoading}>
+            <button type="submit" className="btn btn-primary login-form-button patient-btn" disabled={pacienteLoading}>
               {pacienteLoading ? '⏳ Processando...' : isPacienteLogin ? '🔐 Acessar Minhas Consultas' : '🚀 Cadastrar'}
             </button>
           </form>
 
-          <div style={{ marginTop: '1.5rem', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1.5rem' }}>
-            <button className="btn btn-outline" style={{ width: '100%', color: '#60a5fa', borderColor: '#3b82f6' }} onClick={() => { setIsPacienteLogin(!isPacienteLogin); setPacienteErro(''); }}>
-              {isPacienteLogin ? '📝 Primeira vez? Cadastre-se' : '🔐 Já sou paciente e tenho conta'}
-            </button>
-          </div>
+          <button className="btn btn-outline login-toggle-button" onClick={() => { setIsPacienteLogin(!isPacienteLogin); setPacienteErro(''); }}>
+            {isPacienteLogin ? '📝 Primeira vez? Cadastre-se' : '🔐 Já sou paciente e tenho conta'}
+          </button>
         </div>
 
         {/* CARD DO PROFISSIONAL */}
-        <div style={{ ...styles.card, background: 'rgba(15, 23, 42, 0.6)' }} className="animate-slide-up">
-          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <div style={{
-              width: '64px', height: '64px', margin: '0 auto 1rem', borderRadius: '50%',
-              background: 'linear-gradient(135deg, #7c3aed, #8b5cf6)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem'
-            }}>👨‍⚕️</div>
-            <h2 style={{ fontSize: '1.5rem', color: '#a78bfa', fontWeight: '800' }}>Área do Profissional</h2>
-            <p style={{ fontSize: '0.9rem', color: '#94a3b8' }}>Acesso restrito para corpo clínico e recepção</p>
+        <div className="login-card professional-card animate-slide-up">
+          <div className="login-card-header">
+            <div className="login-card-icon professional">👨‍⚕️</div>
+            <h2 className="login-card-title">Área do Profissional</h2>
+            <p className="login-card-subtitle">Acesso restrito para corpo clínico e recepção</p>
           </div>
 
-          {profissionalErro && <div style={{ marginBottom: '1rem', color: '#ef4444', padding: '0.75rem', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '8px', fontSize: '0.8rem' }}>⚠️ {profissionalErro}</div>}
+          {profissionalErro && <div className="login-error">⚠️ {profissionalErro}</div>}
 
-          <form onSubmit={handleProfissionalSubmit}>
+          <form onSubmit={handleProfissionalSubmit} className="login-form">
             <div className="form-group">
-              <label className="form-label" style={{ color: '#a78bfa' }}>Email Corporativo</label>
-              <input type="email" value={formProfissional.email} onChange={(e) => setFormProfissional({ ...formProfissional, email: e.target.value })} className="form-input" placeholder="seu.nome@clinica.com" style={{ border: '1px solid rgba(139, 92, 246, 0.2)' }} required />
+              <label className="form-label">Email Corporativo</label>
+              <input type="email" value={formProfissional.email} onChange={(e) => setFormProfissional({ ...formProfissional, email: e.target.value })} className="form-input professional-input" placeholder="seu.nome@clinica.com" required />
             </div>
 
             <div className="form-group">
-              <label className="form-label" style={{ color: '#a78bfa' }}>Senha de Rede</label>
-              <input type="password" value={formProfissional.senha} onChange={(e) => setFormProfissional({ ...formProfissional, senha: e.target.value })} className="form-input" placeholder="••••••" style={{ border: '1px solid rgba(139, 92, 246, 0.2)' }} required />
+              <label className="form-label">Senha de Rede</label>
+              <input type="password" value={formProfissional.senha} onChange={(e) => setFormProfissional({ ...formProfissional, senha: e.target.value })} className="form-input professional-input" placeholder="••••••" required />
             </div>
 
-            <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '0.5rem', background: '#8b5cf6', boxShadow: '0 4px 15px rgba(139, 92, 246, 0.3)' }} disabled={profissionalLoading}>
+            <button type="submit" className="btn btn-primary login-form-button professional-btn" disabled={profissionalLoading}>
               {profissionalLoading ? '⏳ Autenticando...' : '🔐 Acessar Sistema'}
             </button>
           </form>

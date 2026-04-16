@@ -8,7 +8,7 @@ import { format, subDays } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import Loading from '../components/Loading';
 import { RevenueChart, PatientsFlowChart } from '../components/AnalyticsCharts';
-import './DashboardStaff.css';
+import '../styles/DashboardStaff.css';
 
 const DashboardStaff = () => {
   // Hook customizado para gerenciar a chamada de agendamentos

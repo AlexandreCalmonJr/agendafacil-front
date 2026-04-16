@@ -11,6 +11,7 @@ import {
   Line,
   Cell
 } from 'recharts';
+import '../styles/AnalyticsCharts.css';
 
 /**
  * Gráfico de Faturamento por Serviço

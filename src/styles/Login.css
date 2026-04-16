@@ -1,0 +1,240 @@
+/* Login.jsx Styles */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+  padding: 2rem;
+  font-family: Inter, sans-serif;
+}
+
+.login-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(10, 10, 11, 0.6) 0%, rgba(2, 6, 23, 0.95) 100%);
+  backdrop-filter: blur(8px);
+}
+
+.login-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.login-card {
+  padding: 2.5rem;
+  border-radius: 24px;
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.login-card-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-card-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.login-card-icon.patient {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+
+.login-card-icon.professional {
+  background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+}
+
+.login-card-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.login-card-subtitle {
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+/* Error Message */
+.login-error {
+  margin-bottom: 1rem;
+  color: #ef4444;
+  padding: 0.75rem;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 8px;
+  font-size: 0.8rem;
+}
+
+/* Form Styles */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form-label {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.login-form-input {
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.login-form-input:focus {
+  outline: none;
+  border-color: rgba(139, 92, 246, 0.5);
+  background: rgba(139, 92, 246, 0.05);
+}
+
+.login-form-input::placeholder {
+  color: #64748b;
+}
+
+.login-form-input.professional-input {
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+/* Buttons */
+.login-form-button {
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.login-form-button.patient-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+}
+
+.login-form-button.patient-btn:hover:not(:disabled) {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+
+.login-form-button.professional-btn {
+  background: #8b5cf6;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+  color: white;
+  border: none;
+}
+
+.login-form-button.professional-btn:hover:not(:disabled) {
+  background: #7c3aed;
+  transform: translateY(-2px);
+}
+
+.login-form-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Toggle Button */
+.login-toggle-button {
+  margin-top: 1.5rem;
+  padding: 0.75rem;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  color: #60a5fa;
+  border-color: #3b82f6;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.login-toggle-button:hover {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+/* Professional Card Style */
+.login-card.professional-card {
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.login-card.professional-card .login-card-title {
+  color: #a78bfa;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-container {
+    grid-template-columns: 1fr;
+  }
+
+  .login-card {
+    padding: 2rem;
+  }
+
+  .login-page {
+    padding: 1rem;
+  }
+
+  .login-card-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+  }
+
+  .login-card-title {
+    font-size: 1.25rem;
+  }
+}

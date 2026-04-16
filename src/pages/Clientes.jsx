@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { listarClientes } from '../services/api';
 import FormCliente from '../components/FormCliente';
 import Loading from '../components/Loading';
+import '../styles/Clientes.css';
 
 export default function Clientes() {
   const [clientes, setClientes] = useState([]);
