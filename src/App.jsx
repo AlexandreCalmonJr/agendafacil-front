@@ -9,6 +9,8 @@ import Clientes from './pages/Clientes';
 import Profissionais from './pages/Profissionais';
 import PainelMedico from './pages/PainelMedico';
 import SalaAtendimento from './pages/SalaAtendimento';
+import DashboardPaciente from './pages/DashboardPaciente';
+import DashboardProfissional from './pages/DashboardProfissional';
 import './App.css';
 
 // Rota protegida
@@ -37,7 +39,7 @@ function AppLayout() {
       <main className="main-content">
         <Routes>
           <Route path="/" element={!isLoggedIn ? <Home /> : <Navigate to={
-            JSON.parse(localStorage.getItem('usuario') || '{}').perfil === 'cliente' ? '/agenda' : '/atendimento'
+            JSON.parse(localStorage.getItem('usuario') || '{}').perfil === 'cliente' ? '/dashboard' : '/dashboard-profissional'
           } replace />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profissionais" element={<Profissionais />} />
@@ -45,6 +47,12 @@ function AppLayout() {
           <Route path="/agenda" element={
             <ProtectedRoute>
               <Agenda />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/dashboard" element={
+            <ProtectedRoute perfisPermitidos={['cliente', 'admin']}>
+              <DashboardPaciente />
             </ProtectedRoute>
           } />
 
@@ -57,6 +65,12 @@ function AppLayout() {
           <Route path="/atendimento" element={
             <ProtectedRoute perfisPermitidos={['profissional', 'admin']}>
               <PainelMedico />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/dashboard-profissional" element={
+            <ProtectedRoute perfisPermitidos={['profissional', 'admin']}>
+              <DashboardProfissional />
             </ProtectedRoute>
           } />
           <Route path="/atendimento/:id" element={

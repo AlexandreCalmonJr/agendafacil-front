@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }) {
   const dataHora = new Date(agendamento.data_hora);
   const hora = dataHora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
@@ -12,9 +14,31 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
     concluido: { label: 'Concluído', className: 'badge-concluido', icon: '✔️' }
   };
 
+  const { usuario } = JSON.parse(localStorage.getItem('usuario') || '{}');
+  const user = JSON.parse(localStorage.getItem('usuario') || '{}');
+  
   const statusInfo = statusConfig[agendamento.status] || statusConfig.agendado;
   const isCancelable = ['agendado', 'confirmado'].includes(agendamento.status);
   const isUpdatable = agendamento.status === 'agendado';
+  const isProfissional = ['profissional', 'admin'].includes(user.perfil);
+
+  const handleEditLink = () => {
+    const novoLink = window.prompt('Insira o link da teleconsulta (Zoom, Meet, WhatsApp):', agendamento.link_telemedicina || '');
+    if (novoLink !== null && onAtualizar) {
+      onAtualizar({ ...agendamento, link_telemedicina: novoLink });
+    }
+  };
+
+  const gerarGoogleCalendarLink = () => {
+    const titulo = `Consulta: ${agendamento.servico_nome} - Clínica Vita`;
+    const detalhes = `Profissional: ${agendamento.profissional_nome}\nLocal: Clínica Vita\nObservações: ${agendamento.observacoes || 'Nenhum'}`;
+    const dataInicio = agendamento.data_hora.replace(/-|:|\.\d\d\d/g, "");
+    // Adiciona a duração para o fim (aproximado)
+    const dataFimObj = new Date(new Date(agendamento.data_hora).getTime() + (agendamento.duracao_minutos || 30) * 60000);
+    const dataFim = dataFimObj.toISOString().replace(/-|:|\.\d\d\d/g, "");
+    
+    return `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(titulo)}&details=${encodeURIComponent(detalhes)}&dates=${dataInicio}/${dataFim}`;
+  };
 
   return (
     <div className="glass-card agendamento-card animate-slide-up">
@@ -31,13 +55,43 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
           </span>
         </div>
         <div className="card-info">
+          <span>{agendamento.modalidade === 'teleconsulta' ? '📹 Teleconsulta' : '🏢 Presencial'}</span>
           <span>👤 {agendamento.cliente_nome || 'Cliente'}</span>
           <span>🩺 {agendamento.profissional_nome || 'Profissional'}</span>
           <span>📅 {data}</span>
           {agendamento.preco && (
             <span>💰 R$ {Number(agendamento.preco).toFixed(2)}</span>
           )}
+          {agendamento.notificado && (
+            <span style={{ color: 'var(--success)', fontSize: '0.75rem' }} title="Lembrete enviado com sucesso">🔔 Notificado</span>
+          )}
         </div>
+        
+        {agendamento.link_telemedicina && (
+          <div style={{ marginTop: '0.75rem' }}>
+            <a 
+              href={agendamento.link_telemedicina} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn btn-sm" 
+              style={{ background: 'var(--primary-600)', color: 'white', width: '100%', textDecoration: 'none', display: 'flex', justifyContent: 'center', gap: '0.5rem' }}
+            >
+              📹 Entrar na Teleconsulta
+            </a>
+          </div>
+        )}
+
+        {isProfissional && agendamento.modalidade === 'teleconsulta' && (
+          <div style={{ marginTop: '0.5rem' }}>
+            <button 
+              className="btn btn-sm btn-outline" 
+              style={{ width: '100%', fontSize: '0.75rem' }}
+              onClick={handleEditLink}
+            >
+              🔗 {agendamento.link_telemedicina ? 'Alterar Link de Vídeo' : 'Definir Link de Vídeo'}
+            </button>
+          </div>
+        )}
         {agendamento.observacoes && (
           <p style={{ fontSize: '0.8rem', color: 'var(--dark-500)', marginTop: '0.5rem', fontStyle: 'italic' }}>
             📝 {agendamento.observacoes}
@@ -55,6 +109,11 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
             ✓ Confirmar
           </button>
         )}
+        {isCancelable && (
+          <Link to="/agendar" className="btn btn-sm btn-outline" style={{ textDecoration: 'none' }}>
+            🔄 Reagendar
+          </Link>
+        )}
         {isCancelable && onCancelar && (
           <button
             className="btn btn-sm btn-danger"
@@ -64,6 +123,16 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
             ✕ Cancelar
           </button>
         )}
+        <a 
+          href={gerarGoogleCalendarLink()} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="btn btn-sm btn-outline"
+          title="Adicionar ao Google Agenda"
+          style={{ textDecoration: 'none' }}
+        >
+          📅 Agenda
+        </a>
       </div>
     </div>
   );

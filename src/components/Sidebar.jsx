@@ -39,6 +39,11 @@ export default function Sidebar() {
           {usuario?.perfil === 'cliente' && (
             <>
               <li>
+                <Link to="/dashboard" className={`nav-link ${isActive('/dashboard')}`}>
+                  <span className="nav-icon">🏠</span> Início
+                </Link>
+              </li>
+              <li>
                 <Link to="/agenda" className={`nav-link ${isActive('/agenda')}`}>
                   <span className="nav-icon">📋</span> Minhas Consultas
                 </Link>
@@ -59,6 +64,11 @@ export default function Sidebar() {
           {/* LINKS DO PROFISSIONAL (MÉDICO) */}
           {usuario?.perfil === 'profissional' && (
             <>
+              <li>
+                <Link to="/dashboard-profissional" className={`nav-link ${isActive('/dashboard-profissional')}`}>
+                  <span className="nav-icon">🏠</span> Início
+                </Link>
+              </li>
               <li>
                 <Link to="/atendimento" className={`nav-link ${isActive('/atendimento') || location.pathname.startsWith('/atendimento') ? 'active' : ''}`}>
                   <span className="nav-icon">💡</span> Painel de Atendimento

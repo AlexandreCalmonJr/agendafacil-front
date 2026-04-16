@@ -65,9 +65,18 @@ export const buscarCliente = (id) =>
 export const criarCliente = (dados) =>
   api.post('/clientes', dados);
 
+export const buscarHistoricoSaude = (clienteId) =>
+  api.get('/clientes/meu-historico', { params: clienteId ? { cliente_id: clienteId } : {} });
+
 // ========== AGENDAMENTOS ==========
 export const listarAgendamentos = (filtros = {}) =>
   api.get('/agendamentos', { params: filtros });
+
+export const adicionarParticipante = (id, dados) =>
+  api.post(`/agendamentos/${id}/participantes`, dados);
+
+export const buscarDisponibilidade = (params) =>
+  api.get('/agendamentos/disponibilidade', { params });
 
 export const buscarAgendamento = (id) =>
   api.get(`/agendamentos/${id}`);

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { buscarAgendamento, buscarProntuario, salvarProntuario, atualizarAgendamento } from '../services/api';
+import { buscarAgendamento, buscarProntuario, salvarProntuario, atualizarAgendamento, buscarHistoricoSaude } from '../services/api';
 import Loading from '../components/Loading';
 
 export default function SalaAtendimento() {
@@ -10,7 +10,8 @@ export default function SalaAtendimento() {
   const [agendamento, setAgendamento] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [activeTab, setActiveTab] = useState('evolucao'); // evolucao | receita | exames
+  const [activeTab, setActiveTab] = useState('evolucao'); // evolucao | receita | exames | historico
+  const [historicoPaciente, setHistoricoPaciente] = useState([]);
   const [mensagem, setMensagem] = useState('');
 
   const [prontuario, setProntuario] = useState({
@@ -37,6 +38,10 @@ export default function SalaAtendimento() {
           exames: resProntuario.data.exames || ''
         });
       }
+
+      // Buscar histórico completo do paciente
+      const resHistorico = await buscarHistoricoSaude(resAgendamento.data.cliente_id);
+      setHistoricoPaciente(resHistorico.data);
     } catch (err) {
       console.error('Erro ao carregar dados da sala:', err);
       alert('Erro ao carregar os dados. Verifique a conexão.');
@@ -160,6 +165,14 @@ export default function SalaAtendimento() {
                 }}>
                 🔬 Pedido de Exames
               </button>
+              <button 
+                onClick={() => setActiveTab('historico')}
+                style={{
+                  flex: 1, padding: '1rem', background: 'transparent', border: 'none', color: activeTab === 'historico' ? 'var(--primary-400)' : 'var(--dark-400)',
+                  fontWeight: activeTab === 'historico' ? 'bold' : 'normal', borderBottom: activeTab === 'historico' ? '2px solid var(--primary-500)' : '2px solid transparent', cursor: 'pointer'
+                }}>
+                📚 Histórico
+              </button>
             </div>
 
             {/* CONTENT */}
@@ -229,6 +242,41 @@ export default function SalaAtendimento() {
                       placeholder="Solicito:&#10;1. Hemograma Completo&#10;2. Glicemia de jejum&#10;Justificativa: Checkup anual."
                       style={{ minHeight: '350px', fontSize: '1.1rem', lineHeight: '1.6' }}
                     ></textarea>
+                  </div>
+                </div>
+              )}
+              {activeTab === 'historico' && (
+                <div className="animate-fade-in">
+                  <h3 style={{ color: 'white', marginBottom: '1.5rem' }}>Histórico Clínico Pregresso</h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                    {historicoPaciente.length > 0 ? historicoPaciente.map(h => (
+                      <div key={h.id} className="glass-card" style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.02)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>
+                          <span style={{ color: 'var(--primary-400)', fontWeight: 'bold' }}>{new Date(h.data_hora).toLocaleDateString('pt-BR')}</span>
+                          <span style={{ color: 'var(--dark-500)', fontSize: '0.85rem' }}>{h.servico_nome} | Dr(a). {h.profissional_nome}</span>
+                        </div>
+                        <div style={{ marginBottom: '1rem' }}>
+                          <span style={{ fontSize: '0.75rem', color: 'var(--dark-500)', textTransform: 'uppercase' }}>Notas Clínicas / Evolução</span>
+                          <p style={{ color: 'var(--dark-200)', marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.9rem' }}>{h.notas_clinicas || 'Sem notas.'}</p>
+                        </div>
+                        <div className="grid grid-2" style={{ gap: '1rem' }}>
+                          {h.prescricoes && (
+                            <div style={{ padding: '0.75rem', background: 'rgba(59, 130, 246, 0.05)', borderRadius: 'var(--radius-md)' }}>
+                              <span style={{ fontSize: '0.7rem', color: 'var(--primary-400)', fontWeight: 'bold' }}>💊 RECEITA</span>
+                              <p style={{ whiteSpace: 'pre-wrap', fontSize: '0.8rem', marginTop: '0.25rem' }}>{h.prescricoes}</p>
+                            </div>
+                          )}
+                          {h.exames && (
+                            <div style={{ padding: '0.75rem', background: 'rgba(124, 58, 237, 0.05)', borderRadius: 'var(--radius-md)' }}>
+                              <span style={{ fontSize: '0.7rem', color: 'var(--violet-400)', fontWeight: 'bold' }}>🔬 EXAMES</span>
+                              <p style={{ whiteSpace: 'pre-wrap', fontSize: '0.8rem', marginTop: '0.25rem' }}>{h.exames}</p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )) : (
+                      <p style={{ textAlign: 'center', color: 'var(--dark-500)', padding: '2rem' }}>Paciente não possui atendimentos anteriores registrados.</p>
+                    )}
                   </div>
                 </div>
               )}

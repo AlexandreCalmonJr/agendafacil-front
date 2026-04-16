@@ -14,8 +14,12 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
     servico_id: '',
     data: '',
     hora: '',
-    observacoes: ''
+    observacoes: '',
+    modalidade: 'presencial'
   });
+
+  const [especialidadeFiltro, setEspecialidadeFiltro] = useState('');
+  const [horariosOcupados, setHorariosOcupados] = useState([]);
 
   useEffect(() => {
     carregarProfissionais();
@@ -24,8 +28,29 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
   useEffect(() => {
     if (form.profissional_id) {
       carregarServicos(form.profissional_id);
+      setForm(prev => ({ ...prev, servico_id: '', data: '', hora: '' }));
+      setHorariosOcupados([]);
     }
   }, [form.profissional_id]);
+
+  useEffect(() => {
+    if (form.data && form.profissional_id) {
+      carregarHorariosOcupados();
+    }
+  }, [form.data, form.profissional_id]);
+
+  const carregarHorariosOcupados = async () => {
+    try {
+      const { buscarDisponibilidade } = await import('../services/api');
+      const res = await buscarDisponibilidade({
+        data: form.data,
+        profissional_id: form.profissional_id
+      });
+      setHorariosOcupados(res.data.map(h => h.hora));
+    } catch (err) {
+      console.error('Erro ao carregar horários ocupados');
+    }
+  };
 
   const carregarProfissionais = async () => {
     try {
@@ -84,7 +109,8 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
         profissional_id: parseInt(form.profissional_id),
         servico_id: parseInt(form.servico_id),
         data_hora,
-        observacoes: form.observacoes
+        observacoes: form.observacoes,
+        modalidade: form.modalidade
       });
 
       setSucesso('Agendamento criado com sucesso!');
@@ -108,6 +134,12 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
   ];
 
   // Steps indicator
+  const especialidadesUnicas = [...new Set(profissionais.map(p => p.especialidade))];
+  
+  const profissionaisFiltrados = profissionais.filter(p => 
+    !especialidadeFiltro || p.especialidade === especialidadeFiltro
+  );
+
   const steps = [
     { num: 1, label: 'Profissional' },
     { num: 2, label: 'Serviço' },
@@ -164,9 +196,20 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
       {/* Step 1: Profissional */}
       {step === 1 && (
         <div className="animate-fade-in">
-          <h3 style={{ color: 'white', marginBottom: '1rem' }}>Escolha o Profissional</h3>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+            <h3 style={{ color: 'white', margin: 0 }}>Escolha o Profissional</h3>
+            <select 
+              className="form-select" 
+              style={{ width: 'auto', minWidth: '180px' }}
+              value={especialidadeFiltro}
+              onChange={(e) => setEspecialidadeFiltro(e.target.value)}
+            >
+              <option value="">Todas Especialidades</option>
+              {especialidadesUnicas.map(e => <option key={e} value={e}>{e}</option>)}
+            </select>
+          </div>
           <div className="grid" style={{ gap: '0.75rem' }}>
-            {profissionais.map(prof => (
+            {profissionaisFiltrados.map(prof => (
               <label
                 key={prof.id}
                 className="glass-card"
@@ -280,7 +323,34 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
       {/* Step 3: Data e Hora */}
       {step === 3 && (
         <div className="animate-fade-in">
-          <h3 style={{ color: 'white', marginBottom: '1rem' }}>Escolha Data e Horário</h3>
+          <h3 style={{ color: 'white', marginBottom: '1.5rem' }}>Escolha Data, Horário e Modalidade</h3>
+          
+          <div className="form-group" style={{ marginBottom: '2rem' }}>
+            <label className="form-label">Tipo de Atendimento</label>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <button 
+                type="button" 
+                className={`btn ${form.modalidade === 'presencial' ? 'btn-primary' : 'btn-outline'}`}
+                onClick={() => setForm(prev => ({ ...prev, modalidade: 'presencial' }))}
+                style={{ display: 'flex', flexDirection: 'column', padding: '1rem', gap: '0.5rem' }}
+              >
+                <span style={{ fontSize: '1.5rem' }}>🏢</span>
+                <span style={{ fontWeight: '600' }}>Presencial</span>
+                <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>Na clínica física</span>
+              </button>
+              <button 
+                type="button" 
+                className={`btn ${form.modalidade === 'teleconsulta' ? 'btn-primary' : 'btn-outline'}`}
+                onClick={() => setForm(prev => ({ ...prev, modalidade: 'teleconsulta' }))}
+                style={{ display: 'flex', flexDirection: 'column', padding: '1rem', gap: '0.5rem' }}
+              >
+                <span style={{ fontSize: '1.5rem' }}>📹</span>
+                <span style={{ fontWeight: '600' }}>Teleconsulta</span>
+                <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>Por vídeo chamada</span>
+              </button>
+            </div>
+          </div>
+
           <div className="form-group">
             <label className="form-label">Data</label>
             <input
@@ -299,14 +369,17 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
                 <button
                   key={h}
                   type="button"
+                  disabled={horariosOcupados.includes(h)}
                   onClick={() => setForm(prev => ({ ...prev, hora: h }))}
                   style={{
                     padding: '0.5rem',
                     borderRadius: 'var(--radius-md)',
                     border: form.hora === h ? '1px solid var(--primary-500)' : '1px solid var(--glass-border)',
                     background: form.hora === h ? 'rgba(59, 130, 246, 0.15)' : 'var(--glass-bg)',
-                    color: form.hora === h ? 'var(--primary-400)' : 'var(--dark-300)',
-                    cursor: 'pointer',
+                    color: form.hora === h ? 'var(--primary-400)' : (horariosOcupados.includes(h) ? 'var(--dark-600)' : 'var(--dark-300)'),
+                    cursor: horariosOcupados.includes(h) ? 'not-allowed' : 'pointer',
+                    opacity: horariosOcupados.includes(h) ? 0.3 : 1,
+                    textDecoration: horariosOcupados.includes(h) ? 'line-through' : 'none',
                     fontWeight: form.hora === h ? '600' : '400',
                     fontSize: '0.85rem',
                     fontFamily: 'var(--font-family)',
@@ -357,10 +430,18 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
                   })} às {form.hora}
                 </div>
               </div>
-              <div>
-                <span style={{ fontSize: '0.75rem', color: 'var(--dark-500)', textTransform: 'uppercase' }}>Valor</span>
-                <div style={{ color: 'var(--accent-400)', fontWeight: '700', fontSize: '1.25rem' }}>
-                  R$ {selectedServico ? Number(selectedServico.preco).toFixed(2) : '0.00'}
+              <div style={{ display: 'flex', gap: '2rem' }}>
+                <div>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--dark-500)', textTransform: 'uppercase' }}>Modalidade</span>
+                  <div style={{ color: 'white', fontWeight: '600' }}>
+                    {form.modalidade === 'teleconsulta' ? '📹 Teleconsulta' : '🏢 Presencial'}
+                  </div>
+                </div>
+                <div>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--dark-500)', textTransform: 'uppercase' }}>Valor</span>
+                  <div style={{ color: 'var(--accent-400)', fontWeight: '700', fontSize: '1.25rem' }}>
+                    R$ {selectedServico ? Number(selectedServico.preco).toFixed(2) : '0.00'}
+                  </div>
                 </div>
               </div>
               {form.observacoes && (
