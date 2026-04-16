@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { listarAgendamentos } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
 import Loading from '../components/Loading';
-import { Bell, BellRing, Sparkles, TrendingUp, CheckCircle2 } from 'lucide-react';
+import { Bell, BellRing, Sparkles, TrendingUp, CheckCircle2, History as HistoryIcon } from 'lucide-react';
 import './DashboardProfissional.css';
 
 export default function DashboardProfissional() {
@@ -139,7 +139,7 @@ export default function DashboardProfissional() {
 
         <div className="right-column">
           <div className="side-card glass">
-            <h3><History size={18} /> Atendimentos Recentes</h3>
+            <h3><HistoryIcon size={18} /> Atendimentos Recentes</h3>
             <div className="recent-list">
               {agendamentos.filter(a => a.status === 'concluido').slice(0, 4).map(a => (
                 <div key={a.id} className="recent-item">

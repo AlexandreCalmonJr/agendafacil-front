@@ -7,7 +7,7 @@ import {
   FileText, 
   Download, 
   Archive, 
-  History, 
+  History as HistoryIcon, 
   Stethoscope, 
   Eye, 
   CheckCircle,
@@ -159,7 +159,7 @@ export default function SalaAtendimento() {
               <Download size={18} /> Exames
             </button>
             <button className={activeTab === 'historico' ? 'active' : ''} onClick={() => setActiveTab('historico')}>
-              <History size={18} /> Prontuário 360º
+              <HistoryIcon size={18} /> Prontuário 360º
             </button>
           </nav>
 
