@@ -160,16 +160,17 @@ export default function Login() {
             {isPacienteLogin ? '📝 Primeira vez? Cadastre-se' : '🔐 Já sou paciente e tenho conta'}
           </button>
 
-          <div style={{ margin: '1.5rem 0', textAlign: 'center', fontSize: '0.85rem', color: '#64748b' }}>
-            Ou continue com:
+          <div className="login-social-divider">
+            <span>Ou continue com</span>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div className="login-social-buttons">
             <GoogleLogin
               onSuccess={handleGooglePacienteSuccess}
               onError={() => handleGoogleError(true)}
-              theme="dark"
+              theme="outline"
               size="large"
+              shape="pill"
             />
           </div>
         </div>
@@ -200,21 +201,22 @@ export default function Login() {
             </button>
           </form>
 
-          <div style={{ margin: '1.5rem 0', textAlign: 'center', fontSize: '0.85rem', color: '#64748b' }}>
-            Ou continue com:
+          <div className="login-social-divider">
+            <span>Ou continue com</span>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div className="login-social-buttons">
             <GoogleLogin
               onSuccess={handleGoogleProfissionalSuccess}
               onError={() => handleGoogleError(false)}
-              theme="dark"
+              theme="outline"
               size="large"
+              shape="pill"
             />
           </div>
 
-          <div style={{ marginTop: '2.5rem', textAlign: 'center', borderTop: '1px solid rgba(139, 92, 246, 0.1)', paddingTop: '1.5rem' }}>
-            <p style={{ color: '#64748b', fontSize: '0.8rem' }}>Conta teste: ana.silva@clinica.com / 123456</p>
+          <div className="login-test-account">
+            <p>Conta teste: <span>ana.silva@clinica.com</span> / <span>123456</span></p>
           </div>
         </div>
       </div>

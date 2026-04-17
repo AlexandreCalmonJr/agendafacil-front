@@ -1,13 +1,14 @@
 /* Header.jsx Styles */
 
 .navbar {
-  background: white;
+  background: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid var(--neutral-100);
+  backdrop-filter: blur(10px);
   padding: 0;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .navbar-inner {
@@ -62,12 +63,12 @@
 }
 
 .navbar-links li a {
-  color: var(--neutral-500);
+  color: var(--neutral-600);
   text-decoration: none;
   font-weight: 500;
-  transition: all 0.3s;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0.6rem 1.25rem;
+  border-radius: 100px;
 }
 
 .navbar-links li a:hover {

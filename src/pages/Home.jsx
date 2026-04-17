@@ -43,8 +43,8 @@ const Home = () => {
           >
             ✧ Tecnologia & Humanização ✧
           </motion.span>
-          <h1>Sua Clínica com Gestão <span>Inteligente.</span></h1>
-          <p>A tecnologia que simplifica o cuidado. Do agendamento online ao prontuário eletrônico completo, focamos no que importa: o seu paciente.</p>
+          <h1>Sua Clínica com Gestão <span>Inteligente & Humana.</span></h1>
+          <p>Potencialize sua prática médica com tecnologia de ponta. Do agendamento online intuitivo ao prontuário digital completo, simplificamos processos para você focar no que realmente importa: a saúde e o bem-estar dos seus pacientes.</p>
           
           <div className="hero-cta">
             <Link to="/login" className="btn-hero-primary">
@@ -88,35 +88,38 @@ const Home = () => {
         </motion.div>
 
         <motion.div 
-          className="features-grid"
+          className="carousel-container"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <motion.div className="feature-card" variants={itemVariants}>
-            <div className="icon-wrapper"><Calendar /></div>
-            <h3>Agendamento Online</h3>
-            <p>Seus pacientes agendam em segundos com confirmação em tempo real.</p>
+          <motion.div 
+            className="carousel-track"
+            drag="x"
+            dragConstraints={{ right: 0, left: -600 }}
+            whileTap={{ cursor: "grabbing" }}
+          >
+            {[
+              { icon: <Calendar />, title: "Agendamento Online", desc: "Seus pacientes agendam em segundos com confirmação em tempo real e lembretes inteligentes." },
+              { icon: <Activity />, title: "Prontuário Digital", desc: "Histórico completo, prescrições e exames organizados em uma interface limpa e intuitiva." },
+              { icon: <Smartphone />, title: "Teleconsulta HD", desc: "Realize atendimentos remotos seguros com videochamada de alta definição integrada." },
+              { icon: <ShieldCheck />, title: "Segurança Avançada", desc: "Dados protegidos com criptografia de nível bancário e total conformidade com a LGPD." },
+              { icon: <Users />, title: "Gestão de Equipe", desc: "Controle permissões, escalas e produtividade do seu staff em um único painel centralizado." }
+            ].map((feature, idx) => (
+              <motion.div 
+                key={idx} 
+                className={`feature-card ${idx === 1 ? 'high' : ''}`}
+                variants={itemVariants}
+                whileHover={{ y: -10 }}
+              >
+                <div className="icon-wrapper">{feature.icon}</div>
+                <h3>{feature.title}</h3>
+                <p>{feature.desc}</p>
+              </motion.div>
+            ))}
           </motion.div>
-
-          <motion.div className="feature-card high" variants={itemVariants}>
-            <div className="icon-wrapper"><Activity /></div>
-            <h3>Prontuário Digital</h3>
-            <p>Todo o histórico clínico e exames organizados de forma clara e segura.</p>
-          </motion.div>
-
-          <motion.div className="feature-card" variants={itemVariants}>
-            <div className="icon-wrapper"><Smartphone /></div>
-            <h3>Teleconsulta</h3>
-            <p>Atendimento remoto seguro com prescrição digital integrada.</p>
-          </motion.div>
-
-          <motion.div className="feature-card" variants={itemVariants}>
-            <div className="icon-wrapper"><ShieldCheck /></div>
-            <h3>Segurança LGPD</h3>
-            <p>Dados protegidos com criptografia de ponta a ponta e total conformidade.</p>
-          </motion.div>
+          <div className="carousel-hint">← Arraste para explorar →</div>
         </motion.div>
       </section>
 
@@ -147,8 +150,33 @@ const Home = () => {
       {/* Footer */}
       <footer className="landing-footer">
         <div className="footer-content">
-          <div className="footer-logo">⚕️ Clínica Vita</div>
+          <div className="footer-brand">
+            <div className="footer-logo">⚕️ Clínica Vita</div>
+            <p>Excelência em gestão em saúde. Unindo tecnologia de ponta ao cuidado humanizado para oferecer a melhor experiência médica.</p>
+          </div>
+          <div className="footer-links">
+            <h4>Plataforma</h4>
+            <ul>
+              <li><Link to="/login">Acesso Profissional</Link></li>
+              <li><Link to="/agendar">Agendamento</Link></li>
+              <li><Link to="/profissionais">Corpo Clínico</Link></li>
+            </ul>
+          </div>
+          <div className="footer-links">
+            <h4>Contato</h4>
+            <ul>
+              <li>suporte@clinicavita.com</li>
+              <li>(11) 4004-0000</li>
+              <li>Av. Paulista, 1000 - SP</li>
+            </ul>
+          </div>
+        </div>
+        <div className="footer-bottom">
           <p>© 2026 VitalPro Hub. Todos os direitos reservados.</p>
+          <div className="footer-legal">
+            <a href="#">Privacidade</a>
+            <a href="#">Termos de Uso</a>
+          </div>
         </div>
       </footer>
     </div>
