@@ -1,76 +1,74 @@
-/* Login.css - Redesign Elite Portal */
+/* Login.css - Redesign Élite (Split-screen) */
 
 .login-split-page {
   display: flex;
   min-height: 100vh;
-  background: var(--navy-dark);
+  background: white;
+  font-family: 'Inter', sans-serif;
 }
 
-/* Sidebar (Esquerda) - Navy Theme */
+/* Sidebar (Esquerda) */
 .login-sidebar {
   width: 500px;
   display: flex;
   flex-direction: column;
   padding: 3rem;
-  background: var(--navy-sidebar);
-  border-right: 1px solid var(--navy-border);
+  background: white;
+
   z-index: 10;
-  box-shadow: 20px 0 50px rgba(0, 0, 0, 0.2);
+  box-shadow: 10px 0 50px rgba(0, 0, 0, 0.02);
 }
 
 .login-sidebar-header {
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .login-logo {
   display: flex;
   align-items: center;
   text-decoration: none;
-  width: 200px;
+  width: 180px;
   height: auto;
 }
 
 .login-logo img {
   width: 100%;
-  height: auto;
-  filter: brightness(1.2);
+  height: 100%;
+  object-fit: contain;
 }
 
 .login-form-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   max-width: 400px;
   margin: 0 auto;
   width: 100%;
 }
 
 .login-titles h1 {
+  font-family: 'Montserrat', sans-serif;
   font-size: 2.2rem;
-  font-weight: 900;
-  color: white;
+  font-weight: 800;
+  color: var(--neutral-900);
   margin-bottom: 0.75rem;
-  letter-spacing: -1.5px;
+  letter-spacing: -1px;
 }
 
 .login-titles p {
-  color: var(--navy-subtext);
+  color: var(--neutral-500);
   font-size: 1rem;
   margin-bottom: 2.5rem;
   line-height: 1.6;
 }
 
-/* Seletor de Tipo - Modern Pills */
+/* Seletor de Tipo */
 .login-type-selector {
   display: flex;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--neutral-50);
   padding: 6px;
-  margin-bottom: 32px;
-  border-radius: 16px;
-  border: 1px solid var(--navy-border);
+  margin-bottom: 2rem;
+  border-radius: 14px;
+  border: 1px solid var(--neutral-100);
 }
 
 .selector-btn {
@@ -80,23 +78,23 @@
   background: transparent;
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--navy-subtext);
+  color: var(--neutral-500);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border-radius: 12px;
+  border-radius: 10px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .selector-btn.active {
-  background: var(--navy-accent);
-  color: white;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  background: white;
+  color: var(--primary-700);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Form Moderno */
+/* Formulário Moderno */
 .login-modern-form {
   display: flex;
   flex-direction: column;
@@ -111,65 +109,66 @@
 
 .input-group label {
   font-size: 0.75rem;
-  font-weight: 800;
-  color: var(--navy-subtext);
+  font-weight: 700;
+  color: var(--neutral-600);
   display: flex;
   align-items: center;
   gap: 8px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
 .input-group input {
-  padding: 14px 18px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--navy-border);
-  border-radius: 14px;
+  padding: 14px 16px;
+  background: var(--neutral-50);
+  border: 1px solid var(--neutral-200);
+  border-radius: 12px;
   font-size: 1rem;
-  color: white;
+  color: var(--neutral-900);
   transition: all 0.3s;
 }
 
 .input-group input:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.08);
-  border-color: var(--navy-accent);
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  background: white;
+  border-color: var(--primary-400);
+  box-shadow: 0 0 0 4px var(--primary-50);
 }
 
 .forgot-password {
   text-align: right;
-  margin-top: -8px;
+  margin-top: -0.5rem;
 }
 
 .forgot-password a {
   font-size: 0.85rem;
-  color: var(--navy-accent);
+  color: var(--primary-700);
   font-weight: 700;
   text-decoration: none;
 }
 
 .login-submit-btn {
-  margin-top: 12px;
+  margin-top: 1rem;
   padding: 16px;
-  background: linear-gradient(135deg, var(--navy-accent), #60a5fa);
+  background: var(--gradient-primary);
   color: white;
   border: none;
-  border-radius: 16px;
+  border-radius: 14px;
   font-size: 1.1rem;
   font-weight: 800;
   cursor: pointer;
   transition: all 0.3s;
-  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 10px 20px rgba(21, 128, 61, 0.15);
 }
 
 .login-submit-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 15px 30px rgba(21, 128, 61, 0.25);
 }
 
+/* Social Login */
 .login-social-separator {
-  margin: 32px 0;
+  margin: 2.5rem 0;
   position: relative;
   text-align: center;
 }
@@ -181,121 +180,149 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: var(--navy-border);
+  background: var(--neutral-100);
 }
 
 .login-social-separator span {
-  background: var(--navy-sidebar);
-  padding: 0 16px;
+  background: white;
+  padding: 0 1rem;
   font-size: 0.75rem;
-  color: var(--navy-subtext);
+  color: var(--neutral-400);
   position: relative;
   text-transform: uppercase;
-  font-weight: 800;
-  letter-spacing: 2px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 /* Footer Info */
 .login-footer-info {
-  margin-top: 40px;
+  margin-top: 3rem;
   text-align: center;
 }
 
 .login-footer-info p {
-  font-size: 0.95rem;
-  color: var(--navy-subtext);
-  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--neutral-500);
+
 }
 
 .login-footer-info button {
   background: none;
   border: none;
-  color: var(--navy-accent);
-  font-weight: 800;
+  color: var(--primary-700);
+  font-weight: 700;
   cursor: pointer;
-  margin-left: 8px;
+  margin-left: 0.5rem;
 }
 
 .test-credentials {
-  padding: 16px;
-  background: rgba(59, 130, 246, 0.05);
-  border-radius: 16px;
-  border: 1px solid var(--navy-border);
-  margin-top: 20px;
+  padding: 1rem;
+  background: var(--primary-50);
+  border-radius: 12px;
+  border: 1px solid var(--primary-100);
+
 }
 
-.test-credentials p { margin: 0; font-size: 0.85rem; color: var(--navy-subtext); }
-.test-credentials span { font-weight: 800; color: white; }
+.test-credentials span {
+  font-weight: 700;
+  color: var(--primary-800);
+}
 
-/* Visual Panel (Direita) - Elite Aesthetic */
+/* Painel Visual (Direita) */
 .login-visual-panel {
   flex: 1;
   position: relative;
-  background: url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+  background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop') center/cover no-repeat;
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
-  padding: 80px;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
 }
 
 .visual-image-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.2) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.4) 100%);
 }
 
 .visual-content {
   position: relative;
   z-index: 5;
-  text-align: left;
+  text-align: center;
   max-width: 600px;
 }
 
 .visual-content blockquote {
-  font-size: 3rem;
-  font-weight: 900;
-  color: white;
-  line-height: 1.1;
-  margin: 0 0 32px;
-  letter-spacing: -2px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--neutral-900);
+  line-height: 1.4;
+  margin-bottom: 2rem;
 }
 
 .visual-content blockquote span {
-  color: var(--navy-accent);
+  color: var(--primary-600);
 }
 
 .visual-content footer {
-  font-size: 1.25rem;
-  color: var(--navy-subtext);
-  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--neutral-500);
+  margin-top: 1.5rem;
+  font-weight: 500;
 }
 
 .visual-badge {
   display: inline-flex;
   align-items: center;
-  padding: 10px 24px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 1.5rem;
+  background: white;
   border-radius: 100px;
-  margin-top: 48px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  margin-top: 3rem;
+  position: relative;
+}
+
+.badge-glow {
+  position: absolute;
+  inset: -2px;
+  background: var(--gradient-primary);
+  border-radius: 100px;
+  z-index: -1;
+  opacity: 0.3;
+  filter: blur(10px);
 }
 
 .visual-badge span {
-  font-size: 0.8rem;
-  font-weight: 800;
-  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary-800);
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
 }
 
-@media (max-width: 1200px) {
-  .login-sidebar { width: 450px; }
-  .visual-content blockquote { font-size: 2.2rem; }
+/* Responsividade */
+@media (max-width: 1100px) {
+  .login-sidebar {
+    width: 450px;
+  }
+
+  .visual-content blockquote {
+    font-size: 1.8rem;
+  }
 }
 
-@media (max-width: 1000px) {
-  .login-visual-panel { display: none; }
-  .login-sidebar { width: 100%; padding: 3rem; }
-  .login-form-container { max-width: 100%; }
+@media (max-width: 900px) {
+  .login-visual-panel {
+    display: none;
+  }
+
+  .login-sidebar {
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .login-form-container {
+    max-width: 100%;
+  }
 }
