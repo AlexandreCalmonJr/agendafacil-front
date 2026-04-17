@@ -257,6 +257,8 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
             ))}
           </div>
         </div>
+      )}
+
       {step === 3 && (
         <div className="wizard-content-step fade-in">
           <div className="step-options-header">
@@ -328,9 +330,6 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
               placeholder="Alguma informação adicional para o médico..."
             />
           </div>
-        </div>
-      )}
-
         </div>
       )}
 

@@ -175,7 +175,6 @@ export default function DashboardPaciente() {
           </div>
         </div>
       </div>
-    </div>
 
       {/* ESTILOS INLINE ADICIONAIS PARA O DASHBOARD */}
       <style>{`
