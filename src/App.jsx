@@ -9,6 +9,7 @@ import Agenda from './pages/Agenda';
 import Agendar from './pages/Agendar';
 import Clientes from './pages/Clientes';
 import Profissionais from './pages/Profissionais';
+import Especialidades from './pages/Especialidades';
 import PainelMedico from './pages/PainelMedico';
 import SalaAtendimento from './pages/SalaAtendimento';
 import DashboardPaciente from './pages/DashboardPaciente';
@@ -54,6 +55,7 @@ function AppLayout() {
           } replace />} />
           
           <Route path="/login" element={<Login />} />
+          <Route path="/especialidades" element={<Especialidades />} />
           <Route path="/profissionais" element={<Profissionais />} />
 
           <Route path="/agenda" element={

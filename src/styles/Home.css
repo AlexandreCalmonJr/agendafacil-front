@@ -145,8 +145,8 @@
 
 /* --- FEATURES SECTION --- */
 .features-section {
-  padding: 10rem 2rem;
-  max-width: 1240px;
+  padding: 10rem 4rem; /* Aumentamos o padding lateral */
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -216,12 +216,12 @@
 
 /* --- TRUST SECTION --- */
 .trust-section {
-  max-width: 1100px;
-  margin: 4rem auto 8rem;
-  padding: 4rem;
-  border-radius: 32px;
+  width: 100%;
+  margin: 4rem 0 8rem;
+  padding: 6rem 4rem;
   background: var(--neutral-50);
-  border: 1px solid var(--neutral-100);
+  border-top: 1px solid var(--neutral-100);
+  border-bottom: 1px solid var(--neutral-100);
 }
 
 .trust-content {
@@ -232,12 +232,47 @@
 }
 
 .trust-image {
-  height: 350px;
+  height: 480px;
   background: linear-gradient(rgba(21, 128, 61, 0.1), rgba(21, 128, 61, 0.1)),
               url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop') center/cover;
-  border-radius: 24px;
+  border-radius: 32px;
   position: relative;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+}
+
+.floating-card {
+  position: absolute;
+  top: 15%;
+  left: -40px;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--neutral-100);
+  z-index: 5;
+}
+
+.floating-card strong {
+  display: block;
+  font-size: 1.1rem;
+  color: var(--primary-700);
+}
+
+.floating-card span {
+  font-size: 0.85rem;
+  color: var(--neutral-500);
+}
+
+.animate-float {
+  animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
 }
 
 /* --- RESPONSIVIDADE --- */
@@ -284,7 +319,8 @@
 }
 
 .footer-content {
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1440px; /* Mantemos um limite sutil para o conteúdo do footer não espalhar demais */
   margin: 0 auto;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
@@ -336,7 +372,8 @@
 }
 
 .footer-bottom {
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1440px;
   margin: 5rem auto 0;
   padding-top: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.05);

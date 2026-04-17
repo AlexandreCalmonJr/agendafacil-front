@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { listarProfissionais } from '../services/api';
+import logo from '../assets/image/logo.jpg';
 import '../styles/Header.css';
 
 export default function Header() {
@@ -29,8 +31,9 @@ export default function Header() {
     <nav className="navbar">
       <div className="navbar-inner">
         <Link to="/" className="navbar-logo">
-          <div className="logo-icon">⚕️</div>
-          <span>Clínica Vita</span>
+          <div className="logo-icon">
+            <img src={logo} alt="Clínica Vita" />
+          </div>
         </Link>
 
         <button
@@ -45,6 +48,26 @@ export default function Header() {
           <li>
             <Link to="/" className={isActive('/')} onClick={() => setMenuOpen(false)}>
               Início
+            </Link>
+          </li>
+          <li>
+            <Link to="/especialidades" className={isActive('/especialidades')} onClick={() => setMenuOpen(false)}>
+              Especialidades
+            </Link>
+          </li>
+          <li>
+            <Link to="/noticias" className={isActive('/noticias')} onClick={() => setMenuOpen(false)}>
+              Notícias da Saúde
+            </Link>
+          </li>
+          <li>
+            <Link to="/novidades" className={isActive('/novidades')} onClick={() => setMenuOpen(false)}>
+              Novidades da Clínica
+            </Link>
+          </li>
+          <li>
+            <Link to="/contato" className={isActive('/contato')} onClick={() => setMenuOpen(false)}>
+              Fale Conosco
             </Link>
           </li>
         </ul>

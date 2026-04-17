@@ -136,13 +136,6 @@ const Home = () => {
             </ul>
           </div>
           <div className="trust-image">
-            <div className="floating-card animate-float">
-              <Clock size={24} />
-              <div>
-                <strong>Agilidade</strong>
-                <span>Fila zero na recepção</span>
-              </div>
-            </div>
           </div>
         </div>
       </section>

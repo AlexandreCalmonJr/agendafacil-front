@@ -3,19 +3,18 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { login, registro, loginGoogle } from '../services/api';
 import { GoogleLogin } from '@react-oauth/google';
+import { User, Stethoscope, Mail, Lock, Phone, ArrowRight } from 'lucide-react';
+import logo from '../assets/image/logo.jpg';
 import '../styles/Login.css';
 
 export default function Login() {
-  const [isPacienteLogin, setIsPacienteLogin] = useState(true);
+  const [activeTab, setActiveTab] = useState('paciente'); // 'paciente' | 'profissional'
+  const [isRegistering, setIsRegistering] = useState(false);
+  
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [form, setForm] = useState({ nome: '', email: '', senha: '', telefone: '' });
 
-  const [pacienteLoading, setPacienteLoading] = useState(false);
-  const [pacienteErro, setPacienteErro] = useState('');
-  const [formPaciente, setFormPaciente] = useState({ nome: '', email: '', senha: '', telefone: '' });
-
-  const [profissionalLoading, setProfissionalLoading] = useState(false);
-  const [profissionalErro, setProfissionalErro] = useState('');
-  const [formProfissional, setFormProfissional] = useState({ email: '', senha: '' });
- 
   const navigate = useNavigate();
   const { loginContext } = useAuth();
 
@@ -29,196 +28,183 @@ export default function Login() {
     }
   };
 
-  const handlePacienteSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setPacienteLoading(true);
-    setPacienteErro('');
+    setLoading(true);
+    setError('');
 
     try {
-      if (isPacienteLogin) {
-        const res = await login(formPaciente.email, formPaciente.senha);
+      if (activeTab === 'paciente' && isRegistering) {
+        await registro({
+          nome: form.nome,
+          email: form.email,
+          senha: form.senha,
+          telefone: form.telefone
+        });
+        const res = await login(form.email, form.senha);
         loginContext(res.data.usuario, res.data.token);
         redirecionarPorPerfil(res.data.usuario);
       } else {
-        await registro({
-          nome: formPaciente.nome,
-          email: formPaciente.email,
-          senha: formPaciente.senha,
-          telefone: formPaciente.telefone
-        });
-        const res = await login(formPaciente.email, formPaciente.senha);
+        const res = await login(form.email, form.senha);
         loginContext(res.data.usuario, res.data.token);
         redirecionarPorPerfil(res.data.usuario);
       }
     } catch (err) {
-      setPacienteErro(err.response?.data?.erro || 'Erro ao processar. Tente novamente.');
+      setError(err.response?.data?.erro || 'Erro ao processar. Verifique seus dados.');
     } finally {
-      setPacienteLoading(false);
+      setLoading(false);
     }
   };
 
-  const handleProfissionalSubmit = async (e) => {
-    e.preventDefault();
-    setProfissionalLoading(true);
-    setProfissionalErro('');
-
-    try {
-      const res = await login(formProfissional.email, formProfissional.senha);
-      loginContext(res.data.usuario, res.data.token);
-      redirecionarPorPerfil(res.data.usuario);
-    } catch (err) {
-      setProfissionalErro(err.response?.data?.erro || 'Credenciais inválidas.');
-    } finally {
-      setProfissionalLoading(false);
-    }
-  };
-
-  const handleGooglePacienteSuccess = async (credentialResponse) => {
-    setPacienteLoading(true);
-    setPacienteErro('');
-
+  const handleGoogleSuccess = async (credentialResponse) => {
+    setLoading(true);
+    setError('');
     try {
       const res = await loginGoogle(credentialResponse.credential);
       loginContext(res.data.usuario, res.data.token);
       redirecionarPorPerfil(res.data.usuario);
     } catch (err) {
-      setPacienteErro(err.response?.data?.erro || 'Erro ao fazer login com Google. Tente novamente.');
+      setError(err.response?.data?.erro || 'Erro no login com Google.');
     } finally {
-      setPacienteLoading(false);
-    }
-  };
-
-  const handleGoogleProfissionalSuccess = async (credentialResponse) => {
-    setProfissionalLoading(true);
-    setProfissionalErro('');
-
-    try {
-      const res = await loginGoogle(credentialResponse.credential);
-      loginContext(res.data.usuario, res.data.token);
-      redirecionarPorPerfil(res.data.usuario);
-    } catch (err) {
-      setProfissionalErro(err.response?.data?.erro || 'Erro ao fazer login com Google. Tente novamente.');
-    } finally {
-      setProfissionalLoading(false);
-    }
-  };
-
-  const handleGoogleError = (isUsuario = true) => {
-    if (isUsuario) {
-      setPacienteErro('Erro ao fazer login com Google. Tente novamente.');
-    } else {
-      setProfissionalErro('Erro ao fazer login com Google. Tente novamente.');
+      setLoading(false);
     }
   };
 
   return (
-    <div className="login-page">
-      <div className="login-overlay"></div>
-      
-      <div className="login-container">
-        {/* CARD DO PACIENTE */}
-        <div className="login-card animate-slide-up">
-          <div className="login-card-header">
-            <div className="login-card-icon patient">👤</div>
-            <h2 className="login-card-title">{isPacienteLogin ? 'Área do Paciente' : 'Criar Conta (Paciente)'}</h2>
-            <p className="login-card-subtitle">{isPacienteLogin ? 'Faça login para ver suas consultas' : 'Agende com nossos especialistas'}</p>
+    <div className="login-split-page">
+      <div className="login-sidebar">
+        <div className="login-sidebar-header">
+          <Link to="/" className="login-logo">
+            <img src={logo} alt="Clínica Vita" />
+          </Link>
+        </div>
+
+        <div className="login-form-container">
+          <div className="login-titles">
+            <h1>{isRegistering ? 'Crie sua conta' : 'Bem-vindo de volta'}</h1>
+            <p>{isRegistering ? 'Junte-se a nós para cuidar melhor da sua saúde.' : 'Acesse seu painel para gerenciar sua saúde.'}</p>
           </div>
 
-          {pacienteErro && <div className="login-error">⚠️ {pacienteErro}</div>}
+          <div className="login-type-selector">
+            <button 
+              className={`selector-btn ${activeTab === 'paciente' ? 'active' : ''}`}
+              onClick={() => { setActiveTab('paciente'); setIsRegistering(false); setError(''); }}
+            >
+              <User size={18} /> Paciente
+            </button>
+            <button 
+              className={`selector-btn ${activeTab === 'profissional' ? 'active' : ''}`}
+              onClick={() => { setActiveTab('profissional'); setIsRegistering(false); setError(''); }}
+            >
+              <Stethoscope size={18} /> Profissional
+            </button>
+          </div>
 
-          <form onSubmit={handlePacienteSubmit} className="login-form">
-            {!isPacienteLogin && (
-              <div className="form-group">
-                <label className="form-label">Nome completo</label>
-                <input type="text" value={formPaciente.nome} onChange={(e) => setFormPaciente({ ...formPaciente, nome: e.target.value })} className="form-input" placeholder="Seu nome completo" required />
+          {error && <div className="login-alert-error">{error}</div>}
+
+          <form onSubmit={handleSubmit} className="login-modern-form">
+            {activeTab === 'paciente' && isRegistering && (
+              <div className="input-group">
+                <label><User size={16} /> Nome Completo</label>
+                <input 
+                  type="text" 
+                  placeholder="Seu nome"
+                  value={form.nome}
+                  onChange={(e) => setForm({...form, nome: e.target.value})}
+                  required 
+                />
               </div>
             )}
 
-            <div className="form-group">
-              <label className="form-label">Email</label>
-              <input type="email" value={formPaciente.email} onChange={(e) => setFormPaciente({ ...formPaciente, email: e.target.value })} className="form-input" placeholder="seu@email.com" required />
+            <div className="input-group">
+              <label><Mail size={16} /> E-mail</label>
+              <input 
+                type="email" 
+                placeholder="exemplo@email.com"
+                value={form.email}
+                onChange={(e) => setForm({...form, email: e.target.value})}
+                required 
+              />
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Senha</label>
-              <input type="password" value={formPaciente.senha} onChange={(e) => setFormPaciente({ ...formPaciente, senha: e.target.value })} className="form-input" placeholder="••••••" required />
+            <div className="input-group">
+              <label><Lock size={16} /> Senha</label>
+              <input 
+                type="password" 
+                placeholder="••••••••"
+                value={form.senha}
+                onChange={(e) => setForm({...form, senha: e.target.value})}
+                required 
+              />
             </div>
 
-            {!isPacienteLogin && (
-              <div className="form-group">
-                <label className="form-label">WhatsApp</label>
-                <input type="text" value={formPaciente.telefone} onChange={(e) => setFormPaciente({ ...formPaciente, telefone: e.target.value })} className="form-input" placeholder="(11) 99999-9999" />
+            {activeTab === 'paciente' && isRegistering && (
+              <div className="input-group">
+                <label><Phone size={16} /> WhatsApp</label>
+                <input 
+                  type="text" 
+                  placeholder="(11) 99999-9999"
+                  value={form.telefone}
+                  onChange={(e) => setForm({...form, telefone: e.target.value})}
+                />
               </div>
             )}
 
-            <button type="submit" className="btn btn-primary login-form-button patient-btn" disabled={pacienteLoading}>
-              {pacienteLoading ? '⏳ Processando...' : isPacienteLogin ? '🔐 Acessar Minhas Consultas' : '🚀 Cadastrar'}
+            {!isRegistering && (
+              <div className="forgot-password">
+                <a href="#">Esqueceu a senha?</a>
+              </div>
+            )}
+
+            <button type="submit" className="login-submit-btn" disabled={loading}>
+              {loading ? 'Processando...' : (isRegistering ? 'Criar Conta' : 'Entrar')}
             </button>
           </form>
 
-          <button className="btn btn-outline login-toggle-button" onClick={() => { setIsPacienteLogin(!isPacienteLogin); setPacienteErro(''); }}>
-            {isPacienteLogin ? '📝 Primeira vez? Cadastre-se' : '🔐 Já sou paciente e tenho conta'}
-          </button>
-
-          <div className="login-social-divider">
-            <span>Ou continue com</span>
+          <div className="login-social-separator">
+            <span>ou continue com</span>
           </div>
 
-          <div className="login-social-buttons">
+          <div className="login-social-actions">
             <GoogleLogin
-              onSuccess={handleGooglePacienteSuccess}
-              onError={() => handleGoogleError(true)}
+              onSuccess={handleGoogleSuccess}
+              onError={() => setError('Erro no login com Google')}
               theme="outline"
               size="large"
-              shape="pill"
-            />
-          </div>
-        </div>
-
-        {/* CARD DO PROFISSIONAL */}
-        <div className="login-card professional-card animate-slide-up">
-          <div className="login-card-header">
-            <div className="login-card-icon professional">👨‍⚕️</div>
-            <h2 className="login-card-title">Área do Profissional</h2>
-            <p className="login-card-subtitle">Acesso restrito para corpo clínico e recepção</p>
-          </div>
-
-          {profissionalErro && <div className="login-error">⚠️ {profissionalErro}</div>}
-
-          <form onSubmit={handleProfissionalSubmit} className="login-form">
-            <div className="form-group">
-              <label className="form-label">Email Corporativo</label>
-              <input type="email" value={formProfissional.email} onChange={(e) => setFormProfissional({ ...formProfissional, email: e.target.value })} className="form-input professional-input" placeholder="seu.nome@clinica.com" required />
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Senha de Rede</label>
-              <input type="password" value={formProfissional.senha} onChange={(e) => setFormProfissional({ ...formProfissional, senha: e.target.value })} className="form-input professional-input" placeholder="••••••" required />
-            </div>
-
-            <button type="submit" className="btn btn-primary login-form-button professional-btn" disabled={profissionalLoading}>
-              {profissionalLoading ? '⏳ Autenticando...' : '🔐 Acessar Sistema'}
-            </button>
-          </form>
-
-          <div className="login-social-divider">
-            <span>Ou continue com</span>
-          </div>
-
-          <div className="login-social-buttons">
-            <GoogleLogin
-              onSuccess={handleGoogleProfissionalSuccess}
-              onError={() => handleGoogleError(false)}
-              theme="outline"
-              size="large"
-              shape="pill"
+              width="100%"
+              shape="rectangular"
             />
           </div>
 
-          <div className="login-test-account">
-            <p>Conta teste: <span>ana.silva@clinica.com</span> / <span>123456</span></p>
+          <div className="login-footer-info">
+            {activeTab === 'paciente' ? (
+              <p>
+                {isRegistering ? 'Já tem uma conta?' : 'Ainda não tem conta?'}
+                <button onClick={() => setIsRegistering(!isRegistering)}>
+                  {isRegistering ? 'Faça login' : 'Cadastre-se agora'}
+                </button>
+              </p>
+            ) : (
+              <div className="test-credentials">
+                <p>Conta teste: <span>ana.silva@clinica.com / 123456</span></p>
+              </div>
+            )}
           </div>
         </div>
+      </div>
+
+      <div className="login-visual-panel">
+        <div className="visual-content">
+          <blockquote>
+            "O futuro pertence àqueles que acreditam na <span>beleza dos seus sonhos</span>."
+            <footer>— Eleanor Roosevelt</footer>
+          </blockquote>
+          <div className="visual-badge">
+            <div className="badge-glow"></div>
+            <span>Excelência Médica Digital</span>
+          </div>
+        </div>
+        <div className="visual-image-overlay"></div>
       </div>
     </div>
   );

@@ -129,10 +129,9 @@ img {
 }
 .layout-vertical .main-content {
   flex: 1;
-  padding: 2rem 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 0; /* Tiramos o padding fixo para que as seções controlem seu próprio espaço */
   width: 100%;
+  max-width: 100%; /* Habilitamos o Full Width */
 }
 
 .layout-sidebar {
@@ -566,23 +565,22 @@ img {
 
 /* ========== NAVBAR ========== */
 .navbar {
-  background: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--glass-border);
-  padding: 0 1rem;
-  position: sticky;
-  top: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--neutral-100);
+  padding: 0 2rem;
   z-index: 100;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .navbar-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1200px;
+  max-width: 100%; /* Expansão total */
   margin: 0 auto;
-  height: 64px;
+  height: 85px;
 }
 
 .navbar-logo {
@@ -595,21 +593,25 @@ img {
 }
 
 .navbar-logo .logo-icon {
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg, var(--primary-500), var(--violet-500));
-  border-radius: var(--radius-lg);
+  width: 180px; /* Aumentado conforme solicitado */
+  height: 65px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  overflow: hidden;
 }
 
-.navbar-logo span {
-  background: linear-gradient(135deg, var(--primary-300), var(--accent-400));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.navbar-logo .logo-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.navbar-logo .brand-name {
+  color: #15803d; /* Verde clínico da imagem */
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: -0.5px;
 }
 
 .navbar-links {
@@ -620,19 +622,18 @@ img {
 }
 
 .navbar-links a {
-  padding: 0.5rem 0.875rem;
-  border-radius: var(--radius-md);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
   font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: var(--dark-300);
+  font-weight: 600;
+  color: var(--neutral-600);
   transition: all var(--transition-fast);
   text-decoration: none;
 }
 
 .navbar-links a:hover,
 .navbar-links a.active {
-  color: white;
-  background: rgba(255, 255, 255, 0.08);
+  color: var(--primary-700);
 }
 
 .navbar-links a.active {
