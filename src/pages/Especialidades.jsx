@@ -4,6 +4,10 @@ import { listarProfissionais } from '../services/api';
 import Loading from '../components/Loading';
 import '../styles/Especialidades.css';
 
+// Importando imagens locais
+import imgClinicoGeral from '../assets/image/especialidades/clinico geral.jpg';
+import imgPsiquiatria from '../assets/image/especialidades/pisquiatria.png';
+
 export default function Especialidades() {
   const [especialidades, setEspecialidades] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,8 +39,8 @@ export default function Especialidades() {
 
   const getImageUrl = (esp) => {
     const images = {
-      'Clínica Geral / Medicina da Família': 'https://images.unsplash.com/photo-1576091160550-217359f4ecf8?auto=format&fit=crop&q=80&w=800',
-      'Psiquiatria Clínica': 'https://images.unsplash.com/photo-1527137342181-19aab11a8ee1?auto=format&fit=crop&q=80&w=800',
+      'Clínica Geral / Medicina da Família': imgClinicoGeral,
+      'Psiquiatria Clínica': imgPsiquiatria,
       'Dermatologia': 'https://images.unsplash.com/photo-1559839734-2b71f1e3c770?auto=format&fit=crop&q=80&w=800',
       'Nutrição': 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=800',
       'Cardiologia': 'https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?auto=format&fit=crop&q=80&w=800',
@@ -73,16 +77,25 @@ export default function Especialidades() {
         {especialidades.map((esp, index) => (
           <div key={index} className="especialidade-card">
             <div className="especialidade-icon">
-              <img src={getImageUrl(esp.nome)} alt={esp.nome} />
+              <img 
+                src={getImageUrl(esp.nome)} 
+                alt={esp.nome} 
+                onError={(e) => {
+                  e.target.src = 'https://images.unsplash.com/photo-1505751172107-16781432f22b?auto=format&fit=crop&q=80&w=800';
+                  e.target.onerror = null;
+                }}
+              />
             </div>
-            <h3>{esp.nome}</h3>
-            <p>{getDescricao(esp.nome)}</p>
-            <div style={{ marginBottom: '1.5rem', fontSize: '0.85rem', color: 'var(--primary-600)', fontWeight: '600' }}>
-              {esp.profissionaisCount} {esp.profissionaisCount === 1 ? 'Profissional disponível' : 'Profissionais disponíveis'}
+            <div className="specialty-info">
+              <h3>{esp.nome}</h3>
+              <p>{getDescricao(esp.nome)}</p>
+              <div style={{ marginBottom: '1.5rem', fontSize: '0.85rem', color: 'var(--primary-600)', fontWeight: '600' }}>
+                {esp.profissionaisCount} {esp.profissionaisCount === 1 ? 'Profissional disponível' : 'Profissionais disponíveis'}
+              </div>
+              <Link to={`/profissionais?especialidade=${esp.nome}`} className="btn-especialidade">
+                Ver Médicos
+              </Link>
             </div>
-            <Link to={`/profissionais?especialidade=${esp.nome}`} className="btn-especialidade">
-              Ver Médicos
-            </Link>
           </div>
         ))}
       </div>

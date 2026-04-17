@@ -10,6 +10,8 @@ import Agendar from './pages/Agendar';
 import Clientes from './pages/Clientes';
 import Profissionais from './pages/Profissionais';
 import Especialidades from './pages/Especialidades';
+import Noticias from './pages/Noticias';
+import Novidades from './pages/Novidades';
 import PainelMedico from './pages/PainelMedico';
 import SalaAtendimento from './pages/SalaAtendimento';
 import DashboardPaciente from './pages/DashboardPaciente';
@@ -56,6 +58,8 @@ function AppLayout() {
           
           <Route path="/login" element={<Login />} />
           <Route path="/especialidades" element={<Especialidades />} />
+          <Route path="/noticias" element={<Noticias />} />
+          <Route path="/novidades" element={<Novidades />} />
           <Route path="/profissionais" element={<Profissionais />} />
 
           <Route path="/agenda" element={

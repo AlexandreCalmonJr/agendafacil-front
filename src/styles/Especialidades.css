@@ -30,10 +30,38 @@
   gap: 2rem;
 }
 
+.especialidade-icon {
+  width: 100%;
+  height: 200px;
+  background: var(--primary-50);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.especialidade-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.especialidade-card:hover .especialidade-icon {
+  transform: scale(1.05);
+}
+
 .especialidade-card {
   background: white;
   border-radius: 24px;
-  padding: 2.5rem;
+  padding: 0; /* Remove padding to let image reach edges if desired, or adjust */
+  padding-bottom: 2.5rem;
   text-align: center;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border: 1px solid var(--neutral-100);
@@ -41,26 +69,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 }
 
-.especialidade-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-  border-color: var(--primary-200);
-}
-
-.especialidade-icon {
-  width: 80px;
-  height: 80px;
-  background: var(--primary-50);
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-  color: var(--primary-600);
-  transition: all 0.3s ease;
+.especialidade-card h3, .especialidade-card p, .especialidade-card .btn-especialidade, .specialty-info {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 }
 
 .especialidade-card:hover .especialidade-icon {

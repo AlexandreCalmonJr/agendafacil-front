@@ -100,4 +100,11 @@ export const buscarProntuario = (agendamentoId) =>
 export const salvarProntuario = (agendamentoId, dados) =>
   api.put(`/agendamentos/${agendamentoId}/prontuario`, dados);
 
+// ========== NOTÍCIAS & NOVIDADES ==========
+export const listarNoticiasSaude = () =>
+  api.get('/noticias/saude');
+
+export const listarNovidadesClinica = () =>
+  api.get('/noticias/clinica');
+
 export default api;
