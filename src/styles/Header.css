@@ -1,12 +1,12 @@
 /* Header.jsx Styles */
 
 .navbar {
-  background: rgba(255, 255, 255, 0.95);
-  border-bottom: 1px solid var(--neutral-100);
+  background: linear-gradient(90deg, #15803d 0%, #ffffff 100%);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
   backdrop-filter: blur(10px);
   padding: 0;
   z-index: 100;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
 }
 
 .navbar-inner {
@@ -44,7 +44,7 @@
 .navbar-logo span {
   font-weight: 700;
   letter-spacing: -0.5px;
-  color: var(--primary-800);
+  color: white; /* Cor branca para contrastar com o início verde do gradiente */
 }
 
 .navbar-links {
@@ -57,9 +57,9 @@
 }
 
 .navbar-links li a {
-  color: var(--neutral-600);
+  color: #2d3748; /* Cor escura para contrastar com a parte clara do gradiente */
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 0.6rem 1.25rem;
   border-radius: 100px;

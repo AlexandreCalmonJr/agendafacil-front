@@ -48,12 +48,16 @@ export default function Profissionais() {
 
   const getIcon = (esp) => especialidadeIcons[esp] || '🩺';
 
-  const gradients = [
-    'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-    'linear-gradient(135deg, #06b6d4, #3b82f6)',
-    'linear-gradient(135deg, #8b5cf6, #ec4899)',
-    'linear-gradient(135deg, #10b981, #06b6d4)',
-  ];
+  // Mapeamento de fotos reais para profissionais (Exemplo baseado nos nomes comuns da clínica)
+  const getProfImage = (nome, index) => {
+    const images = [
+      'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop', // Médico Homem 1
+      'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=400&fit=crop', // Médica Mulher 1
+      'https://images.unsplash.com/photo-1559839734-2b71f1536783?w=400&h=400&fit=crop', // Médica Mulher 2
+      'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop', // Médico Homem 2
+    ];
+    return images[index % images.length];
+  };
 
   if (loading) return <Loading text="Carregando profissionais..." />;
 
@@ -72,41 +76,29 @@ export default function Profissionais() {
             style={{ overflow: 'hidden', cursor: 'pointer' }}
             onClick={() => setExpandido(expandido === prof.id ? null : prof.id)}
           >
-            <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'start' }}>
-              {/* Avatar */}
-              <div style={{
-                width: '72px',
-                height: '72px',
-                borderRadius: 'var(--radius-xl)',
-                background: gradients[index % gradients.length],
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '2rem',
-                flexShrink: 0
-              }}>
-                {getIcon(prof.especialidade)}
+            <div className={`prof-card-container ${expandido === prof.id ? 'expanded' : ''}`}>
+              <div className="prof-card-header">
+                {/* Real Photo Avatar */}
+                <div className="prof-photo-wrapper">
+                  <img src={getProfImage(prof.nome, index)} alt={prof.nome} className="prof-real-photo" />
+                  <div className="prof-status-dot online"></div>
+                </div>
               </div>
 
               {/* Info */}
               <div style={{ flex: 1 }}>
-                <h3 style={{ color: 'white', fontSize: 'var(--font-size-lg)', fontWeight: '700', marginBottom: '0.25rem' }}>
+                <h3 className="prof-card-name">
                   {prof.nome}
                 </h3>
-                <span className="badge" style={{
-                  background: 'rgba(139, 92, 246, 0.15)',
-                  color: 'var(--violet-400)',
-                  marginBottom: '0.5rem',
-                  display: 'inline-flex'
-                }}>
+                <span className="prof-badge">
                   {prof.especialidade}
                 </span>
                 {prof.descricao && (
-                  <p style={{ fontSize: '0.85rem', color: 'var(--dark-400)', marginTop: '0.5rem', lineHeight: '1.5' }}>
+                  <p className="prof-bio">
                     {prof.descricao}
                   </p>
                 )}
-                <div style={{ display: 'flex', gap: '1.5rem', marginTop: '0.75rem', fontSize: '0.8rem', color: 'var(--dark-500)' }}>
+                <div className="prof-contact-row">
                   <span>📧 {prof.email}</span>
                   {prof.telefone && <span>📞 {prof.telefone}</span>}
                   {prof.registro_profissional && <span>🏥 {prof.registro_profissional}</span>}
@@ -114,51 +106,28 @@ export default function Profissionais() {
               </div>
 
               {/* Expand icon */}
-              <div style={{
-                color: 'var(--dark-500)',
-                fontSize: '1.25rem',
-                transition: 'transform 0.3s',
-                transform: expandido === prof.id ? 'rotate(180deg)' : 'rotate(0)'
-              }}>
+              <div className={`prof-expand-toggle ${expandido === prof.id ? 'active' : ''}`}>
                 ▼
               </div>
             </div>
 
             {/* Serviços expandíveis */}
             {expandido === prof.id && servicos[prof.id] && (
-              <div style={{
-                marginTop: '1.5rem',
-                paddingTop: '1.5rem',
-                borderTop: '1px solid var(--glass-border)',
-                animation: 'slideUp 0.3s ease'
-              }}>
-                <h4 style={{ color: 'var(--dark-300)', fontSize: '0.8rem', fontWeight: '600', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
+              <div className="prof-services-explorer">
+                <h4 className="services-title">
                   Serviços Disponíveis
                 </h4>
-                <div className="grid" style={{ gap: '0.75rem' }}>
+                <div className="services-list">
                   {servicos[prof.id].map(serv => (
-                    <div key={serv.id} style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      padding: '0.75rem 1rem',
-                      background: 'rgba(255, 255, 255, 0.03)',
-                      borderRadius: 'var(--radius-lg)',
-                      border: '1px solid rgba(255, 255, 255, 0.05)'
-                    }}>
-                      <div>
-                        <div style={{ color: 'white', fontWeight: '500', fontSize: '0.9rem' }}>{serv.nome}</div>
-                        <div style={{ color: 'var(--dark-500)', fontSize: '0.8rem', marginTop: '0.15rem' }}>
+                    <div key={serv.id} className="service-item-row">
+                      <div className="service-main-info">
+                        <div className="service-name-text">{serv.nome}</div>
+                        <div className="service-meta-text">
                           ⏱ {serv.duracao_minutos} min
                           {serv.descricao && ` — ${serv.descricao}`}
                         </div>
                       </div>
-                      <div style={{
-                        fontSize: '1rem',
-                        fontWeight: '700',
-                        color: 'var(--accent-400)',
-                        whiteSpace: 'nowrap'
-                      }}>
+                      <div className="service-price-tag">
                         R$ {Number(serv.preco).toFixed(2)}
                       </div>
                     </div>

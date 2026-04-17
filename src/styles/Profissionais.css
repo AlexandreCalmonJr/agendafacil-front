@@ -1,200 +1,185 @@
-/* Profissionais.jsx Styles */
+/* Profissionais.jsx Styles - Premium Glassmorphism with Defined Borders */
 
-.profissionais-grid {
-  display: grid;
-  gap: 1.5rem;
+.profissionais-page {
+  padding-bottom: 4rem;
 }
 
-/* Card */
+/* Card Principal */
 .prof-card {
-  overflow: hidden;
-  cursor: pointer;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  border: 1px solid rgba(21, 128, 61, 0.12);
+  margin-bottom: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+}
+
+.prof-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-500);
+  box-shadow: 0 20px 50px rgba(37, 99, 235, 0.1);
+}
+
+.prof-card-container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .prof-card-header {
   display: flex;
-  gap: 1.5rem;
-  align-items: start;
+  gap: 2rem;
+  align-items: flex-start;
+  width: 100%;
 }
 
-/* Avatar */
-.prof-avatar {
-  width: 72px;
-  height: 72px;
-  border-radius: var(--radius-xl);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
+/* Photo Wrapper */
+.prof-photo-wrapper {
+  position: relative;
+  width: 90px;
+  height: 90px;
   flex-shrink: 0;
 }
 
-.prof-avatar.gradient-1 {
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+.prof-real-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+  border: 2px solid white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-.prof-avatar.gradient-2 {
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
-}
-
-.prof-avatar.gradient-3 {
-  background: linear-gradient(135deg, #8b5cf6, #ec4899);
-}
-
-.prof-avatar.gradient-4 {
-  background: linear-gradient(135deg, #10b981, #06b6d4);
+.prof-status-dot {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 18px;
+  height: 18px;
+  background: #10b981;
+  border: 3px solid white;
+  border-radius: 50%;
 }
 
 /* Info */
-.prof-info {
-  flex: 1;
-}
-
-.prof-nome {
-  color: white;
-  font-size: var(--font-size-lg);
-  font-weight: 700;
+.prof-card-name {
+  color: #1a202c;
+  font-size: 1.5rem;
+  font-weight: 800;
   margin-bottom: 0.25rem;
 }
 
-.prof-especialidade {
-  background: rgba(139, 92, 246, 0.15);
-  color: var(--violet-400);
-  margin-bottom: 0.5rem;
+.prof-badge {
   display: inline-flex;
+  padding: 4px 12px;
+  background: var(--primary-50);
+  color: var(--primary-700);
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
 }
 
-.prof-descricao {
-  font-size: 0.85rem;
-  color: var(--dark-400);
-  margin-top: 0.5rem;
-  line-height: 1.5;
+.prof-bio {
+  font-size: 0.95rem;
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  max-width: 600px;
 }
 
-.prof-contato {
+.prof-contact-row {
   display: flex;
-  gap: 1.5rem;
-  margin-top: 0.75rem;
-  font-size: 0.8rem;
-  color: var(--dark-500);
+  gap: 2rem;
+  font-size: 0.85rem;
+  color: #718096;
+  font-weight: 500;
 }
 
 /* Expand Icon */
-.prof-expand-icon {
-  color: var(--dark-500);
-  font-size: 1.25rem;
-  transition: transform 0.3s;
+.prof-expand-toggle {
+  margin-left: auto;
+  color: #cbd5e0;
+  font-size: 1rem;
+  transition: transform 0.4s;
+  cursor: pointer;
 }
 
-.prof-expand-icon.expanded {
+.prof-expand-toggle.active {
   transform: rotate(180deg);
+  color: var(--primary-500);
 }
 
-/* Services Section */
-.prof-services {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--glass-border);
-  animation: slideUp 0.3s ease;
+/* Services Explorer */
+.prof-services-explorer {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px dashed rgba(0,0,0,0.06);
+  animation: slideUp 0.4s ease-out;
 }
 
-.prof-services-title {
-  color: var(--dark-300);
-  font-size: 0.8rem;
-  font-weight: 600;
+.services-title {
+  font-size: 11px;
+  font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: 0.75rem;
+  color: #a0aec0;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
 }
 
-.prof-services-grid {
+.services-list {
   display: grid;
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
 }
 
-/* Service Item */
-.prof-service-item {
+.service-item-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 1rem;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: all 0.3s;
+  padding: 1.25rem 1.5rem;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.03);
+  transition: all 0.2s;
 }
 
-.prof-service-item:hover {
-  background: rgba(139, 92, 246, 0.05);
-  border-color: rgba(139, 92, 246, 0.2);
+.service-item-row:hover {
+  border-color: var(--primary-200);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
 }
 
-.prof-service-name {
-  color: white;
-  font-weight: 500;
-  font-size: 0.9rem;
+.service-name-text {
+  font-weight: 700;
+  color: #2d3748;
+  font-size: 0.95rem;
 }
 
-.prof-service-duration {
-  color: var(--dark-500);
+.service-meta-text {
   font-size: 0.8rem;
-  margin-top: 0.15rem;
+  color: #718096;
+  margin-top: 4px;
 }
 
-.prof-service-value {
-  color: var(--primary-400);
-  font-weight: 600;
-  font-size: 0.85rem;
+.service-price-tag {
+  font-weight: 800;
+  color: var(--primary-600);
+  font-size: 1.1rem;
 }
 
-.prof-service-cta {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-/* Animations */
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .prof-card-header {
-    gap: 1rem;
-    align-items: center;
-  }
-
-  .prof-avatar {
-    width: 56px;
-    height: 56px;
-    font-size: 1.5rem;
-  }
-
-  .prof-nome {
-    font-size: var(--font-size-base);
-  }
-
-  .prof-contato {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .prof-services-grid {
-    gap: 0.5rem;
-  }
-
-  .prof-service-item {
-    padding: 0.5rem 0.75rem;
-  }
-
-  .prof-expand-icon {
-    font-size: 1rem;
-  }
+  .prof-card-container { padding: 1.5rem; }
+  .prof-card-header { flex-direction: column; gap: 1.5rem; }
+  .prof-contact-row { flex-direction: column; gap: 0.75rem; }
+  .services-list { grid-template-columns: 1fr; }
+  .prof-photo-wrapper { width: 80px; height: 80px; }
 }

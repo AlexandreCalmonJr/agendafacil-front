@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Contato from './pages/Contato';
 import Agenda from './pages/Agenda';
 import Agendar from './pages/Agendar';
 import Clientes from './pages/Clientes';
@@ -19,6 +20,7 @@ import DashboardProfissional from './pages/DashboardProfissional';
 import DashboardStaff from './pages/DashboardStaff';
 import GestaoGlobal from './pages/GestaoGlobal';
 import Loading from './components/Loading';
+import Footer from './components/Footer';
 import './styles/App.css';
 
 // Rota protegida otimizada
@@ -61,6 +63,7 @@ function AppLayout() {
           <Route path="/noticias" element={<Noticias />} />
           <Route path="/novidades" element={<Novidades />} />
           <Route path="/profissionais" element={<Profissionais />} />
+          <Route path="/contato" element={<Contato />} />
 
           <Route path="/agenda" element={
             <ProtectedRoute>
@@ -119,6 +122,7 @@ function AppLayout() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
+      {!authenticated && <Footer />}
     </div>
   );
 }

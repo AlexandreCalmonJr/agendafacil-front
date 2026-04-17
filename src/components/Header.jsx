@@ -73,8 +73,8 @@ export default function Header() {
         </ul>
 
         <div className="navbar-user">
-          <Link to="/login" className="btn btn-sm btn-outline">
-            Painel do Profissional
+          <Link to="/login" className="btn btn-sm btn-primary portal-btn">
+            Portal VitaHub
           </Link>
         </div>
       </div>
