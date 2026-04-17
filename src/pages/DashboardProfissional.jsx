@@ -50,7 +50,7 @@ export default function DashboardProfissional() {
         <div className="welcome-section">
           <span className="welcome-badge"><Sparkles size={14} /> Hub de Excelência</span>
           <h1>
-            {getSaudacao()}, <span className="highlight-text">Dra. {usuario?.nome.split(' ')[0]}</span>
+            {getSaudacao()}, <span className="highlight-text">{usuario?.nome.split(' ')[0]}</span>
           </h1>
           <p>Você possui <strong>{aguardando}</strong> pacientes aguardando atendimento.</p>
         </div>

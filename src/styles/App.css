@@ -78,6 +78,16 @@
   --navy-border: rgba(255, 255, 255, 0.08);
   --navy-text: #f8fafc;
   --navy-subtext: #94a3b8;
+
+  /* Dark Mode Variables */
+  --dark-bg-primary: #0f172a;
+  --dark-bg-secondary: #1e293b;
+  --dark-bg-tertiary: #334155;
+  --dark-text-primary: #f8fafc;
+  --dark-text-secondary: #cbd5e1;
+  --dark-text-tertiary: #94a3b8;
+  --dark-border: rgba(255, 255, 255, 0.1);
+  --dark-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
 /* ========== RESET ========== */
@@ -1313,3 +1323,115 @@ img {
     grid-template-columns: 1fr;
   }
 }
+
+/* ========== DARK MODE ========== */
+body.dark-mode {
+  background: var(--dark-bg-primary);
+  color: var(--dark-text-primary);
+}
+
+.dark-mode {
+  --neutral-50: #334155;
+  --neutral-100: #475569;
+  --neutral-200: #64748b;
+  --neutral-300: #94a3b8;
+  --neutral-400: #cbd5e1;
+  --neutral-500: #e2e8f0;
+  --neutral-600: #f1f5f9;
+  --neutral-700: #f8fafc;
+  --neutral-800: #f8fafc;
+  --neutral-900: #f8fafc;
+}
+
+.dark-mode .glass-card,
+.dark-mode .shadow-card {
+  background: var(--dark-bg-secondary);
+  border-color: var(--dark-border);
+  color: var(--dark-text-primary);
+  box-shadow: var(--dark-shadow);
+}
+
+.dark-mode .glass-card:hover {
+  background: var(--dark-bg-tertiary);
+}
+
+.dark-mode body {
+  background: var(--dark-bg-primary);
+  color: var(--dark-text-primary);
+}
+
+.dark-mode .dashboard-profissional,
+.dark-mode .paciente-portal-container,
+.dark-mode .dashboard-container-staff {
+  background: var(--dark-bg-primary);
+  color: var(--dark-text-primary);
+}
+
+.dark-mode .featured-card,
+.dark-mode .metric-card-pro,
+.dark-mode .shortcut-item-premium,
+.dark-mode .side-card {
+  background: var(--dark-bg-secondary);
+  border-color: var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+.dark-mode .welcome-section h1,
+.dark-mode .page-header h1 {
+  color: var(--dark-text-primary);
+}
+
+.dark-mode .welcome-section p,
+.dark-mode .page-header p,
+.dark-mode .metric-details .label {
+  color: var(--dark-text-secondary);
+}
+
+.dark-mode .btn-primary {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+}
+
+.dark-mode .btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+}
+
+.dark-mode .form-input,
+.dark-mode .form-select,
+.dark-mode .form-textarea {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+.dark-mode .form-input:focus,
+.dark-mode .form-select:focus,
+.dark-mode .form-textarea:focus {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+}
+
+.dark-mode .form-input::placeholder {
+  color: var(--dark-text-tertiary);
+}
+
+.dark-mode a {
+  color: #4ade80;
+}
+
+.dark-mode a:hover {
+  color: #22c55e;
+}
+
+.dark-mode button.nav-link-premium:hover {
+  background: rgba(22, 163, 74, 0.15);
+}
+
+.dark-mode .recent-item {
+  background: var(--dark-bg-tertiary);
+}
+
+.dark-mode .recent-time {
+  background: var(--dark-bg-primary);
+  border-color: var(--dark-border);
+}
+

@@ -1,5 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useDarkMode } from '../hooks/useDarkMode';
 import { 
   Home, 
   Calendar, 
@@ -10,7 +11,9 @@ import {
   List, 
   UserSquare2, 
   LogOut,
-  Activity
+  Activity,
+  Moon,
+  Sun
 } from 'lucide-react';
 import logoImg from '../assets/image/logo.jpg';
 import '../styles/Sidebar.css';
@@ -19,6 +22,7 @@ export default function Sidebar() {
   const location = useLocation();
   const { usuario, logoutContext } = useAuth();
   const navigate = useNavigate();
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
   const handleLogout = () => {
     logoutContext();
@@ -123,6 +127,11 @@ export default function Sidebar() {
       </div>
 
       <div className="sidebar-footer-premium">
+        <button className="btn-theme-toggle" onClick={toggleDarkMode} title="Alternar tema">
+          {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+          <span>{darkMode ? 'Modo Claro' : 'Modo Escuro'}</span>
+        </button>
+        
         <div className="user-profile-premium">
           <div className="user-avatar-premium">{getInitials(usuario.nome)}</div>
           <div className="user-details-premium">
