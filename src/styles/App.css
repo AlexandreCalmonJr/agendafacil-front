@@ -144,19 +144,19 @@ img {
 }
 
 .layout-sidebar {
-  display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
-  align-items: stretch;
+  display: flex;
   min-height: 100vh;
 }
 
 .layout-sidebar .main-content {
+  flex: 1;
   padding: 2rem 3rem;
   max-width: 100%;
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   overflow-y: auto;
   box-sizing: border-box;
+  margin-left: var(--sidebar-width);
 }
 
 .page-header {
@@ -1120,7 +1120,8 @@ img {
   to { transform: rotate(360deg); }
 }
 
-.animate-fade-in {
+.animate-fade-in,
+.fade-in {
   animation: fadeIn var(--transition-base);
 }
 
