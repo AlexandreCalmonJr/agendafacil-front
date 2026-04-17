@@ -480,36 +480,40 @@
 }
 
 .mini-specialty-card {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(8px);
-  padding: 30px;
-  border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-  text-align: center;
-  border: 1px solid rgba(21, 128, 61, 0.1);
-  transition: all 0.4s ease;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: flex-end;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.mini-specialty-card:hover {
-  transform: translateY(-8px);
-  border-color: var(--primary-500);
-  box-shadow: 0 15px 35px rgba(37, 99, 235, 0.08);
+.mini-card-overlay {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+}
+
+/* Estilos de Especialidades Finalizados */
+.mini-specialty-card h4 {
+  color: white !important;
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+  letter-spacing: -0.5px;
 }
 
 .mini-card-icon {
-  font-size: 40px;
-  margin-bottom: 20px;
-}
-
-.mini-specialty-card h4 {
-  color: #1a202c;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.mini-specialty-card p {
-  color: #718096;
-  font-size: 14px;
+  display: none;
 }
 
 /* News Preview */

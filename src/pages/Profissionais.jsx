@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { listarProfissionais, listarServicos } from '../services/api';
 import Loading from '../components/Loading';
 import '../styles/Profissionais.css';
@@ -63,12 +64,12 @@ export default function Profissionais() {
 
   return (
     <div className="animate-fade-in">
-      <div className="page-header">
-        <h1>👨‍⚕️ Profissionais</h1>
-        <p>Conheça nossa equipe e serviços disponíveis</p>
+      <div className="page-header centered">
+        <h1>Profissionais</h1>
+        <p>Conheça nossa equipe de especialistas da Clínica Vita</p>
       </div>
 
-      <div className="grid" style={{ gap: '1.5rem' }}>
+      <div className="profissionais-grid">
         {profissionais.map((prof, index) => (
           <div
             key={prof.id}
@@ -77,37 +78,41 @@ export default function Profissionais() {
             onClick={() => setExpandido(expandido === prof.id ? null : prof.id)}
           >
             <div className={`prof-card-container ${expandido === prof.id ? 'expanded' : ''}`}>
-              <div className="prof-card-header">
-                {/* Real Photo Avatar */}
+              <div className="prof-card-identity">
                 <div className="prof-photo-wrapper">
                   <img src={getProfImage(prof.nome, index)} alt={prof.nome} className="prof-real-photo" />
                   <div className="prof-status-dot online"></div>
                 </div>
-              </div>
 
-              {/* Info */}
-              <div style={{ flex: 1 }}>
-                <h3 className="prof-card-name">
-                  {prof.nome}
-                </h3>
-                <span className="prof-badge">
-                  {prof.especialidade}
-                </span>
-                {prof.descricao && (
-                  <p className="prof-bio">
-                    {prof.descricao}
-                  </p>
-                )}
-                <div className="prof-contact-row">
-                  <span>📧 {prof.email}</span>
-                  {prof.telefone && <span>📞 {prof.telefone}</span>}
-                  {prof.registro_profissional && <span>🏥 {prof.registro_profissional}</span>}
+                <div className="prof-info-basic">
+                  <h3 className="prof-card-name">{prof.nome}</h3>
+                  <span className="prof-badge">{prof.especialidade}</span>
                 </div>
               </div>
 
-              {/* Expand icon */}
-              <div className={`prof-expand-toggle ${expandido === prof.id ? 'active' : ''}`}>
-                ▼
+              {prof.descricao && (
+                <p className="prof-bio">{prof.descricao}</p>
+              )}
+
+              <div className="prof-details-minimal">
+                <div className="detail-item">{prof.email}</div>
+                {prof.telefone && <div className="detail-item">{prof.telefone}</div>}
+                {prof.registro_profissional && <div className="detail-item">{prof.registro_profissional}</div>}
+              </div>
+
+              <div className="prof-actions">
+                <button 
+                  className="btn-ver-servicos"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setExpandido(expandido === prof.id ? null : prof.id);
+                  }}
+                >
+                  {expandido === prof.id ? 'Fechar Serviços' : 'Ver Serviços e Preços'}
+                </button>
+                <Link to="/agendar" className="btn-agendar-direct" onClick={(e) => e.stopPropagation()}>
+                  Agendar Agora
+                </Link>
               </div>
             </div>
 
