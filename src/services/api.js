@@ -35,6 +35,9 @@ api.interceptors.response.use(
 export const login = (email, senha) =>
   api.post('/login', { email, senha });
 
+export const loginGoogle = (googleToken) =>
+  api.post('/login-google', { token: googleToken });
+
 export const registro = (dados) =>
   api.post('/registro', dados);
 

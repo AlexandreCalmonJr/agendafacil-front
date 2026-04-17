@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
@@ -117,11 +118,15 @@ function AppLayout() {
 }
 
 export default function App() {
+  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || 'SEU_CLIENT_ID_AQUI.apps.googleusercontent.com';
+
   return (
-    <Router>
-      <AuthProvider>
-        <AppLayout />
-      </AuthProvider>
-    </Router>
+    <GoogleOAuthProvider clientId={googleClientId}>
+      <Router>
+        <AuthProvider>
+          <AppLayout />
+        </AuthProvider>
+      </Router>
+    </GoogleOAuthProvider>
   );
 }

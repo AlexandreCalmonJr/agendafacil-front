@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { login, registro } from '../services/api';
+import { login, registro, loginGoogle } from '../services/api';
+import { GoogleLogin } from '@react-oauth/google';
 import '../styles/Login.css';
 
 export default function Login() {
@@ -72,6 +73,44 @@ export default function Login() {
     }
   };
 
+  const handleGooglePacienteSuccess = async (credentialResponse) => {
+    setPacienteLoading(true);
+    setPacienteErro('');
+
+    try {
+      const res = await loginGoogle(credentialResponse.credential);
+      loginContext(res.data.usuario, res.data.token);
+      redirecionarPorPerfil(res.data.usuario);
+    } catch (err) {
+      setPacienteErro(err.response?.data?.erro || 'Erro ao fazer login com Google. Tente novamente.');
+    } finally {
+      setPacienteLoading(false);
+    }
+  };
+
+  const handleGoogleProfissionalSuccess = async (credentialResponse) => {
+    setProfissionalLoading(true);
+    setProfissionalErro('');
+
+    try {
+      const res = await loginGoogle(credentialResponse.credential);
+      loginContext(res.data.usuario, res.data.token);
+      redirecionarPorPerfil(res.data.usuario);
+    } catch (err) {
+      setProfissionalErro(err.response?.data?.erro || 'Erro ao fazer login com Google. Tente novamente.');
+    } finally {
+      setProfissionalLoading(false);
+    }
+  };
+
+  const handleGoogleError = (isUsuario = true) => {
+    if (isUsuario) {
+      setPacienteErro('Erro ao fazer login com Google. Tente novamente.');
+    } else {
+      setProfissionalErro('Erro ao fazer login com Google. Tente novamente.');
+    }
+  };
+
   return (
     <div className="login-page">
       <div className="login-overlay"></div>
@@ -120,6 +159,19 @@ export default function Login() {
           <button className="btn btn-outline login-toggle-button" onClick={() => { setIsPacienteLogin(!isPacienteLogin); setPacienteErro(''); }}>
             {isPacienteLogin ? '📝 Primeira vez? Cadastre-se' : '🔐 Já sou paciente e tenho conta'}
           </button>
+
+          <div style={{ margin: '1.5rem 0', textAlign: 'center', fontSize: '0.85rem', color: '#64748b' }}>
+            Ou continue com:
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <GoogleLogin
+              onSuccess={handleGooglePacienteSuccess}
+              onError={() => handleGoogleError(true)}
+              theme="dark"
+              size="large"
+            />
+          </div>
         </div>
 
         {/* CARD DO PROFISSIONAL */}
@@ -147,6 +199,19 @@ export default function Login() {
               {profissionalLoading ? '⏳ Autenticando...' : '🔐 Acessar Sistema'}
             </button>
           </form>
+
+          <div style={{ margin: '1.5rem 0', textAlign: 'center', fontSize: '0.85rem', color: '#64748b' }}>
+            Ou continue com:
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <GoogleLogin
+              onSuccess={handleGoogleProfissionalSuccess}
+              onError={() => handleGoogleError(false)}
+              theme="dark"
+              size="large"
+            />
+          </div>
 
           <div style={{ marginTop: '2.5rem', textAlign: 'center', borderTop: '1px solid rgba(139, 92, 246, 0.1)', paddingTop: '1.5rem' }}>
             <p style={{ color: '#64748b', fontSize: '0.8rem' }}>Conta teste: ana.silva@clinica.com / 123456</p>
