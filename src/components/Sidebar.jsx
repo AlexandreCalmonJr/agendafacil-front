@@ -1,5 +1,18 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { 
+  Home, 
+  Calendar, 
+  Stethoscope, 
+  Users, 
+  LayoutDashboard, 
+  Globe, 
+  List, 
+  UserSquare2, 
+  LogOut,
+  Activity
+} from 'lucide-react';
+import logoImg from '../assets/image/logo.jpg';
 import '../styles/Sidebar.css';
 
 export default function Sidebar() {
@@ -22,11 +35,11 @@ export default function Sidebar() {
   if (!usuario) return null;
 
   return (
-    <aside className="sidebar">
-      <div className="sidebar-header">
-        <Link to="/" className="sidebar-logo">
-          <div className="logo-icon">⚕️</div>
-          <span>Clínica Vita</span>
+    <aside className="sidebar-premium">
+      <div className="sidebar-header-premium">
+        <Link to="/" className="sidebar-logo-premium">
+          <img src={logoImg} alt="Clínica Vita" className="logo-main" />
+          <span className="logo-text">Clínica Vita</span>
         </Link>
       </div>
 
@@ -38,23 +51,23 @@ export default function Sidebar() {
           {usuario?.perfil === 'cliente' && (
             <>
               <li>
-                <Link to="/dashboard" className={`nav-link ${isActive('/dashboard')}`}>
-                  <span className="nav-icon">🏠</span> Início
+                <Link to="/dashboard" className={`nav-link-premium ${isActive('/dashboard')}`}>
+                  <Home size={18} /> <span>Início</span>
                 </Link>
               </li>
               <li>
-                <Link to="/agenda" className={`nav-link ${isActive('/agenda')}`}>
-                  <span className="nav-icon">📋</span> Minhas Consultas
+                <Link to="/agenda" className={`nav-link-premium ${isActive('/agenda')}`}>
+                  <List size={18} /> <span>Minhas Consultas</span>
                 </Link>
               </li>
               <li>
-                <Link to="/agendar" className={`nav-link ${isActive('/agendar')}`}>
-                  <span className="nav-icon">📅</span> Agendar
+                <Link to="/agendar" className={`nav-link-premium ${isActive('/agendar')}`}>
+                  <Calendar size={18} /> <span>Agendar</span>
                 </Link>
               </li>
               <li>
-                <Link to="/profissionais" className={`nav-link ${isActive('/profissionais')}`}>
-                  <span className="nav-icon">👥</span> Corpo Clínico
+                <Link to="/profissionais" className={`nav-link-premium ${isActive('/profissionais')}`}>
+                  <Users size={18} /> <span>Corpo Clínico</span>
                 </Link>
               </li>
             </>
@@ -64,18 +77,18 @@ export default function Sidebar() {
           {usuario?.perfil === 'profissional' && (
             <>
               <li>
-                <Link to="/dashboard-profissional" className={`nav-link ${isActive('/dashboard-profissional')}`}>
-                  <span className="nav-icon">🏠</span> Início
+                <Link to="/dashboard-profissional" className={`nav-link-premium ${isActive('/dashboard-profissional')}`}>
+                  <Home size={18} /> <span>Início</span>
                 </Link>
               </li>
               <li>
-                <Link to="/atendimento" className={`nav-link ${isActive('/atendimento') || location.pathname.startsWith('/atendimento') ? 'active' : ''}`}>
-                  <span className="nav-icon">💡</span> Painel de Atendimento
+                <Link to="/atendimento" className={`nav-link-premium ${isActive('/atendimento') || location.pathname.startsWith('/atendimento') ? 'active' : ''}`}>
+                  <Activity size={18} /> <span>Atendimento</span>
                 </Link>
               </li>
               <li>
-                <Link to="/agenda" className={`nav-link ${isActive('/agenda')}`}>
-                  <span className="nav-icon">📅</span> Agenda da Semana
+                <Link to="/agenda" className={`nav-link-premium ${isActive('/agenda')}`}>
+                  <Calendar size={18} /> <span>Agenda Semanal</span>
                 </Link>
               </li>
             </>
@@ -85,28 +98,23 @@ export default function Sidebar() {
           {(usuario?.perfil === 'admin' || usuario?.perfil === 'recepcionista') && (
             <>
               <li>
-                <Link to="/dashboard-staff" className={`nav-link ${isActive('/dashboard-staff')}`}>
-                  <span className="nav-icon">🏢</span> VitalStaff Hub
+                <Link to="/dashboard-staff" className={`nav-link-premium ${isActive('/dashboard-staff')}`}>
+                  <LayoutDashboard size={18} /> <span>Hub Operacional</span>
                 </Link>
               </li>
               <li>
-                <Link to="/gestao-global" className={`nav-link ${isActive('/gestao-global')}`}>
-                  <span className="nav-icon">🌐</span> Agenda Global
+                <Link to="/gestao-global" className={`nav-link-premium ${isActive('/gestao-global')}`}>
+                  <Globe size={18} /> <span>Agenda Global</span>
                 </Link>
               </li>
               <li>
-                <Link to="/agenda" className={`nav-link ${isActive('/agenda')}`}>
-                  <span className="nav-icon">📋</span> Listagem Simples
+                <Link to="/clientes" className={`nav-link-premium ${isActive('/clientes')}`}>
+                  <UserSquare2 size={18} /> <span>Pacientes</span>
                 </Link>
               </li>
               <li>
-                <Link to="/clientes" className={`nav-link ${isActive('/clientes')}`}>
-                  <span className="nav-icon">👤</span> Pacientes
-                </Link>
-              </li>
-              <li>
-                <Link to="/profissionais" className={`nav-link ${isActive('/profissionais')}`}>
-                  <span className="nav-icon">👥</span> Corpo Clínico
+                <Link to="/profissionais" className={`nav-link-premium ${isActive('/profissionais')}`}>
+                  <Users size={18} /> <span>Profissionais</span>
                 </Link>
               </li>
             </>
@@ -114,16 +122,16 @@ export default function Sidebar() {
         </ul>
       </div>
 
-      <div className="sidebar-footer">
-        <div className="user-profile">
-          <div className="user-avatar">{getInitials(usuario.nome)}</div>
-          <div className="user-info">
-            <div className="user-name">{usuario.nome}</div>
-            <div className="user-role">{usuario.perfil}</div>
+      <div className="sidebar-footer-premium">
+        <div className="user-profile-premium">
+          <div className="user-avatar-premium">{getInitials(usuario.nome)}</div>
+          <div className="user-details-premium">
+            <span className="user-name-text">{usuario.nome}</span>
+            <span className="user-perfil-tag">{usuario.perfil}</span>
           </div>
         </div>
-        <button className="btn btn-outline btn-logout" onClick={handleLogout}>
-          <span className="logout-icon">🚪</span> Sair do Sistema
+        <button className="btn-logout-premium" onClick={handleLogout}>
+          <LogOut size={16} /> <span>Sair do Sistema</span>
         </button>
       </div>
     </aside>

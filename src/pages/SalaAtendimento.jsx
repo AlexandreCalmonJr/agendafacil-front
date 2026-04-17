@@ -11,7 +11,12 @@ import {
   Stethoscope, 
   Eye, 
   CheckCircle,
-  FileSearch
+  FileSearch,
+  User,
+  Activity,
+  ClipboardList,
+  Save,
+  CheckCircle2
 } from 'lucide-react';
 import '../styles/SalaAtendimento.css';
 
@@ -108,62 +113,65 @@ export default function SalaAtendimento() {
   const dataAgendamento = new Date(agendamento.data_hora);
 
   return (
-    <div className="animate-fade-in sala-atendimento">
-      <div className="atendimento-layout">
+    <div className="sala-atendimento-premium fade-in">
+      <div className="atendimento-workspace-layout">
         
-        {/* SIDEBAR PACIENTE (ELITE DESIGN) */}
-        <aside className="paciente-sidebar glass-card">
-          <div className="paciente-avatar">
-            <div className="avatar-circle">
+        {/* SIDEBAR PACIENTE PREMIUM */}
+        <aside className="paciente-command-sidebar">
+          <div className="paciente-profile-header">
+            <div className="avatar-med-premium">
               {agendamento.cliente_nome.charAt(0)}
             </div>
-            <h3>{agendamento.cliente_nome}</h3>
-            <span className="badge-online">● Em Atendimento</span>
+            <div className="status-indicator">
+              <div className="pulse-dot"></div>
+              <span>Atendimento em Curso</span>
+            </div>
+            <h2>{agendamento.cliente_nome}</h2>
           </div>
 
-          <div className="info-list">
-            <div className="info-item">
+          <div className="paciente-info-grid">
+            <div className="info-block">
               <label>Protocolo</label>
-              <span>#{id.toString().padStart(5, '0')}</span>
+              <strong>#{id.toString().padStart(5, '0')}</strong>
             </div>
-            <div className="info-item">
+            <div className="info-block">
               <label>Especialidade</label>
-              <div className="tag">{agendamento.servico_nome}</div>
+              <strong>{agendamento.servico_nome}</strong>
             </div>
-            <div className="info-item">
-              <label>Sala Atual</label>
-              <span>{agendamento.sala || 'Consultório 01'}</span>
+            <div className="info-block">
+              <label>Data/Hora</label>
+              <strong>{new Date(agendamento.data_hora).toLocaleDateString()} - {new Date(agendamento.data_hora).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</strong>
             </div>
           </div>
 
-          <div className="actions-stack">
-            <button className="btn btn-primary btn-concluir" onClick={handleConcluir} disabled={saving}>
-              <CheckCircle size={20} /> Concluir Consulta
+          <div className="atendimento-actions-primary">
+            <button className="btn-finish-premium" onClick={handleConcluir} disabled={saving}>
+              <CheckCircle2 size={18} /> Finalizar Consulta
             </button>
-            <button className="btn btn-secondary" onClick={() => navigate('/atendimento')}>
-              Pausar Sessão
+            <button className="btn-pause-premium" onClick={() => navigate('/atendimento')}>
+              Pausar Atendimento
             </button>
           </div>
         </aside>
 
-        {/* WORKSPACE PRINCIPAL */}
-        <main className="atendimento-main">
-          <nav className="tabs-nav glass">
-            <button className={activeTab === 'evolucao' ? 'active' : ''} onClick={() => setActiveTab('evolucao')}>
-              <Stethoscope size={18} /> Evolução
+        {/* WORKSPACE DE COMANDO */}
+        <main className="atendimento-command-center">
+          <nav className="command-tabs">
+            <button className={`tab-btn ${activeTab === 'evolucao' ? 'active' : ''}`} onClick={() => setActiveTab('evolucao')}>
+              <Stethoscope size={16} /> <span>Evolução Clínica</span>
             </button>
-            <button className={activeTab === 'receita' ? 'active' : ''} onClick={() => setActiveTab('receita')}>
-              <FileText size={18} /> Receituário
+            <button className={`tab-btn ${activeTab === 'receita' ? 'active' : ''}`} onClick={() => setActiveTab('receita')}>
+              <ClipboardList size={16} /> <span>Receituário</span>
             </button>
-            <button className={activeTab === 'exames' ? 'active' : ''} onClick={() => setActiveTab('exames')}>
-              <Download size={18} /> Exames
+            <button className={`tab-btn ${activeTab === 'exames' ? 'active' : ''}`} onClick={() => setActiveTab('exames')}>
+              <FileText size={16} /> <span>Solicitar Exames</span>
             </button>
-            <button className={activeTab === 'historico' ? 'active' : ''} onClick={() => setActiveTab('historico')}>
-              <HistoryIcon size={18} /> Prontuário 360º
+            <button className={`tab-btn ${activeTab === 'historico' ? 'active' : ''}`} onClick={() => setActiveTab('historico')}>
+              <HistoryIcon size={16} /> <span>Histórico do Paciente</span>
             </button>
           </nav>
 
-          <div className="workspace-content glass-card">
+          <div className="command-workspace-shell">
             {activeTab === 'evolucao' && (
               <div className="editor-container fade-in">
                 <div className="editor-header">
@@ -253,10 +261,13 @@ export default function SalaAtendimento() {
               </div>
             )}
 
-            <footer className="workspace-footer">
-              <span className="status-msg">{mensagem}</span>
-              <button className="btn btn-primary" onClick={handleSalvar} disabled={saving}>
-                <Download size={18} /> Salvar Rascunho
+            <footer className="command-footer">
+              <div className="save-status">
+                {saving ? <div className="spinner-mini"></div> : <CheckCircle2 size={14} color="var(--primary-500)" />}
+                <span>{mensagem || (saving ? 'Sincronizando...' : 'Alterações salvas localmente')}</span>
+              </div>
+              <button className="btn-save-premium" onClick={handleSalvar} disabled={saving}>
+                <Save size={18} /> Salvar Alterações
               </button>
             </footer>
           </div>

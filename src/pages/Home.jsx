@@ -142,7 +142,7 @@ const Home = () => {
           <h2>Por que a Clínica Vita?</h2>
           <p>O ecossistema Portal VitaHub foi desenhado para sua conveniência.</p>
         </div>
-        <div className="features-bento">
+        <div className="features-grid">
           <div className="feature-card highlight">
             <Calendar />
             <h3>Agendamento Inteligente</h3>

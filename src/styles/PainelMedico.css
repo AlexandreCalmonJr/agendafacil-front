@@ -1,168 +1,273 @@
-/* PainelMedico.jsx Styles */
+/* Painel Médico - Premium Redesign */
 
-.painel-medico-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2rem;
-  align-items: start;
+.painel-medico-container {
+  padding: 40px;
+  max-width: 1300px;
+  margin: 0 auto;
+  min-height: 100vh;
 }
 
-/* Fila Section */
-.painel-fila-title {
-  color: white;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid var(--glass-border);
-  padding-bottom: 0.5rem;
+/* Header Premium */
+.dashboard-header-premium {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  background: white;
+  padding: 30px;
+  border-radius: 32px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
 }
 
-.painel-fila-grid {
-  display: grid;
-  gap: 1rem;
-}
-
-/* Agendamento Card in Queue */
-.painel-agendamento-card {
+.header-identity {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 24px;
 }
 
-.painel-agendamento-info {
-  flex: 1;
+.medico-avatar-wrapper {
+  position: relative;
+  width: 85px;
+  height: 85px;
 }
 
-.painel-agendamento-hora {
-  color: var(--primary-300);
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 0.25rem;
+.medico-photo-real {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+  border: 2px solid white;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-.painel-agendamento-nome {
-  color: white;
+.online-pulse {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 20px;
+  height: 20px;
+  background: #22c55e;
+  border-radius: 50%;
+  border: 3px solid white;
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.header-identity h1 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #1a202c;
+  margin-bottom: 4px;
+  letter-spacing: -1px;
+}
+
+.header-identity p {
+  color: var(--primary-600);
+  font-weight: 700;
   font-size: 1.1rem;
+}
+
+.header-date {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f8fafc;
+  padding: 12px 24px;
+  border-radius: 100px;
+  color: #475569;
+  font-weight: 600;
+}
+
+/* Layout Grid */
+.dashboard-layout-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+}
+
+/* Section Titles */
+.section-title-premium {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.title-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #1a202c;
+}
+
+.section-title-premium h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.count-badge {
+  background: #f1f5f9;
+  color: #64748b;
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* Fila de Atendimento Cards */
+.grid-cards-fila {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.atendimento-card {
+  background: white;
+  padding: 24px;
+  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.atendimento-card:hover {
+  transform: translateX(8px);
+  border-color: var(--primary-200);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+}
+
+.atendimento-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+}
+
+.atendimento-card.em_atendimento::before { background: var(--primary-500); }
+.atendimento-card.em_espera::before { background: #f59e0b; }
+.atendimento-card.confirmado::before { background: #3b82f6; }
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.time-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1a202c;
+}
+
+.paciente-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.user-icon {
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 12px;
+  color: #64748b;
+}
+
+.paciente-nome-text {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 2px;
+}
+
+.servico-nome-text {
+  color: #64748b;
   font-weight: 500;
 }
 
-.painel-agendamento-servico {
-  color: var(--dark-400);
-  font-size: 0.85rem;
-  margin-top: 0.25rem;
-}
-
-.painel-agendamento-status {
-  margin-top: 0.5rem;
-}
-
-.painel-agendamento-border-em-espera {
-  border-left: 4px solid var(--warning);
-}
-
-.painel-agendamento-border-atendimento {
-  border-left: 4px solid var(--primary-500);
-}
-
-.painel-agendamento-border-default {
-  border-left: 4px solid transparent;
-}
-
-.painel-agendamento-actions {
+/* Actions */
+.card-actions-premium {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid #f1f5f9;
 }
 
-/* Historic Section */
-.painel-historico-card {
-  padding: 1.5rem;
-  border-radius: 20px;
-}
-
-.painel-historico-title {
-  color: var(--dark-300);
-  margin-bottom: 1rem;
-  font-size: 1rem;
-}
-
-.painel-historico-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.painel-historico-empty {
-  color: var(--dark-500);
-  font-size: 0.85rem;
-}
-
-.painel-historico-item {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--glass-border);
-}
-
-.painel-historico-item-info {
+.btn-card-action {
   flex: 1;
-}
-
-.painel-historico-item-nome {
-  color: white;
-  font-size: 0.9rem;
-}
-
-.painel-historico-item-servico {
-  color: var(--dark-500);
-  font-size: 0.75rem;
-}
-
-.painel-historico-item-badge {
   display: flex;
   align-items: center;
-}
-
-/* Empty State */
-.painel-empty-state {
-  text-align: center;
-  padding: 3rem 2rem;
-  background: rgba(139, 92, 246, 0.05);
-  border-radius: 18px;
-  border: 1px solid rgba(139, 92, 246, 0.2);
-}
-
-.painel-empty-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.painel-empty-title {
-  color: white;
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-}
-
-.painel-empty-text {
-  color: var(--dark-400);
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 700;
   font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .painel-medico-grid {
-    grid-template-columns: 1fr;
-  }
+.btn-card-action.primary {
+  background: var(--primary-600);
+  color: white;
+}
 
-  .painel-agendamento-card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.btn-card-action.check { background: #ebf5ff; color: #3b82f6; }
+.btn-card-action.wait { background: #fffbeb; color: #d97706; }
 
-  .painel-agendamento-actions {
-    width: 100%;
-    margin-top: 1rem;
-  }
+/* Sidebar Historico */
+.historico-sidebar {
+  background: #f8fafc;
+  border-radius: 32px;
+  padding: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
 
-  .painel-agendamento-actions .btn {
-    width: 100%;
-  }
+.historico-item-modern {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 16px;
+  border-radius: 16px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.hist-info strong { display: block; color: #1a202c; margin-bottom: 2px; }
+.hist-info span { font-size: 0.8rem; color: #64748b; }
+.success-icon { color: #22c55e; }
+
+/* Empty States */
+.empty-state-modern {
+  text-align: center;
+  padding: 60px 40px;
+  background: white;
+  border-radius: 32px;
+  border: 2px dashed #e2e8f0;
+}
+
+.empty-icon { color: #cbd5e1; margin-bottom: 20px; }
+
+@media (max-width: 1024px) {
+  .dashboard-layout-grid { grid-template-columns: 1fr; }
+  .painel-medico-container { padding: 20px; }
 }

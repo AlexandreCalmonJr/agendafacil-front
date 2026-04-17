@@ -318,7 +318,7 @@
 @media (max-width: 768px) {
   .hero-content h1 { font-size: 2.8rem; }
   .carousel-track { gap: 1rem; }
-  .feature-card { width: 280px; padding: 2rem 1.5rem; }
+  .feature-card { padding: 2rem 1.5rem; }
   .trust-content { grid-template-columns: 1fr; }
   .hero-stats { flex-direction: column; gap: 2rem; width: 100%; }
   .stat-divider { display: none; }
@@ -360,13 +360,13 @@
   line-height: 1.4;
 }
 
-/* Features Bento Grid */
-.features-bento {
+/* Features Bento Grid - Home Specific */
+.features-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 280px;
-  gap: 20px;
-  margin-top: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  margin-top: 3rem;
+  width: 100%;
 }
 
 .feature-card {
@@ -445,8 +445,8 @@
 
 /* Home Section Layout */
 .home-section {
-  padding: 80px 40px;
-  max-width: 1280px;
+  padding: 60px 40px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -474,9 +474,9 @@
 /* Specialties Preview */
 .specialties-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
-  margin-top: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
 }
 
 .mini-specialty-card {

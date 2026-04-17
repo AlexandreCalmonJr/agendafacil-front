@@ -1,147 +1,298 @@
-/* DashboardPaciente.jsx Styles */
+/* Dashboard Paciente - Premium UI */
 
-.paciente-dashboard-header {
-  margin-bottom: 2.5rem;
+.paciente-portal-container {
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.paciente-saudacao {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
+/* Header Premium */
+.paciente-header-premium {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  padding: 0 10px;
 }
 
-.paciente-nome {
-  color: var(--primary-400);
+.welcome-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #dcfce7;
+  color: #166534;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  margin-bottom: 12px;
 }
 
-.paciente-subtitulo {
-  color: var(--dark-400);
+.greeting-box h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #1a202c;
+  letter-spacing: -1.5px;
+  margin-bottom: 8px;
 }
 
-/* Grid Layout */
-.paciente-dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+.paciente-name-highlight {
+  color: var(--primary-600);
 }
 
-.paciente-sidebar-col {
+.greeting-box p {
+  color: #64748b;
+  font-size: 1.1rem;
+}
+
+.header-stats-paciente {
+  background: white;
+  padding: 15px 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.stat-unit {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  align-items: center;
 }
 
-/* Proxima Consulta Card */
-.proxima-consulta-card {
-  background: rgba(139, 92, 246, 0.05);
-  border: 1px solid rgba(139, 92, 246, 0.2);
+.stat-val { font-size: 1.5rem; font-weight: 900; color: #1a202c; }
+.stat-lab { font-size: 0.75rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; }
+
+/* Main Layout */
+.paciente-main-layout {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 40px;
 }
 
-.proxima-consulta-title {
-  font-size: 1.25rem;
-  margin-bottom: 1.5rem;
+/* Appointment Card */
+.next-appointment-card {
+  background: white;
+  padding: 30px;
+  border-radius: 32px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+  margin-bottom: 30px;
+}
+
+.card-badge-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 10px;
+  color: var(--primary-600);
+  font-weight: 800;
+  font-size: 0.9rem;
+  margin-bottom: 24px;
 }
 
-.proxima-consulta-numero {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.proxima-consulta-label {
-  color: var(--primary-200);
-  margin-bottom: 1rem;
-}
-
-.proxima-consulta-details {
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: var(--radius-md);
-  margin-bottom: 1.5rem;
-}
-
-.proxima-consulta-servico {
-  font-weight: 600;
-}
-
-.proxima-consulta-doctor {
-  font-size: 0.85rem;
-  color: var(--dark-400);
-}
-
-.proxima-consulta-button {
-  width: 100%;
-}
-
-.proxima-consulta-empty {
+.appointment-details-premium {
   text-align: center;
-  padding: 1.5rem;
 }
 
-.proxima-consulta-empty-text {
-  color: var(--dark-400);
-  margin-bottom: 1.5rem;
+.date-display {
+  margin-bottom: 24px;
 }
 
-/* Action Cards Grid */
-.action-cards-grid {
+.big-time {
+  display: block;
+  font-size: 3rem;
+  font-weight: 900;
+  color: #1a202c;
+  letter-spacing: -2px;
+  line-height: 1;
+}
+
+.full-date {
+  color: #64748b;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.professional-mini-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.prof-thumb-pac {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.prof-meta strong { display: block; font-size: 0.9rem; color: #1a202c; }
+.prof-meta span { font-size: 0.75rem; color: #64748b; }
+
+.btn-appointment-details {
+  width: 100%;
+  padding: 14px;
+  background: #1a202c;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-appointment-details:hover { opacity: 0.9; transform: translateY(-2px); }
+
+/* Shortcuts */
+.shortcuts-grid-paciente {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
 }
 
-.action-card {
+.shortcut-card {
+  background: white;
+  padding: 20px;
+  border-radius: 24px;
   text-decoration: none;
-  color: inherit;
-  transition: all 0.3s;
-  padding: 1.5rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.shortcut-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); border-color: var(--primary-300); }
+
+.shortcut-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 18px;
-  background: rgba(139, 92, 246, 0.05);
-  border: 1px solid rgba(139, 92, 246, 0.2);
 }
 
-.action-card:hover {
-  background: rgba(139, 92, 246, 0.1);
-  border-color: #8b5cf6;
-  transform: translateY(-4px);
+.shortcut-icon.green { background: #dcfce7; color: #16a34a; }
+.shortcut-icon.blue { background: #e0f2fe; color: #0284c7; }
+
+.shortcut-card span { font-weight: 700; color: #1a202c; font-size: 0.85rem; }
+
+/* History Column */
+.history-card-premium {
+  background: white;
+  padding: 35px;
+  border-radius: 32px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  min-height: 500px;
 }
 
-.action-card-icon {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
+.history-header h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #1a202c;
+  margin-bottom: 35px;
 }
 
-.action-card-title {
-  font-weight: 600;
-  color: white;
+/* Timeline */
+.timeline-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 24px;
+}
+
+.timeline-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 12px;
+}
+
+.marker-dot {
+  width: 12px;
+  height: 12px;
+  background: var(--primary-500);
+  border-radius: 50%;
+  border: 3px solid #dcf6e7;
+  flex-shrink: 0;
+}
+
+.marker-line {
+  width: 2px;
+  flex-grow: 1;
+  background: #f1f5f9;
+}
+
+.timeline-content-box {
+  flex-grow: 1;
+  padding-bottom: 40px;
+}
+
+.item-header-pac {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.item-date { font-weight: 800; color: #1a202c; font-size: 0.95rem; }
+.item-service-tag { background: #f8fafc; color: #64748b; padding: 4px 12px; border-radius: 100px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+
+.item-professional-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.micro-prof-thumb { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+.prof-row-info strong { font-size: 0.9rem; color: #475569; }
+
+.item-actions-pac {
+  display: flex;
+  gap: 8px;
+}
+
+.pac-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pac-action-btn:hover { background: #f8fafc; border-color: var(--primary-400); color: var(--primary-700); }
+
+/* Empty State */
+.empty-history-state {
   text-align: center;
+  padding: 80px 0;
+  color: #94a3b8;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .paciente-saudacao {
-    font-size: 1.5rem;
-  }
+.empty-icon-pac { margin-bottom: 20px; opacity: 0.3; }
 
-  .paciente-dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .paciente-sidebar-col {
-    gap: 1.5rem;
-  }
-
-  .action-cards-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .proxima-consulta-title {
-    font-size: 1.1rem;
-  }
+@media (max-width: 1024px) {
+  .paciente-main-layout { grid-template-columns: 1fr; }
+  .paciente-header-premium { flex-direction: column; align-items: flex-start; gap: 20px; }
 }

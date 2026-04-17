@@ -2,12 +2,28 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { listarAgendamentos, atualizarAgendamento } from '../services/api';
 import Loading from '../components/Loading';
+import { Calendar, Clock, User, CheckCircle, Play, FileText, Coffee, AlertCircle } from 'lucide-react';
 import '../styles/PainelMedico.css';
 
 export default function PainelMedico() {
   const [agendamentos, setAgendamentos] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  const usuarioStr = localStorage.getItem('usuario');
+  const medico = usuarioStr ? JSON.parse(usuarioStr) : { nome: 'Doutor' };
+
+  const getProfImage = (nome) => {
+    const map = {
+      'Dr. Carlos Eduardo': 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop',
+      'Dra. Ana Beatrix': 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=400&fit=crop',
+      'Dr. Ricardo Santos': 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop',
+      'Dra. Mariana Luz': 'https://images.unsplash.com/photo-1559839734-2b71f1e3c770?w=400&h=400&fit=crop',
+      'Dr. Henrique Silva': 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=400&fit=crop',
+      'Dra. Letícia Costa': 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=400&h=400&fit=crop'
+    };
+    return map[nome] || `https://ui-avatars.com/api/?name=${encodeURIComponent(nome)}&background=15803d&color=fff`;
+  };
 
   useEffect(() => {
     carregarFila();
@@ -60,70 +76,78 @@ export default function PainelMedico() {
   if (loading) return <Loading text="Carregando fila de hoje..." />;
 
   return (
-    <div className="animate-fade-in">
-      <div className="page-header" style={{ marginBottom: '2rem' }}>
-        <h1>📋 Painel de Atendimento</h1>
-        <p>Gerencie sua fila de pacientes de hoje</p>
+    <div className="painel-medico-container animate-fade-in">
+      <div className="dashboard-header-premium">
+        <div className="header-identity">
+          <div className="medico-avatar-wrapper">
+            <img src={getProfImage(medico.nome)} alt={medico.nome} className="medico-photo-real" />
+            <div className="online-pulse"></div>
+          </div>
+          <div>
+            <h1>Painel de Atendimento</h1>
+            <p>Dr(a). {medico.nome} • {medico.especialidade || 'Especialista'}</p>
+          </div>
+        </div>
+        <div className="header-date">
+          <Calendar size={18} />
+          <span>{new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' })}</span>
+        </div>
       </div>
 
-      <div className="grid" style={{ gridTemplateColumns: '2fr 1fr', gap: '2rem', alignItems: 'start' }}>
-        
+      <div className="dashboard-layout-grid">
         {/* FILA DE ATIVOS */}
-        <div>
-          <h3 style={{ color: 'white', marginBottom: '1rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>
-            Fila de Hoje ({agendamentosAtivos.length})
-          </h3>
+        <div className="fila-section">
+          <div className="section-title-premium">
+            <div className="title-left">
+              <Clock size={20} />
+              <h3>Fila de Hoje</h3>
+            </div>
+            <span className="count-badge">{agendamentosAtivos.length} Pacientes</span>
+          </div>
           
           {agendamentosAtivos.length === 0 ? (
-            <div className="empty-state">
-              <div className="empty-icon">☕</div>
-              <h3>Nenhum paciente na fila no momento</h3>
-              <p>Sua agenda de hoje está livre de pendências.</p>
+            <div className="empty-state-modern">
+              <Coffee size={48} className="empty-icon" />
+              <h3>Fila Limpa</h3>
+              <p>Não há pacientes aguardando no momento.</p>
+              <button className="btn btn-secondary btn-sm" onClick={carregarFila}>Atualizar Fila</button>
             </div>
           ) : (
-            <div className="grid" style={{ gap: '1rem' }}>
+            <div className="grid-cards-fila">
               {agendamentosAtivos.map(a => (
-                <div key={a.id} className="glass-card" style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'space-between',
-                  borderLeft: a.status === 'em_espera' ? '4px solid var(--warning)' : 
-                              a.status === 'em_atendimento' ? '4px solid var(--primary-500)' : '4px solid transparent'
-                }}>
-                  <div>
-                    <div style={{ color: 'var(--primary-300)', fontWeight: 'bold', fontSize: '1.2rem', marginBottom: '0.25rem' }}>
-                      {new Date(a.data_hora).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
-                    </div>
-                    <div style={{ color: 'white', fontSize: '1.1rem', fontWeight: '500' }}>
-                      {a.cliente_nome}
-                    </div>
-                    <div style={{ color: 'var(--dark-400)', fontSize: '0.85rem', marginTop: '0.25rem' }}>
-                      Serviço: {a.servico_nome}
-                    </div>
-                    <div style={{ marginTop: '0.5rem' }}>
-                      {getStatusBadge(a.status)}
+                <div key={a.id} className={`atendimento-card ${a.status}`}>
+                  <div className="card-top">
+                    <span className="time-tag"><Clock size={14} /> {new Date(a.data_hora).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</span>
+                    {getStatusBadge(a.status)}
+                  </div>
+                  
+                  <div className="paciente-info">
+                    <User size={20} className="user-icon" />
+                    <div>
+                      <h4 className="paciente-nome-text">{a.cliente_nome}</h4>
+                      <span className="servico-nome-text">{a.servico_nome}</span>
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <div className="card-actions-premium">
                     {a.status === 'agendado' && (
-                      <button className="btn btn-sm btn-outline" onClick={() => mudarStatus(a.id, 'confirmado')}>
-                        Marcar Confirmado
+                      <button className="btn-card-action check" onClick={() => mudarStatus(a.id, 'confirmado')}>
+                        <CheckCircle size={16} /> Confirmar
                       </button>
                     )}
-                    {(a.status === 'agendado' || a.status === 'confirmado') && (
-                      <button className="btn btn-sm btn-secondary" onClick={() => mudarStatus(a.id, 'em_espera')} style={{ color: 'var(--warning)' }}>
-                        Paciente Chegou
+                    {(a.status === 'confirmado' || a.status === 'agendado') && (
+                      <button className="btn-card-action wait" onClick={() => mudarStatus(a.id, 'em_espera')}>
+                        <AlertCircle size={16} /> Chegou
                       </button>
                     )}
                     {(a.status === 'em_espera' || a.status === 'confirmado') && (
-                      <button className="btn btn-sm btn-primary" onClick={() => iniciarAtendimento(a.id)}>
-                        ▶️ Atender
+                      <button className="btn-card-action primary" onClick={() => iniciarAtendimento(a.id)}>
+                        <Play size={16} /> Atender
                       </button>
                     )}
                     {a.status === 'em_atendimento' && (
-                      <button className="btn btn-sm btn-primary" onClick={() => navigate(`/atendimento/${a.id}`)}>
-                        Abrir Prontuário
+                      <button className="btn-card-action primary highlight" onClick={() => navigate(`/atendimento/${a.id}`)}>
+                        <FileText size={16} /> Prontuário
                       </button>
                     )}
                   </div>
@@ -134,29 +158,28 @@ export default function PainelMedico() {
         </div>
 
         {/* HISTORICO/CONCLUIDOS DO DIA */}
-        <div className="glass-card">
-          <h3 style={{ color: 'var(--dark-300)', marginBottom: '1rem', fontSize: '1rem' }}>
-            Finalizados ({historico.length})
-          </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+        <div className="historico-sidebar">
+          <div className="section-title-premium compact">
+            <CheckCircle size={18} />
+            <h3>Finalizados</h3>
+          </div>
+          
+          <div className="historico-list-modern">
             {historico.length === 0 ? (
-              <p style={{ color: 'var(--dark-500)', fontSize: '0.85rem' }}>Nenhum atendimento finalizado ainda.</p>
+              <p className="empty-mini-text">Nenhum atendimento finalizado.</p>
             ) : (
               historico.map(a => (
-                <div key={a.id} style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '0.5rem', borderBottom: '1px solid var(--glass-border)' }}>
-                  <div>
-                    <div style={{ color: 'white', fontSize: '0.9rem' }}>{a.cliente_nome}</div>
-                    <div style={{ color: 'var(--dark-500)', fontSize: '0.75rem' }}>{a.servico_nome}</div>
+                <div key={a.id} className="historico-item-modern">
+                  <div className="hist-info">
+                    <strong>{a.cliente_nome}</strong>
+                    <span>{a.servico_nome}</span>
                   </div>
-                  <div>
-                    {getStatusBadge(a.status)}
-                  </div>
+                  <CheckCircle size={16} className="success-icon" />
                 </div>
               ))
             )}
           </div>
         </div>
-
       </div>
     </div>
   );

@@ -1,5 +1,18 @@
 import { useState, useEffect } from 'react';
 import { listarProfissionais, listarServicos, criarAgendamento } from '../services/api';
+import { 
+  Check, 
+  ChevronRight, 
+  ChevronLeft, 
+  Calendar, 
+  MapPin, 
+  Stethoscope, 
+  Clock, 
+  Video, 
+  Building2,
+  Sparkles,
+  Info
+} from 'lucide-react';
 import '../styles/FormAgendamento.css';
 
 export default function FormAgendamento({ onSuccess, onCancel }) {
@@ -128,6 +141,18 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
   const selectedProf = profissionais.find(p => p.id === parseInt(form.profissional_id));
   const selectedServico = servicos.find(s => s.id === parseInt(form.servico_id));
 
+  const getProfImage = (nome) => {
+    const map = {
+      'Dr. Carlos Eduardo': 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop',
+      'Dra. Ana Beatrix': 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=400&fit=crop',
+      'Dr. Ricardo Santos': 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop',
+      'Dra. Mariana Luz': 'https://images.unsplash.com/photo-1559839734-2b71f1e3c770?w=400&h=400&fit=crop',
+      'Dr. Henrique Silva': 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=400&fit=crop',
+      'Dra. Letícia Costa': 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=400&h=400&fit=crop'
+    };
+    return map[nome] || `https://ui-avatars.com/api/?name=${encodeURIComponent(nome)}&background=15803d&color=fff`;
+  };
+
   const horariosDisponiveis = [
     '08:00', '08:30', '09:00', '09:30', '10:00', '10:30',
     '11:00', '11:30', '13:00', '13:30', '14:00', '14:30',
@@ -151,42 +176,14 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
   return (
     <form onSubmit={handleSubmit}>
       {/* Step indicator */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginBottom: '2rem' }}>
+      <div className="wizard-steps-container">
         {steps.map((s) => (
-          <div key={s.num} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <div style={{
-              width: '32px',
-              height: '32px',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '0.8rem',
-              fontWeight: '700',
-              background: step >= s.num
-                ? 'linear-gradient(135deg, var(--primary-600), var(--violet-600))'
-                : 'var(--glass-bg)',
-              color: step >= s.num ? 'white' : 'var(--dark-500)',
-              border: `1px solid ${step >= s.num ? 'transparent' : 'var(--glass-border)'}`,
-              transition: 'all 0.3s'
-            }}>
-              {step > s.num ? '✓' : s.num}
+          <div key={s.num} className={`wizard-step-unit ${step >= s.num ? 'active' : ''}`}>
+            <div className="step-circle">
+              {step > s.num ? <Check size={16} /> : s.num}
             </div>
-            <span style={{
-              fontSize: '0.75rem',
-              color: step >= s.num ? 'var(--dark-200)' : 'var(--dark-500)',
-              display: window.innerWidth < 480 ? 'none' : 'inline'
-            }}>
-              {s.label}
-            </span>
-            {s.num < 4 && (
-              <div style={{
-                width: '30px',
-                height: '2px',
-                background: step > s.num ? 'var(--primary-500)' : 'var(--glass-border)',
-                transition: 'all 0.3s'
-              }}></div>
-            )}
+            <span className="step-label">{s.label}</span>
+            {s.num < 4 && <div className="step-line"></div>}
           </div>
         ))}
       </div>
@@ -194,14 +191,12 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
       {erro && <div className="alert alert-error">⚠️ {erro}</div>}
       {sucesso && <div className="alert alert-success">✅ {sucesso}</div>}
 
-      {/* Step 1: Profissional */}
       {step === 1 && (
-        <div className="animate-fade-in">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-            <h3 style={{ color: 'white', margin: 0 }}>Escolha o Profissional</h3>
+        <div className="wizard-content-step fade-in">
+          <div className="step-options-header">
+            <h3>Selecione o Profissional</h3>
             <select 
-              className="form-select" 
-              style={{ width: 'auto', minWidth: '180px' }}
+              className="premium-select-filter" 
               value={especialidadeFiltro}
               onChange={(e) => setEspecialidadeFiltro(e.target.value)}
             >
@@ -209,275 +204,209 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
               {especialidadesUnicas.map(e => <option key={e} value={e}>{e}</option>)}
             </select>
           </div>
-          <div className="grid" style={{ gap: '0.75rem' }}>
+          
+          <div className="professional-selection-grid">
             {profissionaisFiltrados.map(prof => (
-              <label
-                key={prof.id}
-                className="glass-card"
-                style={{
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1rem',
-                  padding: '1rem',
-                  border: form.profissional_id === String(prof.id)
-                    ? '1px solid var(--primary-500)'
-                    : '1px solid var(--glass-border)',
-                  background: form.profissional_id === String(prof.id)
-                    ? 'rgba(59, 130, 246, 0.1)'
-                    : 'var(--glass-bg)'
-                }}
-              >
+              <label key={prof.id} className={`prof-selection-card ${form.profissional_id === String(prof.id) ? 'selected' : ''}`}>
                 <input
                   type="radio"
                   name="profissional_id"
                   value={prof.id}
                   checked={form.profissional_id === String(prof.id)}
                   onChange={handleChange}
-                  style={{ display: 'none' }}
                 />
-                <div style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: 'var(--radius-lg)',
-                  background: 'linear-gradient(135deg, var(--primary-500), var(--violet-500))',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.25rem',
-                  flexShrink: 0
-                }}>🩺</div>
-                <div>
-                  <div style={{ fontWeight: '600', color: 'white' }}>{prof.nome}</div>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--dark-400)' }}>{prof.especialidade}</div>
+                <img src={getProfImage(prof.nome)} alt={prof.nome} className="prof-selection-img" />
+                <div className="prof-selection-info">
+                  <strong>{prof.nome}</strong>
+                  <span>{prof.especialidade}</span>
                 </div>
-                {form.profissional_id === String(prof.id) && (
-                  <span style={{ marginLeft: 'auto', color: 'var(--primary-400)', fontSize: '1.25rem' }}>✓</span>
-                )}
+                {form.profissional_id === String(prof.id) && <div className="selected-indicator"><Check size={14} /></div>}
               </label>
             ))}
           </div>
         </div>
       )}
 
-      {/* Step 2: Serviço */}
       {step === 2 && (
-        <div className="animate-fade-in">
-          <h3 style={{ color: 'white', marginBottom: '1rem' }}>
-            Escolha o Serviço
-            {selectedProf && <span style={{ color: 'var(--dark-400)', fontWeight: '400', fontSize: '0.9rem' }}> — {selectedProf.nome}</span>}
-          </h3>
-          <div className="grid" style={{ gap: '0.75rem' }}>
+        <div className="wizard-content-step fade-in">
+          <div className="step-options-header">
+            <h3>Escolha o Serviço</h3>
+            {selectedProf && <span className="selected-sub">com {selectedProf.nome}</span>}
+          </div>
+          
+          <div className="service-selection-grid">
             {servicos.map(serv => (
-              <label
-                key={serv.id}
-                className="glass-card"
-                style={{
-                  cursor: 'pointer',
-                  padding: '1rem',
-                  border: form.servico_id === String(serv.id)
-                    ? '1px solid var(--accent-500)'
-                    : '1px solid var(--glass-border)',
-                  background: form.servico_id === String(serv.id)
-                    ? 'rgba(6, 182, 212, 0.1)'
-                    : 'var(--glass-bg)'
-                }}
-              >
+              <label key={serv.id} className={`service-selection-card ${form.servico_id === String(serv.id) ? 'selected' : ''}`}>
                 <input
                   type="radio"
                   name="servico_id"
                   value={serv.id}
                   checked={form.servico_id === String(serv.id)}
                   onChange={handleChange}
-                  style={{ display: 'none' }}
                 />
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
-                  <div>
-                    <div style={{ fontWeight: '600', color: 'white' }}>{serv.nome}</div>
-                    {serv.descricao && (
-                      <div style={{ fontSize: '0.8rem', color: 'var(--dark-500)', marginTop: '0.25rem' }}>{serv.descricao}</div>
-                    )}
-                    <div style={{ fontSize: '0.8rem', color: 'var(--dark-400)', marginTop: '0.5rem' }}>
-                      ⏱ {serv.duracao_minutos} min
-                    </div>
+                <div className="service-main-row">
+                  <div className="service-meta">
+                    <strong>{serv.nome}</strong>
+                    <p>{serv.descricao || 'Consulta de rotina com especialista.'}</p>
+                    <div className="service-duration"><Clock size={12} /> {serv.duracao_minutos} minutos</div>
                   </div>
-                  <div style={{
-                    fontSize: '1.1rem',
-                    fontWeight: '700',
-                    color: 'var(--accent-400)',
-                    whiteSpace: 'nowrap'
-                  }}>
-                    R$ {Number(serv.preco).toFixed(2)}
-                  </div>
+                  <div className="service-price">R$ {Number(serv.preco).toFixed(2)}</div>
                 </div>
+                {form.servico_id === String(serv.id) && <div className="selected-indicator"><Check size={14} /></div>}
               </label>
             ))}
-            {servicos.length === 0 && (
-              <p style={{ color: 'var(--dark-500)', textAlign: 'center', padding: '1rem' }}>
-                Nenhum serviço disponível para este profissional.
-              </p>
-            )}
           </div>
         </div>
-      )}
-
-      {/* Step 3: Data e Hora */}
       {step === 3 && (
-        <div className="animate-fade-in">
-          <h3 style={{ color: 'white', marginBottom: '1.5rem' }}>Escolha Data, Horário e Modalidade</h3>
-          
-          <div className="form-group" style={{ marginBottom: '2rem' }}>
-            <label className="form-label">Tipo de Atendimento</label>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-              <button 
-                type="button" 
-                className={`btn ${form.modalidade === 'presencial' ? 'btn-primary' : 'btn-outline'}`}
-                onClick={() => setForm(prev => ({ ...prev, modalidade: 'presencial' }))}
-                style={{ display: 'flex', flexDirection: 'column', padding: '1rem', gap: '0.5rem' }}
-              >
-                <span style={{ fontSize: '1.5rem' }}>🏢</span>
-                <span style={{ fontWeight: '600' }}>Presencial</span>
-                <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>Na clínica física</span>
-              </button>
-              <button 
-                type="button" 
-                className={`btn ${form.modalidade === 'teleconsulta' ? 'btn-primary' : 'btn-outline'}`}
-                onClick={() => setForm(prev => ({ ...prev, modalidade: 'teleconsulta' }))}
-                style={{ display: 'flex', flexDirection: 'column', padding: '1rem', gap: '0.5rem' }}
-              >
-                <span style={{ fontSize: '1.5rem' }}>📹</span>
-                <span style={{ fontWeight: '600' }}>Teleconsulta</span>
-                <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>Por vídeo chamada</span>
-              </button>
-            </div>
+        <div className="wizard-content-step fade-in">
+          <div className="step-options-header">
+            <h3>Data e Horário</h3>
           </div>
 
-          <div className="form-group">
-            <label className="form-label">Data</label>
-            <input
-              type="date"
-              name="data"
-              value={form.data}
-              onChange={handleChange}
-              className="form-input"
-              min={new Date().toISOString().split('T')[0]}
-            />
+          <div className="modality-selector-premium">
+            <button 
+              type="button" 
+              className={`modality-btn ${form.modalidade === 'presencial' ? 'active' : ''}`}
+              onClick={() => setForm(prev => ({ ...prev, modalidade: 'presencial' }))}
+            >
+              <Building2 size={20} />
+              <div>
+                <strong>Presencial</strong>
+                <span>Na clínica física</span>
+              </div>
+            </button>
+            <button 
+              type="button" 
+              className={`modality-btn ${form.modalidade === 'teleconsulta' ? 'active' : ''}`}
+              onClick={() => setForm(prev => ({ ...prev, modalidade: 'teleconsulta' }))}
+            >
+              <Video size={20} />
+              <div>
+                <strong>Teleconsulta</strong>
+                <span>Vídeo chamada</span>
+              </div>
+            </button>
           </div>
-          <div className="form-group">
-            <label className="form-label">Horário</label>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))', gap: '0.5rem' }}>
-              {horariosDisponiveis.map(h => (
-                <button
-                  key={h}
-                  type="button"
-                  disabled={horariosOcupados.includes(h)}
-                  onClick={() => setForm(prev => ({ ...prev, hora: h }))}
-                  style={{
-                    padding: '0.5rem',
-                    borderRadius: 'var(--radius-md)',
-                    border: form.hora === h ? '1px solid var(--primary-500)' : '1px solid var(--glass-border)',
-                    background: form.hora === h ? 'rgba(59, 130, 246, 0.15)' : 'var(--glass-bg)',
-                    color: form.hora === h ? 'var(--primary-400)' : (horariosOcupados.includes(h) ? 'var(--dark-600)' : 'var(--dark-300)'),
-                    cursor: horariosOcupados.includes(h) ? 'not-allowed' : 'pointer',
-                    opacity: horariosOcupados.includes(h) ? 0.3 : 1,
-                    textDecoration: horariosOcupados.includes(h) ? 'line-through' : 'none',
-                    fontWeight: form.hora === h ? '600' : '400',
-                    fontSize: '0.85rem',
-                    fontFamily: 'var(--font-family)',
-                    transition: 'all 0.2s'
-                  }}
-                >
-                  {h}
-                </button>
-              ))}
+
+          <div className="scheduling-grid-premium">
+            <div className="date-picker-side">
+              <label>Selecione o Dia</label>
+              <input
+                type="date"
+                name="data"
+                value={form.data}
+                onChange={handleChange}
+                className="premium-date-input"
+                min={new Date().toISOString().split('T')[0]}
+              />
+            </div>
+            <div className="time-picker-side">
+              <label>Horários Livres</label>
+              <div className="premium-time-grid">
+                {horariosDisponiveis.map(h => (
+                  <button
+                    key={h}
+                    type="button"
+                    disabled={horariosOcupados.includes(h)}
+                    onClick={() => setForm(prev => ({ ...prev, hora: h }))}
+                    className={`time-chip ${form.hora === h ? 'selected' : ''} ${horariosOcupados.includes(h) ? 'occupied' : ''}`}
+                  >
+                    {h}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="form-group">
+          
+          <div className="form-group-premium">
             <label className="form-label">Observações (opcional)</label>
             <textarea
               name="observacoes"
               value={form.observacoes}
               onChange={handleChange}
-              className="form-textarea"
-              placeholder="Alguma informação adicional..."
+              className="premium-textarea"
+              placeholder="Alguma informação adicional para o médico..."
             />
           </div>
         </div>
       )}
 
-      {/* Step 4: Confirmação */}
+        </div>
+      )}
+
       {step === 4 && (
-        <div className="animate-fade-in">
-          <h3 style={{ color: 'white', marginBottom: '1.5rem' }}>Confirme seu Agendamento</h3>
-          <div className="glass-card" style={{ marginBottom: '1rem' }}>
-            <div style={{ display: 'grid', gap: '0.75rem' }}>
-              <div>
-                <span style={{ fontSize: '0.75rem', color: 'var(--dark-500)', textTransform: 'uppercase' }}>Profissional</span>
-                <div style={{ color: 'white', fontWeight: '600' }}>
-                  {selectedProf?.nome} — {selectedProf?.especialidade}
-                </div>
-              </div>
-              <div>
-                <span style={{ fontSize: '0.75rem', color: 'var(--dark-500)', textTransform: 'uppercase' }}>Serviço</span>
-                <div style={{ color: 'white', fontWeight: '600' }}>
-                  {selectedServico?.nome} ({selectedServico?.duracao_minutos} min)
-                </div>
-              </div>
-              <div>
-                <span style={{ fontSize: '0.75rem', color: 'var(--dark-500)', textTransform: 'uppercase' }}>Data e Hora</span>
-                <div style={{ color: 'white', fontWeight: '600' }}>
-                  {form.data && new Date(form.data + 'T00:00:00').toLocaleDateString('pt-BR', {
-                    weekday: 'long', day: '2-digit', month: 'long', year: 'numeric'
-                  })} às {form.hora}
-                </div>
-              </div>
-              <div style={{ display: 'flex', gap: '2rem' }}>
-                <div>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--dark-500)', textTransform: 'uppercase' }}>Modalidade</span>
-                  <div style={{ color: 'white', fontWeight: '600' }}>
-                    {form.modalidade === 'teleconsulta' ? '📹 Teleconsulta' : '🏢 Presencial'}
-                  </div>
-                </div>
-                <div>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--dark-500)', textTransform: 'uppercase' }}>Valor</span>
-                  <div style={{ color: 'var(--accent-400)', fontWeight: '700', fontSize: '1.25rem' }}>
-                    R$ {selectedServico ? Number(selectedServico.preco).toFixed(2) : '0.00'}
+        <div className="wizard-content-step fade-in">
+          <div className="step-options-header">
+            <h3>Confirmação Final</h3>
+          </div>
+
+          <div className="summary-ticket-premium">
+            <div className="ticket-header">
+              <Sparkles size={20} />
+              <span>Resumo do Agendamento</span>
+            </div>
+            
+            <div className="ticket-body">
+              <div className="ticket-row">
+                <div className="ticket-info-unit">
+                  <label>Especialista</label>
+                  <div className="val-box">
+                    <img src={getProfImage(selectedProf?.nome)} alt="" className="mini-prof" />
+                    <strong>{selectedProf?.nome}</strong>
                   </div>
                 </div>
               </div>
-              {form.observacoes && (
-                <div>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--dark-500)', textTransform: 'uppercase' }}>Observações</span>
-                  <div style={{ color: 'var(--dark-300)' }}>{form.observacoes}</div>
+              <div className="ticket-row split">
+                <div className="ticket-info-unit">
+                  <label>Serviço</label>
+                  <span>{selectedServico?.nome}</span>
                 </div>
-              )}
+                <div className="ticket-info-unit">
+                  <label>Modalidade</label>
+                  <span>{form.modalidade === 'teleconsulta' ? 'Vídeo Chamada' : 'Presencial'}</span>
+                </div>
+              </div>
+              <div className="ticket-row split">
+                <div className="ticket-info-unit">
+                  <label>Data</label>
+                  <span>{form.data ? new Date(form.data + 'T00:00:00').toLocaleDateString('pt-BR') : '--'}</span>
+                </div>
+                <div className="ticket-info-unit">
+                  <label>Horário</label>
+                  <span>{form.hora}</span>
+                </div>
+              </div>
+              <div className="ticket-divider"></div>
+              <div className="ticket-footer">
+                <div className="total-label">Total a pagar</div>
+                <div className="total-val">R$ {selectedServico ? Number(selectedServico.preco).toFixed(2) : '0.00'}</div>
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Navigation buttons */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1.5rem' }}>
-        <div>
+      <div className="wizard-navigation">
+        <div className="nav-left">
           {step > 1 && (
-            <button type="button" className="btn btn-secondary" onClick={prevStep}>
-              ← Voltar
+            <button type="button" className="btn-wizard prev" onClick={prevStep}>
+              <ChevronLeft size={18} /> Voltar
             </button>
           )}
           {onCancel && step === 1 && (
-            <button type="button" className="btn btn-secondary" onClick={onCancel}>
+            <button type="button" className="btn-wizard cancel" onClick={onCancel}>
               Cancelar
             </button>
           )}
         </div>
-        <div>
+        <div className="nav-right">
           {step < 4 ? (
-            <button type="button" className="btn btn-primary" onClick={nextStep}>
-              Próximo →
+            <button type="button" className="btn-wizard next primary" onClick={nextStep}>
+              Próximo <ChevronRight size={18} />
             </button>
           ) : (
-            <button type="submit" className="btn btn-success btn-lg" disabled={loading}>
-              {loading ? '⏳ Agendando...' : '✅ Confirmar Agendamento'}
+            <button type="submit" className="btn-wizard finish success" disabled={loading}>
+              {loading ? 'Processando...' : 'Finalizar Agendamento'}
             </button>
           )}
         </div>

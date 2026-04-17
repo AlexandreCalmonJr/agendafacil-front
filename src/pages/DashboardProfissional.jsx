@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { listarAgendamentos } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
 import Loading from '../components/Loading';
-import { Bell, BellRing, Sparkles, TrendingUp, CheckCircle2, History as HistoryIcon } from 'lucide-react';
+import { Bell, BellRing, Sparkles, TrendingUp, CheckCircle2, History as HistoryIcon, Stethoscope, Calendar, Clock, FolderRoot, Users as UsersIcon } from 'lucide-react';
 import '../styles/DashboardProfissional.css';
 
 export default function DashboardProfissional() {
@@ -46,17 +46,17 @@ export default function DashboardProfissional() {
 
   return (
     <div className="dashboard-profissional fade-in">
-      <div className="dashboard-header">
+      <div className="dashboard-header-pro">
         <div className="welcome-section">
           <span className="welcome-badge"><Sparkles size={14} /> Hub de Excelência</span>
           <h1>
-            {getSaudacao()}, <span className="highlight-text">{usuario?.nome.split(' ')[0]}</span> 🩺
+            {getSaudacao()}, <span className="highlight-text">Dra. {usuario?.nome.split(' ')[0]}</span>
           </h1>
           <p>Você possui <strong>{aguardando}</strong> pacientes aguardando atendimento.</p>
         </div>
         <div className="header-meta">
-          <div className="date-badge">
-            📅 {new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}
+          <div className="date-badge-premium">
+            <Calendar size={16} /> {new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}
           </div>
         </div>
       </div>
@@ -122,16 +122,16 @@ export default function DashboardProfissional() {
           </div>
 
           <div className="shortcuts-grid">
-            <Link to="/atendimento" className="shortcut-item glass">
-              <div className="shortcut-icon">🚶‍♂️</div>
+            <Link to="/atendimento" className="shortcut-item-premium">
+              <div className="shortcut-icon-box blue"><Clock size={24} /></div>
               <span>Sala de Espera</span>
             </Link>
-            <Link to="/agenda" className="shortcut-item glass">
-              <div className="shortcut-icon">📅</div>
+            <Link to="/agenda" className="shortcut-item-premium">
+              <div className="shortcut-icon-box green"><Calendar size={24} /></div>
               <span>Minha Agenda</span>
             </Link>
-            <Link to="/clientes" className="shortcut-item glass">
-              <div className="shortcut-icon">📂</div>
+            <Link to="/clientes" className="shortcut-item-premium">
+              <div className="shortcut-icon-box orange"><UsersIcon size={24} /></div>
               <span>Meus Pacientes</span>
             </Link>
           </div>

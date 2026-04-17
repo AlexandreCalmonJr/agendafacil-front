@@ -22,7 +22,7 @@
 }
 
 .especialidades-header p {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   color: var(--neutral-600);
   max-width: 750px;
   margin: 0 auto;
@@ -31,8 +31,8 @@
 
 .especialidades-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
 }
 
 .especialidade-card {
@@ -55,7 +55,7 @@
 
 .especialidade-icon {
   width: 100%;
-  height: 240px;
+  height: 180px;
   overflow: hidden;
   position: relative;
 }
@@ -79,18 +79,18 @@
 }
 
 .especialidade-card h3 {
-  font-size: 1.75rem;
+  font-size: 1.4rem;
   color: #1a202c;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   font-weight: 800;
   letter-spacing: -0.5px;
 }
 
 .especialidade-card p {
   color: #4a5568;
-  font-size: 1rem;
-  line-height: 1.7;
-  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
   flex-grow: 1;
 }
 

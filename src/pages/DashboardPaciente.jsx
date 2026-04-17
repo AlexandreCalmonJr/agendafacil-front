@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { listarAgendamentos, buscarHistoricoSaude } from '../services/api';
 import Loading from '../components/Loading';
+import { Calendar, Heart, Plus, Users, Clock, Clipboard, FileText, Sparkles } from 'lucide-react';
 import '../styles/DashboardPaciente.css';
 
 export default function DashboardPaciente() {
@@ -38,6 +39,18 @@ export default function DashboardPaciente() {
     }
   };
 
+  const getProfImage = (nome) => {
+    const map = {
+      'Dr. Carlos Eduardo': 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop',
+      'Dra. Ana Beatrix': 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=400&fit=crop',
+      'Dr. Ricardo Santos': 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop',
+      'Dra. Mariana Luz': 'https://images.unsplash.com/photo-1559839734-2b71f1e3c770?w=400&h=400&fit=crop',
+      'Dr. Henrique Silva': 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=400&fit=crop',
+      'Dra. Letícia Costa': 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=400&h=400&fit=crop'
+    };
+    return map[nome] || `https://ui-avatars.com/api/?name=${encodeURIComponent(nome)}&background=15803d&color=fff`;
+  };
+
   const getSaudacao = () => {
     const hora = new Date().getHours();
     if (hora < 12) return 'Bom dia';
@@ -50,114 +63,119 @@ export default function DashboardPaciente() {
   const proximaConsulta = agendamentos[0];
 
   return (
-    <div className="dashboard-paciente fade-in">
-      <div className="paciente-dashboard-header">
-        <div>
-          <h1 className="paciente-saudacao">
-            {getSaudacao()}, <span className="paciente-nome">{usuario.nome.split(' ')[0]}</span>! ✨
-          </h1>
-          <p className="paciente-subtitulo">Bem-vindo ao seu VitalHub. Aqui está o resumo da sua saúde.</p>
+    <div className="paciente-portal-container fade-in">
+      <div className="paciente-header-premium">
+        <div className="greeting-box">
+          <div className="welcome-tag"><Sparkles size={14} /> Portal VitalHub</div>
+          <h1>{getSaudacao()}, <span className="paciente-name-highlight">{usuario.nome.split(' ')[0]}</span></h1>
+          <p>Seu espaço dedicado à saúde e bem-estar.</p>
+        </div>
+        <div className="header-stats-paciente">
+          <div className="stat-unit">
+            <span className="stat-val">{historico.length}</span>
+            <span className="stat-lab">Registros</span>
+          </div>
         </div>
       </div>
 
-      <div className="paciente-dashboard-grid">
-        
-        {/* COLUNA ESQUERDA: RESUMO E AÇÕES */}
-        <div className="paciente-sidebar-col">
-          
-          {/* CARD PRÓXIMA CONSULTA */}
-          <div className="glass-card premium-card animate-slide-up proxima-consulta-card">
-            <h3 className="proxima-consulta-title">
-              <span>📅</span> Próximo Compromisso
-            </h3>
+      <div className="paciente-main-layout">
+        {/* COLUNA ESQUERDA: COMPROMISSOS */}
+        <div className="paciente-action-column">
+          <div className="glass-card next-appointment-card">
+            <div className="card-badge-header">
+              <Calendar size={18} />
+              <span>Próximo Compromisso</span>
+            </div>
             
             {proximaConsulta ? (
-              <div>
-                <div className="proxima-consulta-numero">
-                  {new Date(proximaConsulta.data_hora).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+              <div className="appointment-details-premium">
+                <div className="date-display">
+                  <span className="big-time">{new Date(proximaConsulta.data_hora).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</span>
+                  <span className="full-date">{new Date(proximaConsulta.data_hora).toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' })}</span>
                 </div>
-                <div className="proxima-consulta-label">
-                  {new Date(proximaConsulta.data_hora).toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' })}
+                
+                <div className="professional-mini-card">
+                  <img src={getProfImage(proximaConsulta.profissional_nome)} alt={proximaConsulta.profissional_nome} className="prof-thumb-pac" />
+                  <div className="prof-meta">
+                    <strong>Dr(a). {proximaConsulta.profissional_nome}</strong>
+                    <span>{proximaConsulta.servico_nome}</span>
+                  </div>
                 </div>
-                <div className="proxima-consulta-details">
-                  <div className="proxima-consulta-servico">{proximaConsulta.servico_nome}</div>
-                  <div className="proxima-consulta-doctor">Dr(a). {proximaConsulta.profissional_nome}</div>
-                </div>
-                <button className="btn btn-primary proxima-consulta-button" onClick={() => navigate('/agenda')}>
-                  Ver Detalhes
+
+                <button className="btn-appointment-details" onClick={() => navigate('/agenda')}>
+                  Gerenciar Agendamento
                 </button>
               </div>
             ) : (
-              <div className="proxima-consulta-empty">
-                <p className="proxima-consulta-empty-text">Você não tem consultas agendadas.</p>
-                <Link to="/agendar" className="btn btn-primary">Agendar Agora</Link>
+              <div className="empty-appointment-box">
+                <p>Nenhuma consulta agendada para os próximos dias.</p>
+                <Link to="/agendar" className="btn-agendar-hero">
+                  <Plus size={18} /> Agendar Nova Consulta
+                </Link>
               </div>
             )}
           </div>
 
-          {/* ATALHOS RÁPIDOS */}
-          <div className="action-cards-grid">
-            <Link to="/agendar" className="glass-card action-card">
-              <div className="action-card-icon">➕</div>
-              <div className="action-card-title">Novo Agendamento</div>
+          <div className="shortcuts-grid-paciente">
+            <Link to="/agendar" className="shortcut-card">
+              <div className="shortcut-icon green"><Plus size={24} /></div>
+              <span>Agendar</span>
             </Link>
-            <Link to="/profissionais" className="glass-card action-card">
-              <div className="action-card-icon">👥</div>
-              <div className="action-card-title">Corpo Clínico</div>
+            <Link to="/profissionais" className="shortcut-card">
+              <div className="shortcut-icon blue"><Users size={24} /></div>
+              <span>Equipe</span>
             </Link>
           </div>
         </div>
 
-        {/* COLUNA DIREITA: HISTÓRICO DE SAÚDE */}
-        <div className="glass-card" style={{ padding: '2rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-             <h3 style={{ fontSize: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-               <span>🩺</span> Histórico de Saúde
-             </h3>
-             <span className="badge badge-info">{historico.length} documentos</span>
-          </div>
+        {/* COLUNA DIREITA: HISTÓRICO / PRONTUÁRIOS */}
+        <div className="paciente-history-column">
+          <div className="glass-card history-card-premium">
+            <div className="history-header">
+              <h3><Clipboard size={22} /> Linha do Tempo de Saúde</h3>
+            </div>
 
-          <div className="history-list" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxHeight: '500px', overflowY: 'auto', paddingRight: '0.5rem' }}>
-            {historico.length > 0 ? historico.map((item) => (
-              <div key={item.id} className="history-item" style={{ 
-                padding: '1rem', 
-                background: 'rgba(255,255,255,0.03)', 
-                borderRadius: 'var(--radius-lg)',
-                border: '1px solid var(--glass-border)',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--primary-400)', fontWeight: '600' }}>
-                    {new Date(item.data_hora).toLocaleDateString('pt-BR')}
-                  </span>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--dark-500)' }}>{item.servico_nome}</span>
+            <div className="timeline-container">
+              {historico.length > 0 ? historico.map((item, idx) => (
+                <div key={item.id} className="timeline-item">
+                  <div className="timeline-marker">
+                    <div className="marker-dot"></div>
+                    {idx !== historico.length - 1 && <div className="marker-line"></div>}
+                  </div>
+                  <div className="timeline-content-box">
+                    <div className="item-header-pac">
+                      <span className="item-date">{new Date(item.data_hora).toLocaleDateString('pt-BR')}</span>
+                      <span className="item-service-tag">{item.servico_nome}</span>
+                    </div>
+                    
+                    <div className="item-professional-row">
+                      <img src={getProfImage(item.profissional_nome)} alt={item.profissional_nome} className="micro-prof-thumb" />
+                      <div className="prof-row-info">
+                        <strong>Dr(a). {item.profissional_nome}</strong>
+                      </div>
+                    </div>
+
+                    <div className="item-actions-pac">
+                      {item.prescricoes && (
+                        <button className="pac-action-btn"><FileText size={14} /> Receita</button>
+                      )}
+                      {item.exames && (
+                        <button className="pac-action-btn"><Clipboard size={14} /> Exames</button>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div style={{ fontWeight: '600', color: 'white', marginBottom: '0.25rem' }}>Dr(a). {item.profissional_nome}</div>
-                
-                <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
-                  {item.prescricoes && (
-                    <button className="btn btn-sm btn-outline" style={{ fontSize: '0.7rem' }} onClick={() => alert('Visualizando Receita...')}>
-                      💊 Ver Receita
-                    </button>
-                  )}
-                  {item.exames && (
-                    <button className="btn btn-sm btn-outline" style={{ fontSize: '0.7rem' }} onClick={() => alert('Visualizando Pedido de Exame...')}>
-                      🔬 Pedido de Exame
-                    </button>
-                  )}
+              )) : (
+                <div className="empty-history-state">
+                  <FileText size={48} className="empty-icon-pac" />
+                  <p>Seu histórico de saúde será exibido aqui após sua primeira consulta.</p>
                 </div>
-              </div>
-            )) : (
-              <div style={{ textAlign: 'center', color: 'var(--dark-500)', padding: '3rem 0' }}>
-                <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>📄</div>
-                <p>Nenhum prontuário registrado ainda.</p>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
-
       </div>
+    </div>
 
       {/* ESTILOS INLINE ADICIONAIS PARA O DASHBOARD */}
       <style>{`

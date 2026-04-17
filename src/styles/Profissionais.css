@@ -32,8 +32,8 @@
 /* Grid Layout */
 .profissionais-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 25px;
 }
 
 /* Card Principal - Ultra Clean Glass */
@@ -54,7 +54,7 @@
 }
 
 .prof-card-container {
-  padding: 32px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -70,8 +70,8 @@
 
 .prof-photo-wrapper {
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 65px;
+  height: 65px;
   flex-shrink: 0;
 }
 
@@ -96,9 +96,9 @@
 
 .prof-info-basic .prof-card-name {
   color: #1a202c;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 800;
-  margin: 0 0 4px 0;
+  margin: 0 0 2px 0;
   line-height: 1.2;
 }
 

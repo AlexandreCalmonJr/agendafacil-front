@@ -1,136 +1,216 @@
-/* Agenda.jsx Styles */
+/* Agenda - Premium Health Timeline */
 
-.agenda-controls {
+.agenda-premium-container {
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+/* Header & Toggle */
+.agenda-header-premium {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.header-text h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #1a202c;
+  margin: 0;
+  letter-spacing: -1.5px;
+}
+
+.header-text p {
+  color: #64748b;
+  font-size: 1.1rem;
+}
+
+.agenda-view-toggle {
+  display: flex;
+  background: #f1f5f9;
+  padding: 6px;
+  border-radius: 16px;
+  gap: 4px;
+}
+
+.toggle-btn {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-  padding: 1.5rem;
-  background: white;
-  border: 1px solid var(--neutral-100);
-  border-radius: 18px;
-  box-shadow: var(--shadow-sm);
-}
-
-.agenda-toggle {
-  display: flex;
-  gap: 0.5rem;
-  background: var(--neutral-100);
-  padding: 0.5rem;
+  gap: 8px;
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-weight: 700;
+  font-size: 0.85rem;
   border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-.agenda-toggle button {
-  padding: 0.5rem 1rem;
+.toggle-btn.active {
+  background: white;
+  color: #1a202c;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Toolbar */
+.agenda-toolbar-premium {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.date-navigator-premium {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  padding: 8px;
+  border-radius: 100px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.nav-arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #f8fafc;
+  color: #1a202c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-arrow:hover {
+  background: #e2e8f0;
+}
+
+.btn-today-premium {
+  background: transparent;
+  border: 1px solid #e2e8f0;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #475569;
+  cursor: pointer;
+}
+
+.current-date-display {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  color: #1a202c;
+  font-size: 1rem;
+}
+
+.icon-cal {
+  color: var(--primary-600);
+}
+
+.filter-box-premium {
+  background: white;
+  padding: 10px 20px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  color: #94a3b8;
+}
+
+.premium-select-flat {
   background: transparent;
   border: none;
-  color: var(--neutral-500);
-  font-size: 0.9rem;
+  font-weight: 700;
+  color: #475569;
+  outline: none;
   cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.3s;
 }
 
-.agenda-toggle button.active {
-  background: var(--gradient-primary);
-  color: white;
-  font-weight: 600;
-  box-shadow: 0 4px 10px rgba(21, 128, 61, 0.2);
+/* Empty State */
+.empty-agenda-state {
+  text-align: center;
+  padding: 100px 20px;
+  background: white;
+  border-radius: 32px;
+  border: 1px dashed #e2e8f0;
 }
 
-.agenda-toggle button:hover:not(.active) {
-  background: var(--neutral-200);
-  color: var(--neutral-900);
+.empty-icon-box {
+  color: var(--primary-100);
+  margin-bottom: 24px;
 }
 
-.agenda-date-nav {
+.empty-agenda-state h3 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #1a202c;
+  margin-bottom: 8px;
+}
+
+.empty-agenda-state p {
+  color: #64748b;
+}
+
+/* Footer Summary */
+.agenda-footer-summary {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 20px;
+  background: white;
+  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+
+.summary-pill {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 10px;
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  color: #475569;
 }
 
-.date-display {
-  color: var(--neutral-900);
-  font-weight: 700;
-  font-size: 1.1rem;
-  min-width: 250px;
-  text-align: center;
+.pill-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
 }
 
-/* Summary */
-.agenda-summary {
-  margin-top: 2rem;
-  text-align: center;
+.summary-pill.blue { background: #eff6ff; }
+.summary-pill.blue .pill-dot { background: #3b82f6; }
+
+.summary-pill.orange { background: #fff7ed; }
+.summary-pill.orange .pill-dot { background: #f59e0b; }
+
+.summary-pill.green { background: #f0fdf4; }
+.summary-pill.green .pill-dot { background: #22c55e; }
+
+.summary-pill strong {
+  font-weight: 900;
+  color: #1a202c;
 }
 
-.agenda-summary-card {
-  display: inline-flex;
-  gap: 2rem;
-  padding: 1rem 2rem;
-}
-
-.agenda-summary-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.agenda-summary-label {
-  color: var(--neutral-400);
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-.agenda-summary-value {
-  color: var(--neutral-900);
-  font-weight: 700;
-  font-size: 1.25rem;
-}
-
-.agenda-summary-value.info {
-  color: var(--info);
-}
-
-.agenda-summary-value.success {
-  color: var(--success);
-}
-
-/* Data separator in weekly view */
-.agenda-data-section h3 {
-  color: var(--primary-800);
-  font-size: var(--font-size-base);
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-  text-transform: capitalize;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--neutral-100);
-}
-
-/* Responsive */
 @media (max-width: 768px) {
-  .agenda-controls {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .agenda-date-nav {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .date-display {
-    min-width: auto;
-  }
-
-  .agenda-toggle {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .agenda-summary-card {
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-  }
+  .agenda-header-premium { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .agenda-toolbar-premium { flex-direction: column; align-items: center; }
+  .agenda-footer-summary { flex-direction: column; align-items: center; }
 }

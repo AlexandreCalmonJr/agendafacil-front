@@ -80,29 +80,31 @@ export default function Especialidades() {
         </p>
       </header>
 
-      <div className="especialidades-grid">
-        {especialidades.map((esp, index) => (
-          <div key={index} className="especialidade-card">
-            <div className="especialidade-icon">
-              <img 
-                src={getImageUrl(esp.nome)} 
-                alt={esp.nome} 
-                onError={(e) => {
-                  e.target.src = 'https://images.unsplash.com/photo-1505751172107-16781432f22b?auto=format&fit=crop&q=80&w=800';
-                  e.target.onerror = null;
-                }}
-              />
+      <div className="content-envelope">
+        <div className="especialidades-grid">
+          {especialidades.map((esp, index) => (
+            <div key={index} className="especialidade-card">
+              <div className="especialidade-icon">
+                <img 
+                  src={getImageUrl(esp.nome)} 
+                  alt={esp.nome} 
+                  onError={(e) => {
+                    e.target.src = 'https://images.unsplash.com/photo-1505751172107-16781432f22b?auto=format&fit=crop&q=80&w=800';
+                    e.target.onerror = null;
+                  }}
+                />
+              </div>
+              <div className="specialty-info">
+                <h3>{esp.nome}</h3>
+                <p>{getDescricao(esp.nome)}</p>
+                
+                <Link to={`/profissionais?especialidade=${esp.nome}`} className="btn-especialidade">
+                  Explorar Equipe
+                </Link>
+              </div>
             </div>
-            <div className="specialty-info">
-              <h3>{esp.nome}</h3>
-              <p>{getDescricao(esp.nome)}</p>
-              
-              <Link to={`/profissionais?especialidade=${esp.nome}`} className="btn-especialidade">
-                Explorar Equipe
-              </Link>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {especialidades.length === 0 && (

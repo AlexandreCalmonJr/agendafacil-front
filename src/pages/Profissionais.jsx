@@ -69,79 +69,81 @@ export default function Profissionais() {
         <p>Conheça nossa equipe de especialistas da Clínica Vita</p>
       </div>
 
-      <div className="profissionais-grid">
-        {profissionais.map((prof, index) => (
-          <div
-            key={prof.id}
-            className="glass-card"
-            style={{ overflow: 'hidden', cursor: 'pointer' }}
-            onClick={() => setExpandido(expandido === prof.id ? null : prof.id)}
-          >
-            <div className={`prof-card-container ${expandido === prof.id ? 'expanded' : ''}`}>
-              <div className="prof-card-identity">
-                <div className="prof-photo-wrapper">
-                  <img src={getProfImage(prof.nome, index)} alt={prof.nome} className="prof-real-photo" />
-                  <div className="prof-status-dot online"></div>
+      <div className="content-envelope">
+        <div className="profissionais-grid">
+          {profissionais.map((prof, index) => (
+            <div
+              key={prof.id}
+              className="glass-card"
+              style={{ overflow: 'hidden', cursor: 'pointer' }}
+              onClick={() => setExpandido(expandido === prof.id ? null : prof.id)}
+            >
+              <div className={`prof-card-container ${expandido === prof.id ? 'expanded' : ''}`}>
+                <div className="prof-card-identity">
+                  <div className="prof-photo-wrapper">
+                    <img src={getProfImage(prof.nome, index)} alt={prof.nome} className="prof-real-photo" />
+                    <div className="prof-status-dot online"></div>
+                  </div>
+
+                  <div className="prof-info-basic">
+                    <h3 className="prof-card-name">{prof.nome}</h3>
+                    <span className="prof-badge">{prof.especialidade}</span>
+                  </div>
                 </div>
 
-                <div className="prof-info-basic">
-                  <h3 className="prof-card-name">{prof.nome}</h3>
-                  <span className="prof-badge">{prof.especialidade}</span>
+                {prof.descricao && (
+                  <p className="prof-bio">{prof.descricao}</p>
+                )}
+
+                <div className="prof-details-minimal">
+                  <div className="detail-item">{prof.email}</div>
+                  {prof.telefone && <div className="detail-item">{prof.telefone}</div>}
+                  {prof.registro_profissional && <div className="detail-item">{prof.registro_profissional}</div>}
+                </div>
+
+                <div className="prof-actions">
+                  <button 
+                    className="btn-ver-servicos"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setExpandido(expandido === prof.id ? null : prof.id);
+                    }}
+                  >
+                    {expandido === prof.id ? 'Fechar Serviços' : 'Ver Serviços e Preços'}
+                  </button>
+                  <Link to="/agendar" className="btn-agendar-direct" onClick={(e) => e.stopPropagation()}>
+                    Agendar Agora
+                  </Link>
                 </div>
               </div>
 
-              {prof.descricao && (
-                <p className="prof-bio">{prof.descricao}</p>
-              )}
-
-              <div className="prof-details-minimal">
-                <div className="detail-item">{prof.email}</div>
-                {prof.telefone && <div className="detail-item">{prof.telefone}</div>}
-                {prof.registro_profissional && <div className="detail-item">{prof.registro_profissional}</div>}
-              </div>
-
-              <div className="prof-actions">
-                <button 
-                  className="btn-ver-servicos"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setExpandido(expandido === prof.id ? null : prof.id);
-                  }}
-                >
-                  {expandido === prof.id ? 'Fechar Serviços' : 'Ver Serviços e Preços'}
-                </button>
-                <Link to="/agendar" className="btn-agendar-direct" onClick={(e) => e.stopPropagation()}>
-                  Agendar Agora
-                </Link>
-              </div>
-            </div>
-
-            {/* Serviços expandíveis */}
-            {expandido === prof.id && servicos[prof.id] && (
-              <div className="prof-services-explorer">
-                <h4 className="services-title">
-                  Serviços Disponíveis
-                </h4>
-                <div className="services-list">
-                  {servicos[prof.id].map(serv => (
-                    <div key={serv.id} className="service-item-row">
-                      <div className="service-main-info">
-                        <div className="service-name-text">{serv.nome}</div>
-                        <div className="service-meta-text">
-                          ⏱ {serv.duracao_minutos} min
-                          {serv.descricao && ` — ${serv.descricao}`}
+              {/* Serviços expandíveis */}
+              {expandido === prof.id && servicos[prof.id] && (
+                <div className="prof-services-explorer">
+                  <h4 className="services-title">
+                    Serviços Disponíveis
+                  </h4>
+                  <div className="services-list">
+                    {servicos[prof.id].map(serv => (
+                      <div key={serv.id} className="service-item-row">
+                        <div className="service-main-info">
+                          <div className="service-name-text">{serv.nome}</div>
+                          <div className="service-meta-text">
+                            ⏱ {serv.duracao_minutos} min
+                            {serv.descricao && ` — ${serv.descricao}`}
+                          </div>
+                        </div>
+                        <div className="service-price-tag">
+                          R$ {Number(serv.preco).toFixed(2)}
                         </div>
                       </div>
-                      <div className="service-price-tag">
-                        R$ {Number(serv.preco).toFixed(2)}
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        ))}
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
       {profissionais.length === 0 && (

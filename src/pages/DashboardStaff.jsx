@@ -8,6 +8,7 @@ import { format, subDays } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import Loading from '../components/Loading';
 import { RevenueChart, PatientsFlowChart } from '../components/AnalyticsCharts';
+import { Activity, DollarSign, Users, Calendar, MapPin, CheckCircle, CreditCard, Plus } from 'lucide-react';
 import '../styles/DashboardStaff.css';
 
 const DashboardStaff = () => {
@@ -24,7 +25,7 @@ const DashboardStaff = () => {
     fetchAgendamentos({ data: hoje });
   }, [fetchAgendamentos]);
 
-  // CORREÇÃO: Adicionada proteção (agendamentos || []) para evitar erro de reduce em null
+  // Metricas
   const metricas = useMemo(() => {
     return (agendamentos || []).reduce((acc, curr) => {
       if (curr.status === 'em_espera' || curr.status === 'em_atendimento') acc.naClinica++;
@@ -56,56 +57,63 @@ const DashboardStaff = () => {
     }
   };
 
+  const getProfImage = (nome) => {
+    const map = {
+      'Dr. Carlos Eduardo': 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop',
+      'Dra. Ana Beatrix': 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=400&fit=crop',
+      'Dr. Ricardo Santos': 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop',
+      'Dra. Mariana Luz': 'https://images.unsplash.com/photo-1559839734-2b71f1e3c770?w=400&h=400&fit=crop',
+      'Dr. Henrique Silva': 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=400&fit=crop',
+      'Dra. Letícia Costa': 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=400&h=400&fit=crop'
+    };
+    return map[nome] || `https://ui-avatars.com/api/?name=${encodeURIComponent(nome)}&background=0f172a&color=fff`;
+  };
+
   if (loading && (!agendamentos || agendamentos.length === 0)) return <Loading text="Carregando VitalStaff Hub..." />;
 
   return (
-    <div className="dashboard-container animate-fade-in">
-      <header className="dashboard-header">
-        <div>
-          <h1>VitalStaff Hub 🏢</h1>
-          <p>Gestão Operacional e Financeira da Clínica</p>
+    <div className="dashboard-container-staff fade-in">
+      <header className="dashboard-header-staff">
+        <div className="staff-identity">
+          <div className="company-badge"><Activity size={16} /> Operações VitalHub</div>
+          <h1>Centro de Controle</h1>
+          <p>Monitoramento em tempo real • {format(new Date(), "eeee, dd 'de' MMMM", { locale: ptBR })}</p>
         </div>
-        <div className="header-actions">
-          <button className="btn-primary">➕ Novo Agendamento</button>
-        </div>
+        <button className="btn-staff-plus">
+          <Plus size={20} /> Novo Atendimento
+        </button>
       </header>
 
-      {/* Cards de Métricas */}
-      <div className="metrics-grid">
-        <div className="metric-card glass">
-          <div className="metric-icon">👥</div>
-          <div className="metric-info">
-            <span className="label">Na Clínica</span>
-            <span className="value">{metricas.naClinica}</span>
+      {/* Cards de Métricas Premium */}
+      <div className="metrics-staff-grid">
+        <div className="staff-metric-card">
+          <div className="icon-box blue"><Users size={24} /></div>
+          <div className="info-box">
+            <span className="val">{metricas.naClinica}</span>
+            <span className="lab">Pacientes na Clínica</span>
           </div>
         </div>
-        <div className="metric-card glass">
-          <div className="metric-icon">💰</div>
-          <div className="metric-info">
-            <span className="label">Faturado Hoje</span>
-            <span className="value">R$ {metricas.faturado.toLocaleString('pt-BR')}</span>
+        <div className="staff-metric-card">
+          <div className="icon-box green"><DollarSign size={24} /></div>
+          <div className="info-box">
+            <span className="val">R$ {metricas.faturado.toLocaleString('pt-BR')}</span>
+            <span className="lab">Receita Confirmada</span>
           </div>
         </div>
-        <div className="metric-card glass">
-          <div className="metric-icon">⏳</div>
-          <div className="metric-info">
-            <span className="label">A Receber</span>
-            <span className="value">R$ {metricas.pendente.toLocaleString('pt-BR')}</span>
-          </div>
-        </div>
-        <div className="metric-card glass">
-          <div className="metric-icon">📅</div>
-          <div className="metric-info">
-            <span className="label">Total Dia</span>
-            <span className="value">{metricas.totalDia}</span>
+        <div className="staff-metric-card">
+          <div className="icon-box orange"><CreditCard size={24} /></div>
+          <div className="info-box">
+            <span className="val">R$ {metricas.pendente.toLocaleString('pt-BR')}</span>
+            <span className="lab">Pagamentos Pendentes</span>
           </div>
         </div>
       </div>
 
-      <div className="analytics-section grid grid-2" style={{ gap: '1.5rem', marginBottom: '2rem' }}>
-        <div className="content-card glass">
-          <div className="card-header">
-            <h3>📈 Volume de Pacientes (Últimos 7 dias)</h3>
+      <div className="analytics-staff-row">
+        <div className="glass-card-staff chart-box">
+          <div className="chart-header">
+            <h3>Fluxo de Pacientes (7 Dias)</h3>
+            <span className="chart-info">Evolução da demanda semanal</span>
           </div>
           <PatientsFlowChart data={[
             { date: format(subDays(new Date(), 6), 'dd/MM'), pacientes: 12 },
@@ -117,93 +125,81 @@ const DashboardStaff = () => {
             { date: format(new Date(), 'dd/MM'), pacientes: metricas.totalDia },
           ]} />
         </div>
-        <div className="content-card glass">
-          <div className="card-header">
-            <h3>💰 Faturamento por Modalidade</h3>
-          </div>
-          {/* CORREÇÃO: Adicionada proteção (agendamentos || []) nos filtros do gráfico */}
-          <RevenueChart data={[
-            { 
-              name: 'Presencial', 
-              total: (agendamentos || []).filter(a => a.modalidade === 'presencial')
-                                         .reduce((acc, curr) => acc + Number(curr.valor_consulta || curr.preco || 0), 0) 
-            },
-            { 
-              name: 'Teleconsulta', 
-              total: (agendamentos || []).filter(a => a.modalidade === 'teleconsulta')
-                                         .reduce((acc, curr) => acc + Number(curr.valor_consulta || curr.preco || 0), 0) 
-            },
-            { 
-              name: 'Check-up', 
-              total: (agendamentos || []).filter(a => a.servico_nome?.includes('Check'))
-                                         .reduce((acc, curr) => acc + Number(curr.valor_consulta || curr.preco || 0), 0) 
-            },
-          ]} />
-        </div>
       </div>
 
-      <div className="dashboard-content-grid">
-        <div className="content-card glass main-list" style={{ gridColumn: 'span 2' }}>
-          <div className="card-header">
-            <h3>Agenda Operacional ({format(new Date(), "dd 'de' MMMM", { locale: ptBR })})</h3>
+      <div className="agenda-operacional-wrapper">
+        <div className="glass-card-staff no-padding">
+          <div className="agenda-header-padded">
+            <h3>Agenda do Dia</h3>
+            <span className="total-dia-badge">{metricas.totalDia} agendamentos hoje</span>
           </div>
           
-          <div className="table-responsive">
-            <table className="staff-table">
+          <div className="table-responsive-staff">
+            <table className="staff-table-premium">
               <thead>
                 <tr>
                   <th>Horário</th>
-                  <th>Paciente / Serviço</th>
-                  <th>Médico / Sala</th>
-                  <th>Status</th>
+                  <th>Paciente</th>
+                  <th>Especialista</th>
+                  <th>Status Atendimento</th>
                   <th>Pagamento</th>
-                  <th>Ações</th>
+                  <th>Ações de Fluxo</th>
                 </tr>
               </thead>
               <tbody>
                 {agendamentos && agendamentos.length > 0 ? agendamentos.map(ag => (
-                  <tr key={ag.id} className={ag.status}>
-                    <td className="time-col">{ag.data_hora?.split('T')[1]?.substring(0, 5) || '--:--'}</td>
+                  <tr key={ag.id}>
+                    <td className="time-td">
+                      <div className="time-chip-staff">
+                        <Calendar size={12} />
+                        {ag.data_hora?.split('T')[1]?.substring(0, 5) || '--:--'}
+                      </div>
+                    </td>
                     <td>
-                      <div className="name-cell">
+                      <div className="paciente-cell">
                         <strong>{ag.cliente_nome}</strong>
                         <span>{ag.servico_nome}</span>
                       </div>
                     </td>
                     <td>
-                      <div className="name-cell">
-                        <strong>{ag.profissional_nome}</strong>
-                        <span className="room-label">{ag.sala || 'Não definida'}</span>
+                      <div className="doutor-cell">
+                        <img src={getProfImage(ag.profissional_nome)} alt={ag.profissional_nome} className="doutor-thumb" />
+                        <div>
+                          <strong>{ag.profissional_nome}</strong>
+                          <span className="sala-label"><MapPin size={12} /> {ag.sala || 'Sala 01'}</span>
+                        </div>
                       </div>
                     </td>
                     <td>
-                      <span className={`badge status-${ag.status}`}>
+                      <span className={`staff-badge status-${ag.status}`}>
                         {ag.status?.replace('_', ' ')}
                       </span>
                     </td>
                     <td>
-                      <span className={`badge pay-${ag.pagamento_status}`}>
-                        {ag.pagamento_status === 'pago' ? '✅ Pago' : '⏳ Pendente'}
+                      <span className={`staff-pay pay-${ag.pagamento_status}`}>
+                        {ag.pagamento_status === 'pago' ? <CheckCircle size={14} /> : <DollarSign size={14} />}
+                        {ag.pagamento_status === 'pago' ? 'Liquidado' : 'Pendente'}
                       </span>
                     </td>
                     <td>
-                      <div className="action-buttons">
+                      <div className="staff-actions">
                         {ag.status === 'agendado' && (
-                          <button onClick={() => handleCheckIn(ag.id)} className="btn-action checkin">
-                            📍 Check-in
-                          </button>
+                          <button onClick={() => handleCheckIn(ag.id)} className="btn-staff-act checkin">Dar Entrada</button>
                         )}
                         {ag.pagamento_status === 'pendente' && (
-                          <button onClick={() => handlePagamento(ag.id)} className="btn-action pay">
-                            💵 Receber
-                          </button>
+                          <button onClick={() => handlePagamento(ag.id)} className="btn-staff-act pay">Receber</button>
                         )}
                       </div>
                     </td>
                   </tr>
                 )) : (
                   <tr>
-                    <td colSpan="6" className="empty-msg">Nenhum agendamento para hoje.</td>
+                    <td colSpan="6" className="empty-staff-msg">
+                      <div className="empty-info">
+                        <Calendar size={32} opacity={0.2} />
+                        <p>Nenhum atendimento registrado para este turno.</p>
+                      </div>
+                    </td>
                   </tr>
                 )}
               </tbody>

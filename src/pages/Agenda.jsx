@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { listarAgendamentos, cancelarAgendamento, atualizarAgendamento } from '../services/api';
 import AgendamentoCard from '../components/AgendamentoCard';
 import Loading from '../components/Loading';
+import { Calendar, ChevronLeft, ChevronRight, Filter, List, LayoutGrid, Clock, CalendarDays, CheckCircle2, XCircle } from 'lucide-react';
 import '../styles/Agenda.css';
 
 export default function Agenda() {
@@ -126,58 +127,63 @@ export default function Agenda() {
   }
 
   return (
-    <div className="animate-fade-in">
-      <div className="page-header">
-        <h1>📋 Agenda</h1>
-        <p>Visualize e gerencie seus agendamentos</p>
+    <div className="agenda-premium-container fade-in">
+      <div className="agenda-header-premium">
+        <div className="header-text">
+          <h1>Minha Agenda</h1>
+          <p>Gerencie seus compromissos e histórico de saúde</p>
+        </div>
+        <div className="agenda-view-toggle">
+          <button
+            className={`toggle-btn ${view === 'diaria' ? 'active' : ''}`}
+            onClick={() => setView('diaria')}
+          >
+            <List size={16} /> Diária
+          </button>
+          <button
+            className={`toggle-btn ${view === 'semanal' ? 'active' : ''}`}
+            onClick={() => setView('semanal')}
+          >
+            <CalendarDays size={16} /> Semanal
+          </button>
+        </div>
       </div>
 
       {/* Controls */}
-      <div className="agenda-controls">
-        <div className="agenda-toggle">
-          <button
-            className={view === 'diaria' ? 'active' : ''}
-            onClick={() => setView('diaria')}
-          >
-            📅 Diária
-          </button>
-          <button
-            className={view === 'semanal' ? 'active' : ''}
-            onClick={() => setView('semanal')}
-          >
-            📆 Semanal
-          </button>
+      <div className="agenda-toolbar-premium">
+        <div className="date-navigator-premium">
+          <button className="nav-arrow" onClick={() => navegarData(-1)}><ChevronLeft size={20} /></button>
+          <button className="btn-today-premium" onClick={irParaHoje}>Hoje</button>
+          <div className="current-date-display">
+            <Calendar size={18} className="icon-cal" />
+            <span>{getDisplayDate()}</span>
+          </div>
+          <button className="nav-arrow" onClick={() => navegarData(1)}><ChevronRight size={20} /></button>
         </div>
 
-        <div className="agenda-date-nav">
-          <button className="btn btn-sm btn-secondary" onClick={() => navegarData(-1)}>←</button>
-          <button className="btn btn-sm btn-outline" onClick={irParaHoje}>Hoje</button>
-          <span className="date-display">{getDisplayDate()}</span>
-          <button className="btn btn-sm btn-secondary" onClick={() => navegarData(1)}>→</button>
+        <div className="filter-box-premium">
+          <Filter size={16} />
+          <select
+            className="premium-select-flat"
+            value={filtroStatus}
+            onChange={(e) => setFiltroStatus(e.target.value)}
+          >
+            <option value="">Todos os status</option>
+            <option value="agendado">Agendado</option>
+            <option value="confirmado">Confirmado</option>
+            <option value="cancelado">Cancelado</option>
+            <option value="concluido">Concluído</option>
+          </select>
         </div>
-
-        <select
-          className="form-select"
-          style={{ width: 'auto', minWidth: '150px' }}
-          value={filtroStatus}
-          onChange={(e) => setFiltroStatus(e.target.value)}
-        >
-          <option value="">Todos os status</option>
-          <option value="agendado">Agendado</option>
-          <option value="confirmado">Confirmado</option>
-          <option value="cancelado">Cancelado</option>
-          <option value="concluido">Concluído</option>
-        </select>
       </div>
 
-      {/* Content */}
       {loading ? (
-        <Loading text="Carregando agenda..." />
+        <Loading text="Sincronizando compromissos..." />
       ) : agendamentosFiltrados.length === 0 ? (
-        <div className="empty-state">
-          <div className="empty-icon">📭</div>
-          <h3>Nenhum agendamento encontrado</h3>
-          <p>Não há agendamentos para este período.</p>
+        <div className="empty-agenda-state">
+          <div className="empty-icon-box"><Calendar size={48} /></div>
+          <h3>Sua agenda está livre</h3>
+          <p>Não encontramos agendamentos para este período selecionado.</p>
         </div>
       ) : view === 'diaria' ? (
         <div className="grid" style={{ gap: '1rem' }}>
@@ -220,26 +226,19 @@ export default function Agenda() {
         </div>
       )}
 
-      {/* Summary */}
       {!loading && agendamentosFiltrados.length > 0 && (
-        <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-          <div className="glass-card" style={{ display: 'inline-flex', gap: '2rem', padding: '1rem 2rem' }}>
-            <div>
-              <span style={{ color: 'var(--dark-400)', fontSize: '0.75rem' }}>Total</span>
-              <div style={{ color: 'white', fontWeight: '700', fontSize: '1.25rem' }}>{agendamentosFiltrados.length}</div>
-            </div>
-            <div>
-              <span style={{ color: 'var(--dark-400)', fontSize: '0.75rem' }}>Agendados</span>
-              <div style={{ color: 'var(--info)', fontWeight: '700', fontSize: '1.25rem' }}>
-                {agendamentosFiltrados.filter(a => a.status === 'agendado').length}
-              </div>
-            </div>
-            <div>
-              <span style={{ color: 'var(--dark-400)', fontSize: '0.75rem' }}>Confirmados</span>
-              <div style={{ color: 'var(--success)', fontWeight: '700', fontSize: '1.25rem' }}>
-                {agendamentosFiltrados.filter(a => a.status === 'confirmado').length}
-              </div>
-            </div>
+        <div className="agenda-footer-summary">
+          <div className="summary-pill blue">
+            <span className="pill-dot"></span>
+            <strong>{agendamentosFiltrados.length}</strong> Total
+          </div>
+          <div className="summary-pill orange">
+            <span className="pill-dot"></span>
+            <strong>{agendamentosFiltrados.filter(a => a.status === 'agendado').length}</strong> Agendados
+          </div>
+          <div className="summary-pill green">
+            <span className="pill-dot"></span>
+            <strong>{agendamentosFiltrados.filter(a => a.status === 'confirmado').length}</strong> Confirmados
           </div>
         </div>
       )}
