@@ -29,20 +29,21 @@
   justify-content: center;
   font-size: 0.8rem;
   font-weight: 700;
-  background: var(--glass-bg);
-  color: var(--dark-500);
-  border: 1px solid var(--glass-border);
+  background: var(--neutral-100);
+  color: var(--neutral-400);
+  border: 1px solid var(--neutral-200);
   transition: all 0.3s;
 }
 
 .step-circle.active {
-  background: linear-gradient(135deg, var(--primary-600), var(--violet-600));
+  background: var(--gradient-primary);
   color: white;
   border-color: transparent;
+  box-shadow: 0 4px 10px rgba(21, 128, 61, 0.2);
 }
 
 .step-circle.completed {
-  background: linear-gradient(135deg, var(--primary-600), var(--violet-600));
+  background: var(--primary-500);
   color: white;
   border-color: transparent;
 }
@@ -54,13 +55,14 @@
 }
 
 .step-label.active {
-  color: var(--dark-200);
+  color: var(--neutral-900);
+  font-weight: 600;
 }
 
 .step-connector {
   width: 30px;
   height: 2px;
-  background: var(--glass-border);
+  background: var(--neutral-200);
   transition: all 0.3s;
 }
 
@@ -97,10 +99,10 @@
 }
 
 .section-header h3 {
-  color: white;
+  color: var(--neutral-900);
   margin: 0;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* Filter styles */
@@ -113,9 +115,9 @@
 
 .filter-tab {
   padding: 0.5rem 1rem;
-  border: 1px solid var(--glass-border);
-  background: transparent;
-  color: var(--dark-400);
+  border: 1px solid var(--neutral-200);
+  background: white;
+  color: var(--neutral-500);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s;
@@ -129,9 +131,10 @@
 }
 
 .filter-tab.active {
-  background: linear-gradient(135deg, var(--primary-600), var(--violet-600));
+  background: var(--gradient-primary);
   color: white;
   border-color: transparent;
+  box-shadow: 0 4px 10px rgba(21, 128, 61, 0.2);
 }
 
 /* Options grid */
@@ -143,26 +146,28 @@
 }
 
 .option-card {
-  padding: 1rem;
-  border: 2px solid var(--glass-border);
-  background: transparent;
+  padding: 1.25rem;
+  border: 1px solid var(--neutral-200);
+  background: white;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s;
   text-align: center;
-  color: var(--dark-300);
+  color: var(--neutral-600);
+  box-shadow: var(--shadow-sm);
 }
 
 .option-card:hover {
-  border-color: var(--primary-500);
-  background: rgba(139, 92, 246, 0.05);
+  border-color: var(--primary-300);
+  background: var(--primary-50);
 }
 
 .option-card.selected {
-  border-color: var(--primary-500);
-  background: rgba(139, 92, 246, 0.15);
-  color: var(--primary-400);
-  font-weight: 600;
+  border-color: var(--primary-600);
+  background: var(--primary-50);
+  color: var(--primary-800);
+  font-weight: 700;
+  box-shadow: 0 0 0 2px var(--primary-100);
 }
 
 /* Form actions */

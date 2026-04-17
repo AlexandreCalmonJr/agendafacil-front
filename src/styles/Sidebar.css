@@ -6,18 +6,18 @@
   top: 0;
   height: 100vh;
   width: 280px;
-  background: var(--glass-bg);
-  border-right: 1px solid var(--glass-border);
-  backdrop-filter: blur(20px);
+  background: white;
+  border-right: 1px solid var(--neutral-100);
   display: flex;
   flex-direction: column;
   z-index: 99;
   overflow-y: auto;
+  box-shadow: var(--shadow-sm);
 }
 
 .sidebar-header {
   padding: 1.5rem;
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--neutral-50);
 }
 
 .sidebar-logo {
@@ -37,6 +37,7 @@
 .sidebar-logo span {
   font-weight: 700;
   letter-spacing: -0.5px;
+  color: var(--primary-800);
 }
 
 .sidebar-nav-container {
@@ -52,7 +53,7 @@
 }
 
 .nav-label {
-  color: var(--dark-500);
+  color: var(--neutral-400);
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -72,16 +73,16 @@
 }
 
 .nav-link:hover {
-  color: var(--primary-400);
-  background: rgba(139, 92, 246, 0.1);
-  border-left: 3px solid var(--primary-400);
+  color: var(--primary-700);
+  background: var(--primary-50);
+  border-left: 3px solid var(--primary-600);
   padding-left: calc(1.5rem - 3px);
 }
 
 .nav-link.active {
-  color: var(--primary-400);
-  background: rgba(139, 92, 246, 0.15);
-  border-left: 3px solid var(--primary-400);
+  color: var(--primary-700);
+  background: var(--primary-50);
+  border-left: 3px solid var(--primary-700);
   font-weight: 600;
   padding-left: calc(1.5rem - 3px);
 }

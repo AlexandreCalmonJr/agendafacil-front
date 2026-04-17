@@ -7,15 +7,16 @@
   margin-bottom: 2rem;
   flex-wrap: wrap;
   padding: 1.5rem;
-  background: rgba(139, 92, 246, 0.05);
-  border: 1px solid rgba(139, 92, 246, 0.2);
+  background: white;
+  border: 1px solid var(--neutral-100);
   border-radius: 18px;
+  box-shadow: var(--shadow-sm);
 }
 
 .agenda-toggle {
   display: flex;
   gap: 0.5rem;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--neutral-100);
   padding: 0.5rem;
   border-radius: 12px;
 }
@@ -24,7 +25,7 @@
   padding: 0.5rem 1rem;
   background: transparent;
   border: none;
-  color: var(--dark-400);
+  color: var(--neutral-500);
   font-size: 0.9rem;
   cursor: pointer;
   border-radius: 8px;
@@ -32,13 +33,15 @@
 }
 
 .agenda-toggle button.active {
-  background: var(--primary-500);
+  background: var(--gradient-primary);
   color: white;
   font-weight: 600;
+  box-shadow: 0 4px 10px rgba(21, 128, 61, 0.2);
 }
 
-.agenda-toggle button:hover {
-  color: white;
+.agenda-toggle button:hover:not(.active) {
+  background: var(--neutral-200);
+  color: var(--neutral-900);
 }
 
 .agenda-date-nav {
@@ -48,9 +51,9 @@
 }
 
 .date-display {
-  color: white;
-  font-weight: 600;
-  font-size: 0.95rem;
+  color: var(--neutral-900);
+  font-weight: 700;
+  font-size: 1.1rem;
   min-width: 250px;
   text-align: center;
 }
@@ -74,13 +77,13 @@
 }
 
 .agenda-summary-label {
-  color: var(--dark-400);
+  color: var(--neutral-400);
   font-size: 0.75rem;
   font-weight: 600;
 }
 
 .agenda-summary-value {
-  color: white;
+  color: var(--neutral-900);
   font-weight: 700;
   font-size: 1.25rem;
 }
@@ -95,13 +98,13 @@
 
 /* Data separator in weekly view */
 .agenda-data-section h3 {
-  color: var(--primary-300);
+  color: var(--primary-800);
   font-size: var(--font-size-base);
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 0.75rem;
   text-transform: capitalize;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--neutral-100);
 }
 
 /* Responsive */

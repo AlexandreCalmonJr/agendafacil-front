@@ -43,8 +43,8 @@ const Home = () => {
           >
             ✧ Tecnologia & Humanização ✧
           </motion.span>
-          <h1>A Excelência da Saúde em um <span>Clique.</span></h1>
-          <p>Experimente o futuro da gestão clínica. Do agendamento inteligente à Sala 360º de telemedicina, conectamos você ao cuidado de elite.</p>
+          <h1>Sua Clínica com Gestão <span>Inteligente.</span></h1>
+          <p>A tecnologia que simplifica o cuidado. Do agendamento online ao prontuário eletrônico completo, focamos no que importa: o seu paciente.</p>
           
           <div className="hero-cta">
             <Link to="/login" className="btn-hero-primary">
@@ -94,34 +94,34 @@ const Home = () => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <motion.div className="feature-card glass-card" variants={itemVariants}>
+          <motion.div className="feature-card" variants={itemVariants}>
             <div className="icon-wrapper"><Calendar /></div>
-            <h3>Agendamento Smart</h3>
-            <p>Agende consultas em segundos com confirmação automática por WhatsApp.</p>
+            <h3>Agendamento Online</h3>
+            <p>Seus pacientes agendam em segundos com confirmação em tempo real.</p>
           </motion.div>
 
-          <motion.div className="feature-card glass-card high" variants={itemVariants}>
+          <motion.div className="feature-card high" variants={itemVariants}>
             <div className="icon-wrapper"><Activity /></div>
-            <h3>Histórico 360º</h3>
-            <p>Acesso completo à evolução clínica e exames em uma única tela integrada.</p>
+            <h3>Prontuário Digital</h3>
+            <p>Todo o histórico clínico e exames organizados de forma clara e segura.</p>
           </motion.div>
 
-          <motion.div className="feature-card glass-card" variants={itemVariants}>
+          <motion.div className="feature-card" variants={itemVariants}>
             <div className="icon-wrapper"><Smartphone /></div>
-            <h3>Telemedicina HD</h3>
-            <p>Consultas remotas seguras com ferramentas de prescrição em tempo real.</p>
+            <h3>Teleconsulta</h3>
+            <p>Atendimento remoto seguro com prescrição digital integrada.</p>
           </motion.div>
 
-          <motion.div className="feature-card glass-card" variants={itemVariants}>
+          <motion.div className="feature-card" variants={itemVariants}>
             <div className="icon-wrapper"><ShieldCheck /></div>
-            <h3>Dados Blindados</h3>
-            <p>Segurança de nível bancário e conformidade total com a LGPD.</p>
+            <h3>Segurança LGPD</h3>
+            <p>Dados protegidos com criptografia de ponta a ponta e total conformidade.</p>
           </motion.div>
         </motion.div>
       </section>
 
       {/* Trust Section */}
-      <section className="trust-section glass">
+      <section className="trust-section">
         <div className="trust-content">
           <div className="trust-text">
             <h3>Por que escolher a Clínica Vita?</h3>

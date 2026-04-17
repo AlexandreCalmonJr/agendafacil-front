@@ -1,13 +1,13 @@
 /* Header.jsx Styles */
 
 .navbar {
-  background: var(--glass-bg);
-  border-bottom: 1px solid var(--glass-border);
-  backdrop-filter: blur(20px);
+  background: white;
+  border-bottom: 1px solid var(--neutral-100);
   padding: 0;
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: var(--shadow-sm);
 }
 
 .navbar-inner {
@@ -25,7 +25,7 @@
   align-items: center;
   gap: 0.75rem;
   text-decoration: none;
-  color: white;
+  color: var(--neutral-900);
   font-size: 1.25rem;
   transition: opacity 0.3s;
 }
@@ -42,12 +42,14 @@
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
-  background: var(--primary-600);
+  background: var(--gradient-primary);
+  color: white;
 }
 
 .navbar-logo span {
   font-weight: 700;
   letter-spacing: -0.5px;
+  color: var(--primary-800);
 }
 
 .navbar-links {
@@ -60,29 +62,30 @@
 }
 
 .navbar-links li a {
-  color: var(--dark-300);
+  color: var(--neutral-500);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s;
+  transition: all 0.3s;
   padding: 0.5rem 1rem;
   border-radius: 8px;
 }
 
 .navbar-links li a:hover {
-  color: var(--primary-400);
-  background: rgba(139, 92, 246, 0.1);
+  color: var(--primary-700);
+  background: var(--primary-50);
 }
 
 .navbar-links li a.active {
-  color: var(--primary-400);
-  border-bottom: 2px solid var(--primary-400);
+  color: var(--primary-700);
+  font-weight: 700;
+  background: var(--primary-50);
 }
 
 .navbar-toggle {
   display: none;
   background: none;
   border: none;
-  color: white;
+  color: var(--neutral-700);
   font-size: 1.5rem;
   cursor: pointer;
 }
@@ -105,10 +108,11 @@
     left: 0;
     right: 0;
     flex-direction: column;
-    background: var(--glass-bg);
-    border-bottom: 1px solid var(--glass-border);
+    background: white;
+    border-bottom: 1px solid var(--neutral-100);
     padding: 1rem;
     gap: 0.5rem;
+    box-shadow: var(--shadow-lg);
   }
 
   .navbar-links.open {
