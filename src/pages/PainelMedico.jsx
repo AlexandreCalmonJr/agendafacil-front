@@ -85,7 +85,7 @@ export default function PainelMedico() {
           </div>
           <div>
             <h1>Painel de Atendimento</h1>
-            <p>Dr(a). {medico.nome} • {medico.especialidade || 'Especialista'}</p>
+            <p>{medico.nome} • {medico.especialidade || 'Especialista'}</p>
           </div>
         </div>
         <div className="header-date">

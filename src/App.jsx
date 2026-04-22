@@ -19,6 +19,7 @@ import DashboardPaciente from './pages/DashboardPaciente';
 import DashboardProfissional from './pages/DashboardProfissional';
 import DashboardStaff from './pages/DashboardStaff';
 import GestaoGlobal from './pages/GestaoGlobal';
+import Usuarios from './pages/Usuarios';
 import Loading from './components/Loading';
 import Footer from './components/Footer';
 import './styles/App.css';
@@ -46,7 +47,7 @@ function AppLayout() {
   if (loading) return <Loading text="Carregando Clínica Vita..." />;
 
   return (
-    <div className={`app-container ${authenticated ? 'layout-sidebar' : 'layout-vertical'}`}>
+    <div className={`app-container ${authenticated ? 'vitalhub-portal layout-sidebar' : 'main-site layout-vertical'}`}>
       {authenticated ? <Sidebar /> : <Header />}
       <main className="main-content">
         <Routes>
@@ -78,7 +79,7 @@ function AppLayout() {
           } />
 
           <Route path="/agendar" element={
-            <ProtectedRoute perfisPermitidos={['cliente', 'admin']}>
+            <ProtectedRoute perfisPermitidos={['cliente', 'admin', 'recepcionista']}>
               <Agendar />
             </ProtectedRoute>
           } />
@@ -116,6 +117,12 @@ function AppLayout() {
           <Route path="/gestao-global" element={
             <ProtectedRoute perfisPermitidos={['recepcionista', 'admin']}>
               <GestaoGlobal />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/usuarios" element={
+            <ProtectedRoute perfisPermitidos={['admin']}>
+              <Usuarios />
             </ProtectedRoute>
           } />
 

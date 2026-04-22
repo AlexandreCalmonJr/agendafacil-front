@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react';
 import { listarClientes } from '../services/api';
+import { useAuth } from '../contexts/AuthContext';
 import FormCliente from '../components/FormCliente';
 import Loading from '../components/Loading';
 import '../styles/Clientes.css';
 
 export default function Clientes() {
+  const { usuario } = useAuth();
   const [clientes, setClientes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [busca, setBusca] = useState('');
+  
+  const isProfissional = usuario?.perfil === 'profissional';
 
   useEffect(() => {
     carregarClientes();
@@ -36,12 +40,14 @@ export default function Clientes() {
     <div className="animate-fade-in">
       <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <h1>👥 Clientes</h1>
-          <p>Gerencie os clientes da clínica</p>
+          <h1>👥 {isProfissional ? 'Meus Pacientes' : 'Clientes'}</h1>
+          <p>{isProfissional ? 'Acompanhe os pacientes do seu consultório' : 'Gerencie os clientes da clínica'}</p>
         </div>
-        <button className="btn btn-primary" onClick={() => setShowForm(!showForm)}>
-          {showForm ? '✕ Fechar' : '➕ Novo Cliente'}
-        </button>
+        {!isProfissional && (
+          <button className="btn btn-primary" onClick={() => setShowForm(!showForm)}>
+            {showForm ? '✕ Fechar' : '➕ Novo Cliente'}
+          </button>
+        )}
       </div>
 
       {/* Form */}
@@ -110,7 +116,7 @@ export default function Clientes() {
                       }}>
                         {c.nome?.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase()}
                       </div>
-                      <span style={{ fontWeight: '500', color: 'white' }}>{c.nome}</span>
+                      <span style={{ fontWeight: '500', color: 'var(--text-primary)' }}>{c.nome}</span>
                     </div>
                   </td>
                   <td>{c.email}</td>
@@ -131,7 +137,7 @@ export default function Clientes() {
       {/* Counter */}
       {!loading && (
         <div style={{ marginTop: '1rem', fontSize: '0.85rem', color: 'var(--dark-500)' }}>
-          Mostrando {clientesFiltrados.length} de {clientes.length} clientes
+          Mostrando {clientesFiltrados.length} de {clientes.length} {isProfissional ? 'pacientes' : 'clientes'}
         </div>
       )}
     </div>

@@ -15,13 +15,14 @@ export function useDarkMode() {
     // Salvar preferência no localStorage
     localStorage.setItem('darkMode', JSON.stringify(darkMode));
 
-    // Aplicar classe ao body
+    // Isolar completamente do site principal
+    document.body.classList.remove('dark-mode');
+
+    // Aplicar atributo seguro de tema na raiz do documento html
     if (darkMode) {
-      document.body.classList.add('dark-mode');
-      document.documentElement.style.colorScheme = 'dark';
+      document.documentElement.setAttribute('data-vitalhub-theme', 'dark');
     } else {
-      document.body.classList.remove('dark-mode');
-      document.documentElement.style.colorScheme = 'light';
+      document.documentElement.setAttribute('data-vitalhub-theme', 'light');
     }
   }, [darkMode]);
 

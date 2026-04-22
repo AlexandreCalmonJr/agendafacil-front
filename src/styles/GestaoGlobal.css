@@ -1,8 +1,8 @@
-/* GestaoGlobal - Navy Admin Premium */
+/* GestaoGlobal - Theme-Agnostic Admin */
 
 .gestao-global-premium {
   padding: 40px;
-  background: var(--navy-dark);
+  background: var(--neutral-50);
   min-height: 100vh;
 }
 
@@ -22,25 +22,26 @@
 .title-icon {
   width: 50px;
   height: 50px;
-  background: var(--navy-sidebar);
-  border: 1px solid var(--navy-border);
+  background: white;
+  border: 1px solid var(--neutral-200);
   border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--navy-accent);
+  color: var(--primary-600);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .header-title-box h1 {
   font-size: 1.8rem;
   font-weight: 800;
-  color: white;
+  color: var(--neutral-900);
   margin: 0;
   letter-spacing: -1px;
 }
 
 .header-title-box p {
-  color: var(--navy-subtext);
+  color: var(--neutral-500);
   margin: 0;
   font-weight: 500;
 }
@@ -51,20 +52,21 @@
 }
 
 .date-box {
-  background: var(--navy-sidebar);
-  border: 1px solid var(--navy-border);
+  background: white;
+  border: 1px solid var(--neutral-200);
   padding: 10px 18px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   gap: 12px;
-  color: white;
+  color: var(--neutral-700);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .premium-input-date {
   background: transparent;
   border: none;
-  color: white;
+  color: var(--neutral-800);
   font-weight: 700;
   outline: none;
   cursor: pointer;
@@ -84,19 +86,20 @@
 }
 
 .agenda-grid-premium::-webkit-scrollbar-thumb {
-  background: var(--navy-border);
+  background: var(--neutral-300);
   border-radius: 10px;
 }
 
 .doctor-column-premium {
   min-width: 320px;
-  background: var(--navy-sidebar);
-  border: 1px solid var(--navy-border);
+  background: white;
+  border: 1px solid var(--neutral-200);
   border-radius: 24px;
   padding: 24px;
   display: flex;
   flex-direction: column;
   height: 75vh;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
 }
 
 .doctor-header-card {
@@ -105,13 +108,13 @@
   gap: 16px;
   margin-bottom: 24px;
   padding-bottom: 16px;
-  border-bottom: 1px solid var(--navy-border);
+  border-bottom: 1px solid var(--neutral-200);
 }
 
 .doctor-avatar-box {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, var(--navy-accent), #60a5fa);
+  background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
   border-radius: 14px;
   display: flex;
   align-items: center;
@@ -124,13 +127,13 @@
 .doctor-meta strong {
   display: block;
   font-size: 1rem;
-  color: white;
+  color: var(--neutral-900);
   white-space: nowrap;
 }
 
 .doctor-meta span {
   font-size: 0.75rem;
-  color: var(--navy-subtext);
+  color: var(--neutral-500);
   font-weight: 600;
 }
 
@@ -138,7 +141,7 @@
   margin-left: auto;
   background: transparent;
   border: none;
-  color: var(--navy-subtext);
+  color: var(--neutral-400);
   cursor: pointer;
   padding: 8px;
   border-radius: 50%;
@@ -146,8 +149,8 @@
 }
 
 .btn-more:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
+  background: var(--neutral-100);
+  color: var(--neutral-700);
 }
 
 /* Slots List */
@@ -165,7 +168,7 @@
 }
 
 .doctor-slots-list::-webkit-scrollbar-thumb {
-  background: var(--navy-border);
+  background: var(--neutral-300);
   border-radius: 10px;
 }
 
@@ -173,38 +176,38 @@
   display: flex;
   gap: 16px;
   padding: 16px;
-  background: rgba(15, 23, 42, 0.4);
-  border: 1px solid var(--navy-border);
+  background: var(--neutral-50);
+  border: 1px solid var(--neutral-200);
   border-radius: 16px;
   transition: all 0.2s;
 }
 
 .agenda-item-premium:hover {
-  border-color: var(--navy-accent);
+  border-color: var(--primary-400);
   transform: translateX(4px);
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--primary-50);
 }
 
 .slot-time-col {
   padding-right: 12px;
-  border-right: 1px solid var(--navy-border);
+  border-right: 1px solid var(--neutral-200);
 }
 
 .time-val {
   font-size: 0.9rem;
   font-weight: 800;
-  color: var(--navy-accent);
+  color: var(--primary-600);
 }
 
 .patient-name {
-  color: white;
+  color: var(--neutral-900);
   font-weight: 700;
   font-size: 0.9rem;
   margin: 0;
 }
 
 .service-name {
-  color: var(--navy-subtext);
+  color: var(--neutral-500);
   font-size: 0.75rem;
   margin: 2px 0 8px;
 }
@@ -216,20 +219,20 @@
   font-size: 0.65rem;
   font-weight: 800;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--navy-subtext);
+  background: var(--neutral-100);
+  color: var(--neutral-600);
 }
 
-.status-em_espera .status-badge-premium { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
-.status-confirmado .status-badge-premium { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+.status-em_espera .status-badge-premium { background: rgba(245, 158, 11, 0.1); color: #d97706; }
+.status-confirmado .status-badge-premium { background: rgba(34, 197, 94, 0.1); color: #16a34a; }
 .status-concluido { opacity: 0.4; filter: grayscale(1); }
 
 /* Quick Add Button */
 .btn-quick-add {
   margin-top: 20px;
   background: transparent;
-  border: 1px dashed var(--navy-border);
-  color: var(--navy-subtext);
+  border: 1px dashed var(--neutral-300);
+  color: var(--neutral-500);
   padding: 12px;
   border-radius: 14px;
   font-weight: 700;
@@ -243,9 +246,9 @@
 }
 
 .btn-quick-add:hover {
-  border-color: var(--navy-accent);
-  color: white;
-  background: rgba(59, 130, 246, 0.05);
+  border-color: var(--primary-500);
+  color: var(--primary-700);
+  background: var(--primary-50);
 }
 
 .empty-state-column {
@@ -254,7 +257,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--navy-subtext);
+  color: var(--neutral-400);
   gap: 12px;
 }
 
@@ -265,11 +268,128 @@
 }
 
 .loading {
-  background: var(--navy-dark);
+  background: var(--neutral-50);
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--neutral-600);
   font-weight: 800;
+}
+
+/* ======== DARK MODE OVERRIDES ======== */
+html[data-vitalhub-theme="dark"] .vitalhub-portal .gestao-global-premium {
+  background: var(--dark-bg-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .header-title-box h1 {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .header-title-box p {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .title-icon {
+  background: var(--dark-bg-secondary);
+  border-color: var(--dark-border);
+  color: #4ade80;
+  box-shadow: none;
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .date-box {
+  background: var(--dark-bg-secondary);
+  border-color: var(--dark-border);
+  color: var(--dark-text-primary);
+  box-shadow: none;
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .premium-input-date {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .doctor-column-premium {
+  background: var(--dark-bg-secondary);
+  border-color: var(--dark-border);
+  box-shadow: none;
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .doctor-header-card {
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .doctor-meta strong {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .doctor-meta span {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-more {
+  color: var(--dark-text-tertiary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-more:hover {
+  background: var(--dark-bg-tertiary);
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .agenda-item-premium {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .agenda-item-premium:hover {
+  border-color: var(--primary-500);
+  background: rgba(74, 222, 128, 0.05);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .slot-time-col {
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .time-val {
+  color: #4ade80;
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .patient-name {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .service-name {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .status-badge-premium {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-quick-add {
+  border-color: var(--dark-border);
+  color: var(--dark-text-tertiary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-quick-add:hover {
+  border-color: var(--primary-500);
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.05);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .empty-state-column {
+  color: var(--dark-text-tertiary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .loading {
+  background: var(--dark-bg-primary);
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .agenda-grid-premium::-webkit-scrollbar-thumb {
+  background: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .doctor-slots-list::-webkit-scrollbar-thumb {
+  background: var(--dark-border);
 }

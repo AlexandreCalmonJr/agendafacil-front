@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { listarProfissionais, listarServicos, criarAgendamento } from '../services/api';
+import { listarProfissionais, listarServicos, criarAgendamento, listarClientes } from '../services/api';
 import { 
   Check, 
   ChevronRight, 
@@ -16,14 +16,20 @@ import {
 import '../styles/FormAgendamento.css';
 
 export default function FormAgendamento({ onSuccess, onCancel }) {
-  const [step, setStep] = useState(1);
+  const usuarioLocal = JSON.parse(localStorage.getItem('usuario') || '{}');
+  const isAdminOrRecepcao = ['admin', 'recepcionista'].includes(usuarioLocal?.perfil);
+
+  const [step, setStep] = useState(isAdminOrRecepcao ? 0 : 1);
   const [profissionais, setProfissionais] = useState([]);
   const [servicos, setServicos] = useState([]);
+  const [clientes, setClientes] = useState([]);
+  const [buscaCliente, setBuscaCliente] = useState('');
   const [loading, setLoading] = useState(false);
   const [erro, setErro] = useState('');
   const [sucesso, setSucesso] = useState('');
 
   const [form, setForm] = useState({
+    cliente_id: isAdminOrRecepcao ? '' : (usuarioLocal?.cliente_id || 1),
     profissional_id: '',
     servico_id: '',
     data: '',
@@ -37,7 +43,17 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
 
   useEffect(() => {
     carregarProfissionais();
+    if (isAdminOrRecepcao) carregarClientes();
   }, []);
+
+  const carregarClientes = async () => {
+    try {
+      const res = await listarClientes();
+      setClientes(res.data);
+    } catch {
+      console.error('Erro ao listar clientes');
+    }
+  };
 
   useEffect(() => {
     if (form.profissional_id) {
@@ -91,6 +107,10 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
   };
 
   const nextStep = () => {
+    if (step === 0 && !form.cliente_id) {
+      setErro('Selecione um paciente');
+      return;
+    }
     if (step === 1 && !form.profissional_id) {
       setErro('Selecione um profissional');
       return;
@@ -115,11 +135,10 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
     setErro('');
 
     try {
-      const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
       const data_hora = `${form.data}T${form.hora}:00`;
 
       await criarAgendamento({
-        cliente_id: usuario.cliente_id || 1,
+        cliente_id: parseInt(form.cliente_id),
         profissional_id: parseInt(form.profissional_id),
         servico_id: parseInt(form.servico_id),
         data_hora,
@@ -166,12 +185,16 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
     !especialidadeFiltro || p.especialidade === especialidadeFiltro
   );
 
-  const steps = [
+  const stepsBase = [
     { num: 1, label: 'Profissional' },
     { num: 2, label: 'Serviço' },
     { num: 3, label: 'Data/Hora' },
     { num: 4, label: 'Confirmar' }
   ];
+  const steps = isAdminOrRecepcao ? [
+    { num: 0, label: 'Paciente' },
+    ...stepsBase
+  ] : stepsBase;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -190,6 +213,44 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
 
       {erro && <div className="alert alert-error">⚠️ {erro}</div>}
       {sucesso && <div className="alert alert-success">✅ {sucesso}</div>}
+
+      {step === 0 && isAdminOrRecepcao && (
+        <div className="wizard-content-step fade-in">
+          <div className="step-options-header">
+            <h3>Selecione o Paciente</h3>
+          </div>
+          <div style={{ marginBottom: '1.5rem' }}>
+            <input 
+              type="text" 
+              placeholder="🔍 Buscar paciente por nome..."
+              value={buscaCliente}
+              onChange={(e) => setBuscaCliente(e.target.value)}
+              className="form-input"
+            />
+          </div>
+          <div className="professional-selection-grid">
+            {clientes.filter(c => c.nome?.toLowerCase().includes(buscaCliente.toLowerCase())).map(c => (
+              <label key={c.id} className={`prof-selection-card ${form.cliente_id === String(c.id) ? 'selected' : ''}`}>
+                <input
+                  type="radio"
+                  name="cliente_id"
+                  value={c.id}
+                  checked={form.cliente_id === String(c.id)}
+                  onChange={handleChange}
+                />
+                <div className="prof-selection-info" style={{ marginLeft: 0 }}>
+                  <strong>{c.nome}</strong>
+                  <span>{c.email}</span>
+                </div>
+                {form.cliente_id === String(c.id) && <div className="selected-indicator"><Check size={14} /></div>}
+              </label>
+            ))}
+            {clientes.length > 0 && clientes.filter(c => c.nome?.toLowerCase().includes(buscaCliente.toLowerCase())).length === 0 && (
+              <p style={{ color: 'var(--neutral-500)', fontStyle: 'italic' }}>Nenhum paciente encontrado.</p>
+            )}
+          </div>
+        </div>
+      )}
 
       {step === 1 && (
         <div className="wizard-content-step fade-in">
@@ -387,12 +448,12 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
 
       <div className="wizard-navigation">
         <div className="nav-left">
-          {step > 1 && (
+          {step > (isAdminOrRecepcao ? 0 : 1) && (
             <button type="button" className="btn-wizard prev" onClick={prevStep}>
               <ChevronLeft size={18} /> Voltar
             </button>
           )}
-          {onCancel && step === 1 && (
+          {onCancel && step === (isAdminOrRecepcao ? 0 : 1) && (
             <button type="button" className="btn-wizard cancel" onClick={onCancel}>
               Cancelar
             </button>

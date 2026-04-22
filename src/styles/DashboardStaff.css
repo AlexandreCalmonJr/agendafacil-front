@@ -1,10 +1,10 @@
-/* Dashboard Staff - Navy Elite Hub */
+/* Dashboard Staff - Theme-Agnostic Hub */
 
 .dashboard-container-staff {
-  background: var(--navy-dark);
   min-height: 100vh;
   padding: 40px;
-  color: white;
+  background: var(--neutral-50);
+  color: var(--neutral-900);
   font-family: 'Inter', sans-serif;
 }
 
@@ -21,33 +21,33 @@
   font-weight: 900;
   letter-spacing: -2px;
   margin: 10px 0;
-  color: white;
+  color: var(--neutral-900);
 }
 
 .company-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(59, 130, 246, 0.1);
-  color: var(--navy-accent);
+  background: rgba(21, 128, 61, 0.08);
+  color: var(--primary-600);
   padding: 8px 16px;
   border-radius: 100px;
   font-size: 0.75rem;
   font-weight: 800;
   text-transform: uppercase;
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(21, 128, 61, 0.15);
 }
 
 .staff-identity p {
-  color: var(--navy-subtext);
+  color: var(--neutral-500);
   font-size: 1.1rem;
   font-weight: 500;
 }
 
 .btn-staff-plus {
-  background: var(--navy-accent);
+  background: var(--primary-600);
   color: white;
-  padding: 16px 32px;
+  padding: 12px 24px;
   border-radius: 18px;
   border: none;
   font-weight: 800;
@@ -56,12 +56,13 @@
   gap: 12px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 10px 30px rgba(21, 128, 61, 0.2);
 }
 
 .btn-staff-plus:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 15px 40px rgba(21, 128, 61, 0.3);
+  background: var(--primary-700);
 }
 
 /* Metrics Grid - Premium Cards */
@@ -73,19 +74,21 @@
 }
 
 .staff-metric-card {
-  background: var(--navy-sidebar);
+  background: white;
   padding: 32px;
   border-radius: 28px;
-  border: 1px solid var(--navy-border);
+  border: 1px solid var(--neutral-200);
   display: flex;
   align-items: center;
   gap: 24px;
   transition: all 0.3s;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
 }
 
 .staff-metric-card:hover {
   transform: scale(1.02);
-  border-color: var(--navy-accent);
+  border-color: var(--primary-300);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
 .icon-box {
@@ -97,45 +100,51 @@
   justify-content: center;
 }
 
-.icon-box.blue { background: rgba(59, 130, 246, 0.1); color: #60a5fa; }
-.icon-box.green { background: rgba(34, 197, 94, 0.1); color: #4ade80; }
-.icon-box.orange { background: rgba(245, 158, 11, 0.1); color: #fbbf24; }
+.icon-box.blue { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+.icon-box.green { background: rgba(34, 197, 94, 0.1); color: #16a34a; }
+.icon-box.orange { background: rgba(245, 158, 11, 0.1); color: #d97706; }
 
-.info-box .val { font-size: 2rem; font-weight: 950; display: block; color: white; }
-.info-box .lab { font-size: 0.9rem; color: var(--navy-subtext); font-weight: 700; }
+.info-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.info-box .val { font-size: 1.8rem; font-weight: 950; display: block; color: var(--neutral-900); line-height: 1; }
+.info-box .lab { font-size: 1rem; color: var(--neutral-500); font-weight: 800; display: block; }
 
 /* Analytics Chart Box */
 .glass-card-staff {
-  background: var(--navy-sidebar);
+  background: white;
   padding: 32px;
   border-radius: 32px;
-  border: 1px solid var(--navy-border);
+  border: 1px solid var(--neutral-200);
   margin-bottom: 40px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
 }
 
 .glass-card-staff.no-padding { padding: 0; }
 
 .chart-header { margin-bottom: 30px; }
-.chart-header h3 { font-size: 1.4rem; font-weight: 900; margin: 0; color: white; }
-.chart-info { color: var(--navy-subtext); font-size: 0.85rem; font-weight: 600; }
+.chart-header h3 { font-size: 1.4rem; font-weight: 900; margin: 0; color: var(--neutral-900); }
+.chart-info { color: var(--neutral-500); font-size: 0.85rem; font-weight: 600; }
 
 /* Table Operations Hub */
 .agenda-header-padded {
   padding: 32px;
-  border-bottom: 1px solid var(--navy-border);
+  border-bottom: 1px solid var(--neutral-200);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.agenda-header-padded h3 { margin: 0; font-size: 1.4rem; font-weight: 900; }
+.agenda-header-padded h3 { margin: 0; font-size: 1.4rem; font-weight: 900; color: var(--neutral-900); }
 .total-dia-badge { 
-  background: rgba(255, 255, 255, 0.05); 
+  background: var(--neutral-100); 
   padding: 6px 14px; 
   border-radius: 100px; 
   font-size: 0.75rem; 
   font-weight: 700;
-  color: var(--navy-subtext);
+  color: var(--neutral-600);
 }
 
 .staff-table-premium {
@@ -147,16 +156,16 @@
   padding: 20px 32px;
   text-align: left;
   font-size: 0.75rem;
-  color: var(--navy-subtext);
+  color: var(--neutral-500);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--neutral-50);
 }
 
 .staff-table-premium td {
   padding: 24px 32px;
-  border-bottom: 1px solid var(--navy-border);
+  border-bottom: 1px solid var(--neutral-100);
   vertical-align: middle;
 }
 
@@ -164,22 +173,22 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(59, 130, 246, 0.1);
-  color: var(--navy-accent);
+  background: rgba(21, 128, 61, 0.08);
+  color: var(--primary-700);
   padding: 6px 12px;
   border-radius: 8px;
   font-weight: 800;
   font-size: 0.9rem;
 }
 
-.paciente-cell strong { display: block; font-size: 1rem; color: white; }
-.paciente-cell span { font-size: 0.85rem; color: var(--navy-subtext); font-weight: 600; }
+.paciente-cell strong { display: block; font-size: 1rem; color: var(--neutral-900); }
+.paciente-cell span { font-size: 0.85rem; color: var(--neutral-500); font-weight: 600; }
 
 .doutor-cell { display: flex; align-items: center; gap: 14px; }
 .doutor-thumb { width: 44px; height: 44px; border-radius: 12px; object-fit: cover; }
 
-.doutor-cell strong { display: block; font-size: 0.9rem; color: white; }
-.sala-label { display: flex; align-items: center; gap: 4px; font-size: 0.75rem; color: var(--navy-subtext); font-weight: 600; }
+.doutor-cell strong { display: block; font-size: 0.9rem; color: var(--neutral-900); }
+.sala-label { display: flex; align-items: center; gap: 4px; font-size: 0.75rem; color: var(--neutral-500); font-weight: 600; }
 
 .staff-badge {
   padding: 6px 12px;
@@ -189,14 +198,14 @@
   text-transform: uppercase;
 }
 
-.status-agendado { background: rgba(255, 255, 255, 0.05); color: #94a3b8; }
-.status-em_espera { background: rgba(245, 158, 11, 0.1); color: #fbbf24; }
-.status-em_atendimento { background: rgba(59, 130, 246, 0.1); color: #60a5fa; }
-.status-concluido { background: rgba(34, 197, 94, 0.1); color: #4ade80; }
+.status-agendado { background: var(--neutral-100); color: var(--neutral-600); }
+.status-em_espera { background: rgba(245, 158, 11, 0.1); color: #d97706; }
+.status-em_atendimento { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+.status-concluido { background: rgba(34, 197, 94, 0.1); color: #16a34a; }
 
 .staff-pay { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 0.85rem; }
-.pay-pago { color: #4ade80; }
-.pay-pendente { color: #f87171; }
+.pay-pago { color: #16a34a; }
+.pay-pendente { color: #dc2626; }
 
 .btn-staff-act {
   padding: 10px 18px;
@@ -208,8 +217,8 @@
   transition: all 0.2s;
 }
 
-.btn-staff-act.checkin { background: var(--navy-accent); color: white; }
-.btn-staff-act.pay { background: #1e293b; color: #f87171; border: 1px solid rgba(248, 113, 113, 0.2); }
+.btn-staff-act.checkin { background: var(--primary-600); color: white; }
+.btn-staff-act.pay { background: var(--neutral-100); color: #dc2626; border: 1px solid rgba(220, 38, 38, 0.2); }
 .btn-staff-act:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
 /* Empty States */
@@ -219,11 +228,128 @@
   align-items: center;
   justify-content: center;
   padding: 60px;
-  color: var(--navy-subtext);
+  color: var(--neutral-400);
   gap: 16px;
 }
 
 @media (max-width: 1024px) {
   .dashboard-container-staff { padding: 20px; }
   .dashboard-header-staff { flex-direction: column; align-items: flex-start; gap: 20px; }
+}
+
+/* ======== DARK MODE OVERRIDES ======== */
+html[data-vitalhub-theme="dark"] .vitalhub-portal .dashboard-container-staff {
+  background: var(--dark-bg-primary);
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .staff-identity h1 {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .staff-identity p {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .company-badge {
+  background: rgba(74, 222, 128, 0.08);
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.15);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .staff-metric-card {
+  background: var(--dark-bg-secondary);
+  border-color: var(--dark-border);
+  box-shadow: none;
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .staff-metric-card:hover {
+  border-color: var(--primary-500);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .info-box .val {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .info-box .lab {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .icon-box.blue { color: #60a5fa; }
+html[data-vitalhub-theme="dark"] .vitalhub-portal .icon-box.green { color: #4ade80; }
+html[data-vitalhub-theme="dark"] .vitalhub-portal .icon-box.orange { color: #fbbf24; }
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .glass-card-staff {
+  background: var(--dark-bg-secondary);
+  border-color: var(--dark-border);
+  box-shadow: none;
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .chart-header h3 {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .chart-info {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .agenda-header-padded {
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .agenda-header-padded h3 {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .total-dia-badge {
+  background: var(--dark-bg-tertiary);
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .staff-table-premium th {
+  background: var(--dark-bg-tertiary);
+  color: var(--dark-text-tertiary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .staff-table-premium td {
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .time-chip-staff {
+  background: rgba(74, 222, 128, 0.08);
+  color: #4ade80;
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .paciente-cell strong {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .paciente-cell span {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .doutor-cell strong {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .sala-label {
+  color: var(--dark-text-tertiary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .status-agendado {
+  background: rgba(255, 255, 255, 0.05);
+  color: #94a3b8;
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .pay-pago { color: #4ade80; }
+html[data-vitalhub-theme="dark"] .vitalhub-portal .pay-pendente { color: #f87171; }
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-staff-act.pay {
+  background: var(--dark-bg-tertiary);
+  color: #f87171;
+  border-color: rgba(248, 113, 113, 0.2);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .empty-info {
+  color: var(--dark-text-tertiary);
 }

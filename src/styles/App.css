@@ -1325,12 +1325,13 @@ img {
 }
 
 /* ========== DARK MODE ========== */
-body.dark-mode {
+html[data-vitalhub-theme="dark"] .vitalhub-portal {
   background: var(--dark-bg-primary);
   color: var(--dark-text-primary);
+  color-scheme: dark;
 }
 
-.dark-mode {
+html[data-vitalhub-theme="dark"] .vitalhub-portal {
   --neutral-50: #334155;
   --neutral-100: #475569;
   --neutral-200: #64748b;
@@ -1341,97 +1342,203 @@ body.dark-mode {
   --neutral-700: #f8fafc;
   --neutral-800: #f8fafc;
   --neutral-900: #f8fafc;
+  
+  --glass-bg: var(--dark-bg-secondary);
+  --glass-border: var(--dark-border);
 }
 
-.dark-mode .glass-card,
-.dark-mode .shadow-card {
+html[data-vitalhub-theme="dark"] .vitalhub-portal .glass-card,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .shadow-card {
   background: var(--dark-bg-secondary);
   border-color: var(--dark-border);
   color: var(--dark-text-primary);
   box-shadow: var(--dark-shadow);
 }
 
-.dark-mode .glass-card:hover {
+html[data-vitalhub-theme="dark"] .vitalhub-portal .glass-card:hover {
   background: var(--dark-bg-tertiary);
 }
 
-.dark-mode body {
+html[data-vitalhub-theme="dark"] .vitalhub-portal .dashboard-profissional,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .paciente-portal-container,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .dashboard-container-staff,
+html[data-vitalhub-theme="dark"] .agenda-premium-container {
   background: var(--dark-bg-primary);
   color: var(--dark-text-primary);
 }
 
-.dark-mode .dashboard-profissional,
-.dark-mode .paciente-portal-container,
-.dark-mode .dashboard-container-staff {
-  background: var(--dark-bg-primary);
-  color: var(--dark-text-primary);
-}
-
-.dark-mode .featured-card,
-.dark-mode .metric-card-pro,
-.dark-mode .shortcut-item-premium,
-.dark-mode .side-card {
+html[data-vitalhub-theme="dark"] .vitalhub-portal .featured-card,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .metric-card-pro,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .shortcut-item-premium,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .shortcut-card,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .side-card,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .agendamento-card,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .agenda-footer-summary,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .toggle-btn.active,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .date-navigator-premium,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .filter-box-premium,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .next-appointment-card,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .header-stats-paciente,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .history-card-premium,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .pac-action-btn,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .professional-mini-card,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .empty-agenda-state,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .dashboard-header-premium,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .atendimento-card,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .historico-item-modern,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .historico-sidebar,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .empty-state-modern {
   background: var(--dark-bg-secondary);
   border-color: var(--dark-border);
   color: var(--dark-text-primary);
 }
 
-.dark-mode .welcome-section h1,
-.dark-mode .page-header h1 {
-  color: var(--dark-text-primary);
-}
-
-.dark-mode .welcome-section p,
-.dark-mode .page-header p,
-.dark-mode .metric-details .label {
-  color: var(--dark-text-secondary);
-}
-
-.dark-mode .btn-primary {
-  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
-}
-
-.dark-mode .btn-primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-}
-
-.dark-mode .form-input,
-.dark-mode .form-select,
-.dark-mode .form-textarea {
+html[data-vitalhub-theme="dark"] .vitalhub-portal .agendamento-card .time-block,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-outline {
   background: var(--dark-bg-tertiary);
   border-color: var(--dark-border);
   color: var(--dark-text-primary);
 }
 
-.dark-mode .form-input:focus,
-.dark-mode .form-select:focus,
-.dark-mode .form-textarea:focus {
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-outline:hover {
+  background: var(--dark-bg-secondary);
+  color: var(--primary-400);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .agenda-view-toggle {
+  background: var(--dark-bg-tertiary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .welcome-section h1,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .page-header h1,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .header-text h1,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .summary-pill strong,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .current-date-display,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .nav-arrow,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .metric-details .value,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .patient-info-large h2,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .large-time,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .side-card h3,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .recent-info strong,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .shortcut-item-premium span,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .greeting-box h1,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .stat-val,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .card-badge-header,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .big-time,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-meta strong,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .shortcut-card span,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .history-header h3,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .item-date,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-row-info strong,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .header-identity h1,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .section-title-premium h3,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .title-left,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .time-tag,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .paciente-nome-text,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .hist-info strong,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .empty-agenda-state h3 {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .welcome-section p,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .page-header p,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .metric-details .label,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .header-text p,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .summary-pill,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-today-premium,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .premium-select-flat,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .service-tag,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .recent-info span,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .empty-featured p,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .empty-text,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .greeting-box p,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .stat-lab,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .full-date,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-meta span,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .empty-history-state,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .header-identity p,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .servico-nome-text,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .hist-info span,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .empty-agenda-state p {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .header-date {
+  background: var(--dark-bg-tertiary);
+  color: var(--dark-text-secondary);
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .nav-arrow {
+  background: var(--dark-bg-tertiary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-primary {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .form-input,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .form-select,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .form-textarea {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .form-input:focus,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .form-select:focus,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .form-textarea:focus {
   border-color: var(--primary-500);
   box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
 }
 
-.dark-mode .form-input::placeholder {
+html[data-vitalhub-theme="dark"] .vitalhub-portal .form-input::placeholder {
   color: var(--dark-text-tertiary);
 }
 
-.dark-mode a {
+html[data-vitalhub-theme="dark"] .vitalhub-portal a {
   color: #4ade80;
 }
 
-.dark-mode a:hover {
+html[data-vitalhub-theme="dark"] .vitalhub-portal a:hover {
   color: #22c55e;
 }
 
-.dark-mode button.nav-link-premium:hover {
+html[data-vitalhub-theme="dark"] .vitalhub-portal button.nav-link-premium:hover {
   background: rgba(22, 163, 74, 0.15);
 }
 
-.dark-mode .recent-item {
+html[data-vitalhub-theme="dark"] .vitalhub-portal .recent-item,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .summary-pill {
   background: var(--dark-bg-tertiary);
 }
 
-.dark-mode .recent-time {
+html[data-vitalhub-theme="dark"] .vitalhub-portal .recent-time {
   background: var(--dark-bg-primary);
   border-color: var(--dark-border);
+}
+
+/* Fix Agenda and Cards text inconsistencies in Dark Mode */
+html[data-vitalhub-theme="dark"] .vitalhub-portal .agenda-date-nav .date-display,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .agendamento-card h4,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .agendamento-card .time-block .time {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .agendamento-card .card-info,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .agendamento-card .time-block .duration {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .agenda-toggle button {
+  color: var(--dark-text-tertiary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .agenda-toggle button.active {
+  color: var(--primary-400);
 }
 

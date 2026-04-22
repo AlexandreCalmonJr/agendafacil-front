@@ -55,7 +55,7 @@
 }
 
 .nav-label {
-  color: var(--navy-subtext);
+  color: rgba(255, 255, 255, 0.5) !important;
   font-size: 0.7rem;
   font-weight: 800;
   text-transform: uppercase;

@@ -13,7 +13,8 @@ import {
   LogOut,
   Activity,
   Moon,
-  Sun
+  Sun,
+  UserPlus
 } from 'lucide-react';
 import logoImg from '../assets/image/logo.jpg';
 import '../styles/Sidebar.css';
@@ -95,6 +96,11 @@ export default function Sidebar() {
                   <Calendar size={18} /> <span>Agenda Semanal</span>
                 </Link>
               </li>
+              <li>
+                <Link to="/clientes" className={`nav-link-premium ${isActive('/clientes')}`}>
+                  <UserSquare2 size={18} /> <span>Meus Pacientes</span>
+                </Link>
+              </li>
             </>
           )}
 
@@ -112,6 +118,11 @@ export default function Sidebar() {
                 </Link>
               </li>
               <li>
+                <Link to="/agendar" className={`nav-link-premium ${isActive('/agendar')}`}>
+                  <Calendar size={18} /> <span>Novo Agendamento</span>
+                </Link>
+              </li>
+              <li>
                 <Link to="/clientes" className={`nav-link-premium ${isActive('/clientes')}`}>
                   <UserSquare2 size={18} /> <span>Pacientes</span>
                 </Link>
@@ -122,6 +133,15 @@ export default function Sidebar() {
                 </Link>
               </li>
             </>
+          )}
+
+          {/* EXCLUSIVO DO ADMINISTRADOR */}
+          {usuario?.perfil === 'admin' && (
+            <li>
+              <Link to="/usuarios" className={`nav-link-premium ${isActive('/usuarios')}`}>
+                <UserPlus size={18} /> <span>Acessos & Contas</span>
+              </Link>
+            </li>
           )}
         </ul>
       </div>
