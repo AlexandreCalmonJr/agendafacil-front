@@ -364,20 +364,31 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
               />
             </div>
             <div className="time-picker-side">
-              <label>Horários Livres</label>
+              <label>Horários {form.data ? 'Disponíveis' : '(selecione a data primeiro)'}</label>
               <div className="premium-time-grid">
-                {horariosDisponiveis.map(h => (
-                  <button
-                    key={h}
-                    type="button"
-                    disabled={horariosOcupados.includes(h)}
-                    onClick={() => setForm(prev => ({ ...prev, hora: h }))}
-                    className={`time-chip ${form.hora === h ? 'selected' : ''} ${horariosOcupados.includes(h) ? 'occupied' : ''}`}
-                  >
-                    {h}
-                  </button>
-                ))}
+                {horariosDisponiveis.map(h => {
+                  const ocupado = horariosOcupados.includes(h);
+                  return (
+                    <button
+                      key={h}
+                      type="button"
+                      disabled={ocupado || !form.data}
+                      onClick={() => setForm(prev => ({ ...prev, hora: h }))}
+                      className={`time-chip ${form.hora === h ? 'selected' : ''} ${ocupado ? 'occupied' : ''}`}
+                      title={ocupado ? 'Horário já reservado' : `Agendar às ${h}`}
+                    >
+                      {h}
+                      {ocupado && <span style={{ fontSize: '0.6rem', display: 'block', opacity: 0.7 }}>Ocupado</span>}
+                    </button>
+                  );
+                })}
               </div>
+              {form.data && horariosOcupados.length > 0 && (
+                <p style={{ fontSize: '0.75rem', color: 'var(--neutral-500)', marginTop: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span style={{ width: 10, height: 10, background: '#fecaca', borderRadius: 3, display: 'inline-block' }}></span>
+                  Horários em vermelho já estão ocupados para este profissional
+                </p>
+              )}
             </div>
           </div>
           

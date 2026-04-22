@@ -1,14 +1,19 @@
 import { useState, useEffect } from 'react';
 import { listarAgendamentos, cancelarAgendamento, atualizarAgendamento } from '../services/api';
+import { useAuth } from '../contexts/AuthContext';
 import AgendamentoCard from '../components/AgendamentoCard';
 import Loading from '../components/Loading';
-import { Calendar, ChevronLeft, ChevronRight, Filter, List, LayoutGrid, Clock, CalendarDays, CheckCircle2, XCircle } from 'lucide-react';
+import { Calendar, ChevronLeft, ChevronRight, Filter, List, LayoutGrid, Clock, CalendarDays, CheckCircle2, XCircle, Users, Stethoscope } from 'lucide-react';
 import '../styles/Agenda.css';
 
 export default function Agenda() {
+  const { usuario } = useAuth();
+  const isProfissional = usuario?.perfil === 'profissional';
+  const isCliente = usuario?.perfil === 'cliente';
+  
   const [agendamentos, setAgendamentos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [view, setView] = useState('diaria'); // diaria | semanal
+  const [view, setView] = useState('diaria');
   const [dataAtual, setDataAtual] = useState(new Date());
   const [filtroStatus, setFiltroStatus] = useState('');
 
@@ -130,8 +135,8 @@ export default function Agenda() {
     <div className="agenda-premium-container fade-in">
       <div className="agenda-header-premium">
         <div className="header-text">
-          <h1>Minha Agenda</h1>
-          <p>Gerencie seus compromissos e histórico de saúde</p>
+          <h1>{isProfissional ? 'Agenda de Pacientes' : 'Minhas Consultas'}</h1>
+          <p>{isProfissional ? 'Acompanhe sua agenda e visualize os pacientes do dia' : 'Gerencie seus compromissos e histórico de saúde'}</p>
         </div>
         <div className="agenda-view-toggle">
           <button
@@ -148,6 +153,40 @@ export default function Agenda() {
           </button>
         </div>
       </div>
+
+      {/* Stats resumidas - visível para médico */}
+      {isProfissional && !loading && (
+        <div className="agenda-stats-row">
+          <div className="agenda-stat-card">
+            <div className="stat-icon blue"><Users size={22} /></div>
+            <div className="stat-body">
+              <span className="stat-number">{agendamentosFiltrados.length}</span>
+              <span className="stat-label">Pacientes Agendados</span>
+            </div>
+          </div>
+          <div className="agenda-stat-card">
+            <div className="stat-icon orange"><Clock size={22} /></div>
+            <div className="stat-body">
+              <span className="stat-number">{agendamentosFiltrados.filter(a => a.status === 'agendado').length}</span>
+              <span className="stat-label">Aguardando Confirmação</span>
+            </div>
+          </div>
+          <div className="agenda-stat-card">
+            <div className="stat-icon green"><CheckCircle2 size={22} /></div>
+            <div className="stat-body">
+              <span className="stat-number">{agendamentosFiltrados.filter(a => a.status === 'confirmado').length}</span>
+              <span className="stat-label">Confirmados</span>
+            </div>
+          </div>
+          <div className="agenda-stat-card">
+            <div className="stat-icon red"><XCircle size={22} /></div>
+            <div className="stat-body">
+              <span className="stat-number">{agendamentosFiltrados.filter(a => a.status === 'concluido').length}</span>
+              <span className="stat-label">Concluídos</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Controls */}
       <div className="agenda-toolbar-premium">
