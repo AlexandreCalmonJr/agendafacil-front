@@ -293,3 +293,393 @@
   .atendimento-workspace-layout { grid-template-columns: 1fr; }
   .paciente-command-sidebar { position: static; }
 }
+
+/* Quick Exam Viewer Card */
+.quick-exam-viewer {
+  margin-top: 24px;
+  padding: 24px;
+  background: var(--neutral-50);
+  border: 1px solid var(--neutral-200);
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon-badge {
+  width: 44px;
+  height: 44px;
+  background: rgba(21, 128, 61, 0.08);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-600);
+  flex-shrink: 0;
+}
+
+.btn-elite-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--neutral-100);
+  color: var(--neutral-800);
+  border: 1px solid var(--neutral-200);
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-elite-action:hover {
+  background: var(--primary-50);
+  border-color: var(--primary-300);
+  color: var(--primary-700);
+}
+
+/* Exam Modal Overlay */
+.exam-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.exam-modal {
+  background: white;
+  border-radius: 28px;
+  width: 90%;
+  max-width: 720px;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.exam-modal > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--neutral-200);
+}
+
+.exam-modal > header h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--neutral-900);
+  margin: 0;
+}
+
+.exam-modal > header button {
+  background: var(--neutral-100);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  font-size: 1.4rem;
+  color: var(--neutral-600);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exam-modal > header button:hover {
+  background: var(--neutral-200);
+  color: var(--neutral-900);
+}
+
+.exam-body {
+  padding: 32px;
+}
+
+.exam-file-sim {
+  background: var(--neutral-50);
+  border: 1px solid var(--neutral-200);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.exam-file-sim > header {
+  background: var(--neutral-100);
+  padding: 14px 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--neutral-700);
+  border-bottom: 1px solid var(--neutral-200);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.exam-file-sim > header::before {
+  content: '📄';
+}
+
+.sim-viewer {
+  padding: 60px 32px;
+  text-align: center;
+  color: var(--neutral-500);
+}
+
+.sim-viewer p:first-child {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--neutral-600);
+  margin: 0 0 8px;
+}
+
+/* Historico & Timeline */
+.historico-container {
+  flex: 1;
+}
+
+.historico-header h3 {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #1a202c;
+  margin: 0;
+}
+
+.historico-header p {
+  color: #94a3b8;
+  margin: 4px 0 24px;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.timeline-item {
+  padding: 20px;
+  background: var(--neutral-50);
+  border: 1px solid var(--neutral-200);
+  border-radius: 16px;
+  display: flex;
+  gap: 16px;
+  transition: all 0.2s;
+}
+
+.timeline-item:hover {
+  border-color: var(--primary-300);
+}
+
+.timeline-date {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--primary-600);
+  white-space: nowrap;
+  min-width: 80px;
+}
+
+.timeline-content strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--neutral-900);
+  margin-bottom: 4px;
+}
+
+.timeline-content p {
+  font-size: 0.85rem;
+  color: var(--neutral-600);
+  margin: 0 0 8px;
+  line-height: 1.5;
+}
+
+.mini-badges {
+  display: flex;
+  gap: 8px;
+}
+
+.mini-badges span {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: var(--neutral-100);
+  padding: 2px 8px;
+  border-radius: 6px;
+  color: var(--neutral-600);
+}
+
+/* ======== DARK MODE ======== */
+html[data-vitalhub-theme="dark"] .vitalhub-portal .sala-atendimento-premium {
+  background: var(--dark-bg-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .paciente-command-sidebar {
+  background: var(--dark-bg-secondary);
+  border-color: var(--dark-border);
+  box-shadow: none;
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .paciente-profile-header h2 {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .info-block label {
+  color: var(--dark-text-tertiary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .info-block strong {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .status-indicator {
+  background: rgba(22, 163, 74, 0.1);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-finish-premium {
+  background: var(--dark-bg-tertiary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-pause-premium {
+  border-color: var(--dark-border);
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-pause-premium:hover {
+  background: var(--dark-bg-tertiary);
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .command-tabs {
+  background: var(--dark-bg-tertiary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .tab-btn {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .tab-btn.active {
+  background: var(--dark-bg-secondary);
+  color: var(--dark-text-primary);
+  box-shadow: none;
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .command-workspace-shell {
+  background: var(--dark-bg-secondary);
+  border-color: var(--dark-border);
+  box-shadow: none;
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .editor-header h3 {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .atendimento-textarea {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .command-footer {
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .save-status {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-save-premium {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-save-premium:hover {
+  background: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .quick-exam-viewer {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-elite-action {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .exam-modal {
+  background: var(--dark-bg-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .exam-modal > header {
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .exam-modal > header h3 {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .exam-modal > header button {
+  background: var(--dark-bg-tertiary);
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .exam-file-sim {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .exam-file-sim > header {
+  background: var(--dark-bg-primary);
+  border-color: var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .sim-viewer {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .sim-viewer p:first-child {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .timeline-item {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .timeline-content strong {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .timeline-content p {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .historico-header h3 {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .historico-header p {
+  color: var(--dark-text-secondary);
+}
