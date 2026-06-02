@@ -255,3 +255,85 @@
   .page-header h1 { font-size: 2.5rem; }
   .prof-actions { flex-direction: column; }
 }
+
+/* ========== DARK MODE OVERRIDES ========== */
+html[data-vitalhub-theme="dark"] .vitalhub-portal .page-header h1 {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .page-header p {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-info-basic .prof-card-name {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-bio {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .detail-item {
+  color: var(--dark-text-tertiary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-details-minimal {
+  border-top-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-ver-servicos {
+  background: var(--dark-bg-tertiary);
+  color: var(--dark-text-primary);
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-ver-servicos:hover {
+  background: var(--dark-bg-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-agendar-direct,
+html[data-vitalhub-theme="dark"] .vitalhub-portal a.btn-agendar-direct {
+  color: white !important;
+  background: var(--primary-600);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-agendar-direct:hover,
+html[data-vitalhub-theme="dark"] .vitalhub-portal a.btn-agendar-direct:hover {
+  background: var(--primary-500);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-badge {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--primary-400);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-status-dot {
+  border-color: var(--dark-bg-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-services-explorer {
+  background: var(--dark-bg-primary);
+  border-top-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .services-title {
+  color: var(--dark-text-tertiary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .service-item-row {
+  background: var(--dark-bg-secondary);
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .service-name-text {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .service-meta-text {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .service-price-tag {
+  color: var(--primary-400);
+}
+

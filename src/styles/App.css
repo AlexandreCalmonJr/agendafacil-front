@@ -1519,6 +1519,14 @@ html[data-vitalhub-theme="dark"] .vitalhub-portal a:hover {
   color: #22c55e;
 }
 
+/* Fix link override styling inside buttons in dark mode globally */
+html[data-vitalhub-theme="dark"] .vitalhub-portal a.btn:not(.btn-outline),
+html[data-vitalhub-theme="dark"] .vitalhub-portal a.btn-primary,
+html[data-vitalhub-theme="dark"] .vitalhub-portal a.btn-success,
+html[data-vitalhub-theme="dark"] .vitalhub-portal a.btn-danger {
+  color: white !important;
+}
+
 html[data-vitalhub-theme="dark"] .vitalhub-portal button.nav-link-premium:hover {
   background: rgba(22, 163, 74, 0.15);
 }

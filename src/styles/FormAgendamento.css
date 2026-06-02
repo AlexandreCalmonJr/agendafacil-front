@@ -390,3 +390,254 @@
   .scheduling-grid-premium { grid-template-columns: 1fr; }
   .ticket-row.split { grid-template-columns: 1fr; }
 }
+
+/* ========== DARK MODE OVERRIDES ========== */
+html[data-vitalhub-theme="dark"] .vitalhub-portal .step-options-header h3 {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .selected-sub {
+  color: var(--primary-400);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .wizard-step-unit .step-circle {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .wizard-step-unit.active .step-circle {
+  background: var(--primary-600);
+  border-color: var(--primary-600);
+  color: white;
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .wizard-step-unit .step-label {
+  color: var(--dark-text-tertiary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .wizard-step-unit.active .step-label {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .wizard-step-unit .step-line {
+  background: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .wizard-step-unit.active .step-line {
+  background: var(--primary-600);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .premium-select-filter {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .premium-select-filter option {
+  background: var(--dark-bg-secondary);
+  color: var(--dark-text-primary);
+}
+
+/* Professional Card Selection */
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-selection-card {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-selection-card:hover {
+  border-color: var(--primary-500);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-selection-card.selected {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: var(--primary-500);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-selection-info strong {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-selection-info span {
+  color: var(--dark-text-secondary);
+}
+
+/* Service Card Selection */
+html[data-vitalhub-theme="dark"] .vitalhub-portal .service-selection-card {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .service-selection-card:hover {
+  border-color: var(--primary-500);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .service-selection-card.selected {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: var(--primary-500);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .service-meta strong {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .service-meta p {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .service-duration {
+  color: var(--primary-400);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .service-price {
+  color: var(--dark-text-primary);
+}
+
+/* Modality Selector */
+html[data-vitalhub-theme="dark"] .vitalhub-portal .modality-btn {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .modality-btn:hover {
+  border-color: var(--primary-500);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .modality-btn.active {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: var(--primary-500);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .modality-btn strong {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .modality-btn span {
+  color: var(--dark-text-secondary);
+}
+
+/* Inputs & Date / Time */
+html[data-vitalhub-theme="dark"] .vitalhub-portal .premium-date-input,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .premium-textarea {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .date-picker-side label,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .time-picker-side label {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .time-chip {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .time-chip:hover:not(:disabled) {
+  border-color: var(--primary-500);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .time-chip.selected {
+  background: var(--primary-600);
+  border-color: var(--primary-600);
+  color: white;
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .time-chip.occupied {
+  background: var(--dark-bg-primary);
+  border-color: var(--dark-border);
+  color: var(--dark-text-tertiary);
+  opacity: 0.4;
+}
+
+/* Summary Ticket */
+html[data-vitalhub-theme="dark"] .vitalhub-portal .summary-ticket-premium {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .ticket-header {
+  background: var(--dark-bg-primary);
+  border-bottom-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .ticket-header span {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .ticket-info-unit label {
+  color: var(--dark-text-tertiary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .ticket-info-unit span,
+html[data-vitalhub-theme="dark"] .vitalhub-portal .ticket-info-unit strong {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .ticket-divider {
+  border-bottom-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .total-label {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .total-val {
+  color: var(--primary-400);
+}
+
+/* Wizard Buttons */
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-wizard.prev {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-wizard.prev:hover {
+  background: var(--dark-bg-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-wizard.next.primary {
+  background: var(--primary-600);
+  color: white;
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-wizard.next.primary:hover {
+  background: var(--primary-500);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-wizard.cancel {
+  background: transparent;
+  color: var(--dark-text-secondary);
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-wizard.cancel:hover {
+  background: rgba(220, 38, 38, 0.1);
+  color: #ef4444;
+}
+
+/* Patient chips (Admin/Recepção) */
+html[data-vitalhub-theme="dark"] .vitalhub-portal .patient-chip {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .patient-chip:hover {
+  border-color: var(--primary-500);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .patient-chip.selected {
+  background: var(--primary-600);
+  border-color: var(--primary-600);
+  color: white;
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .time-hint {
+  color: var(--dark-text-tertiary);
+}
+
