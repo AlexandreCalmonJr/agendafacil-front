@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import api from '../services/api';
+import api, { logoutApi } from '../services/api';
 
 const AuthContext = createContext({});
 
@@ -17,44 +17,34 @@ function isTokenValid(token) {
   if (!payload || !payload.exp) return false;
   return payload.exp * 1000 > Date.now();
 }
-
 export const AuthProvider = ({ children }) => {
   const [usuario, setUsuario] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Recuperar dados ao carregar
     const storedUser = localStorage.getItem('usuario');
 
     if (storedUser) {
-      const userData = JSON.parse(storedUser);
-      // Validar se o token ainda é válido no cookie
-      const storedToken = localStorage.getItem('token');
-      if (storedToken && isTokenValid(storedToken)) {
-        setUsuario(userData);
-      } else {
-        localStorage.removeItem('usuario');
-        localStorage.removeItem('token');
-      }
+      setUsuario(JSON.parse(storedUser));
     }
     setLoading(false);
   }, []);
 
-  const loginContext = (userData, userToken) => {
+  const loginContext = (userData) => {
     setUsuario(userData);
     localStorage.setItem('usuario', JSON.stringify(userData));
-    if (userToken) {
-      localStorage.setItem('token', userToken);
-    }
   };
 
   const logoutContext = async () => {
-    setUsuario(null);
-    localStorage.removeItem('usuario');
-    localStorage.removeItem('token');
     try {
-      await api.post('/logout');
-    } catch {
-      // Ignorar erro - cookie pode já ter expirado
+      await logoutApi();
+    } catch (err) {
+      console.error('Erro ao efetuar logout no servidor:', err);
+    } finally {
+      setUsuario(null);
+      localStorage.removeItem('usuario');
+      localStorage.removeItem('token');
     }
   };
 

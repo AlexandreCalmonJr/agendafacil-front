@@ -171,7 +171,6 @@ export default function Login() {
               onError={() => setError('Erro no login com Google')}
               theme="outline"
               size="large"
-              width="100%"
               shape="rectangular"
             />
           </div>

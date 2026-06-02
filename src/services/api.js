@@ -10,21 +10,11 @@ const api = axios.create({
   }
 });
 
-// Interceptor para adicionar token JWT do cookie (fallback para Authorization header)
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
 // Interceptor para tratar erros
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('token');
       localStorage.removeItem('usuario');
       window.location.href = '/login';
     }
@@ -41,6 +31,9 @@ export const loginGoogle = (googleToken) =>
 
 export const registro = (dados) =>
   api.post('/registro', dados);
+
+export const logoutApi = () =>
+  api.post('/logout');
 
 // ========== PROFISSIONAIS ==========
 export const listarProfissionais = () =>
