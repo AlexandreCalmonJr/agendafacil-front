@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import ErrorBoundary from './components/ErrorBoundary';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
@@ -135,15 +136,21 @@ function AppLayout() {
 }
 
 export default function App() {
-  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || 'SEU_CLIENT_ID_AQUI.apps.googleusercontent.com';
+  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
+  if (!googleClientId) {
+    console.warn('VITE_GOOGLE_CLIENT_ID não está definido. Login com Google pode não funcionar.');
+  }
 
   return (
-    <GoogleOAuthProvider clientId={googleClientId}>
-      <Router>
-        <AuthProvider>
-          <AppLayout />
-        </AuthProvider>
-      </Router>
-    </GoogleOAuthProvider>
+    <ErrorBoundary>
+      <GoogleOAuthProvider clientId={googleClientId || ''}>
+        <Router>
+          <AuthProvider>
+            <AppLayout />
+          </AuthProvider>
+        </Router>
+      </GoogleOAuthProvider>
+    </ErrorBoundary>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { 
   Mail, 
   Phone, 
@@ -31,8 +31,7 @@ const Contato = () => {
     setStatus({ type: '', message: '' });
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-      await axios.post(`${API_URL}/contato`, formData);
+      await api.post('/contato', formData);
       
       setStatus({ 
         type: 'success', 

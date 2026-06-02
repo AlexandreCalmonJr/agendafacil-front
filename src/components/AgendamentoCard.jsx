@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import '../styles/AgendamentoCard.css';
 
 export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }) {
+  const { usuario } = useAuth();
   const dataHora = new Date(agendamento.data_hora);
   const hora = dataHora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
   const data = dataHora.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
@@ -15,13 +17,10 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
     concluido: { label: 'Concluído', className: 'badge-concluido', icon: '✔️' }
   };
 
-  const { usuario } = JSON.parse(localStorage.getItem('usuario') || '{}');
-  const user = JSON.parse(localStorage.getItem('usuario') || '{}');
-  
   const statusInfo = statusConfig[agendamento.status] || statusConfig.agendado;
   const isCancelable = ['agendado', 'confirmado'].includes(agendamento.status);
   const isUpdatable = agendamento.status === 'agendado';
-  const isProfissional = ['profissional', 'admin'].includes(user.perfil);
+  const isProfissional = ['profissional', 'admin'].includes(usuario?.perfil);
 
   const handleEditLink = () => {
     const novoLink = window.prompt('Insira o link da teleconsulta (Zoom, Meet, WhatsApp):', agendamento.link_telemedicina || '');

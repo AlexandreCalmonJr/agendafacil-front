@@ -90,39 +90,39 @@ export default function Usuarios() {
 
           <div className="form-grid">
             <div className="form-group">
-              <label>Nome Completo*</label>
-              <input type="text" name="nome" value={form.nome} onChange={handleChange} required className="form-input" placeholder="Ex: João Silva"/>
+              <label htmlFor="nome">Nome Completo*</label>
+              <input id="nome" type="text" name="nome" value={form.nome} onChange={handleChange} required className="form-input" placeholder="Ex: João Silva"/>
             </div>
             
             <div className="form-group">
-              <label>Email Corporativo*</label>
-              <input type="email" name="email" value={form.email} onChange={handleChange} required className="form-input" placeholder="joao.silva@clinicavita.com"/>
+              <label htmlFor="email">Email Corporativo*</label>
+              <input id="email" type="email" name="email" value={form.email} onChange={handleChange} required className="form-input" placeholder="joao.silva@clinicavita.com"/>
             </div>
 
             <div className="form-group">
-              <label>Senha Inicial*</label>
-              <input type="password" name="senha" value={form.senha} onChange={handleChange} required className="form-input" placeholder="Senha segura"/>
+              <label htmlFor="senha">Senha Inicial*</label>
+              <input id="senha" type="password" name="senha" value={form.senha} onChange={handleChange} required className="form-input" placeholder="Senha segura"/>
             </div>
 
             <div className="form-group">
-              <label>Telefone</label>
-              <input type="text" name="telefone" value={form.telefone} onChange={handleChange} className="form-input" placeholder="(11) 99999-9999"/>
+              <label htmlFor="telefone">Telefone</label>
+              <input id="telefone" type="text" name="telefone" value={form.telefone} onChange={handleChange} className="form-input" placeholder="(11) 99999-9999"/>
             </div>
           </div>
 
           {form.perfil === 'profissional' && (
             <div className="form-grid prof-extra-section fade-in">
               <div className="form-group">
-                <label>Especialidade*</label>
-                <input type="text" name="especialidade" value={form.especialidade} onChange={handleChange} required className="form-input" placeholder="Ex: Cardiologia"/>
+                <label htmlFor="especialidade">Especialidade*</label>
+                <input id="especialidade" type="text" name="especialidade" value={form.especialidade} onChange={handleChange} required className="form-input" placeholder="Ex: Cardiologia"/>
               </div>
               <div className="form-group">
-                <label>Registro Profissional (CRM/CRP)</label>
-                <input type="text" name="registro_profissional" value={form.registro_profissional} onChange={handleChange} className="form-input" placeholder="CRM-SP 123456"/>
+                <label htmlFor="registro_profissional">Registro Profissional (CRM/CRP)</label>
+                <input id="registro_profissional" type="text" name="registro_profissional" value={form.registro_profissional} onChange={handleChange} className="form-input" placeholder="CRM-SP 123456"/>
               </div>
               <div className="form-group" style={{ gridColumn: '1 / -1' }}>
-                <label>Mini Biografia/Descrição</label>
-                <textarea name="descricao" value={form.descricao} onChange={handleChange} className="form-input" placeholder="Breve currículo ou apresentação..."/>
+                <label htmlFor="descricao">Mini Biografia/Descrição</label>
+                <textarea id="descricao" name="descricao" value={form.descricao} onChange={handleChange} className="form-input" placeholder="Breve currículo ou apresentação..."/>
               </div>
             </div>
           )}

@@ -230,7 +230,7 @@ export default function SalaAtendimento() {
                       <p style={{ margin: 0, opacity: 0.6, fontSize: '0.8rem' }}>Arquivos disponíveis para visualização 360º</p>
                     </div>
                   </div>
-                  <button className="btn btn-sm btn-outline" onClick={() => setShowExamModal(true)}>
+                  <button className="btn btn-sm btn-outline" onClick={() => setShowExamModal(true)} aria-label="Abrir visualizador de exames">
                     <Eye size={16} /> Abrir Visualizador
                   </button>
                 </div>
@@ -280,7 +280,7 @@ export default function SalaAtendimento() {
           <div className="exam-modal" onClick={e => e.stopPropagation()}>
             <header>
               <h3><FileSearch size={22} /> Visualizador de Exames VitalPro</h3>
-              <button onClick={() => setShowExamModal(false)}>×</button>
+               <button onClick={() => setShowExamModal(false)} aria-label="Fechar modal">×</button>
             </header>
             <div className="exam-body">
               <div className="exam-file-sim">

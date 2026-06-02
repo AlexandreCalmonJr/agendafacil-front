@@ -1,17 +1,20 @@
 import React, { useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   listarAgendamentos, 
   atualizarAgendamento 
 } from '../services/api';
 import { useApi } from '../hooks/useApi';
+import { getProfImage } from '../utils/images';
 import { format, subDays } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import Loading from '../components/Loading';
-import { RevenueChart, PatientsFlowChart } from '../components/AnalyticsCharts';
+import { PatientsFlowChart } from '../components/AnalyticsCharts';
 import { Activity, DollarSign, Users, Calendar, MapPin, CheckCircle, CreditCard, Plus } from 'lucide-react';
 import '../styles/DashboardStaff.css';
 
 const DashboardStaff = () => {
+  const navigate = useNavigate();
   // Hook customizado para gerenciar a chamada de agendamentos
   const { 
     data: agendamentos = [], 
@@ -57,18 +60,6 @@ const DashboardStaff = () => {
     }
   };
 
-  const getProfImage = (nome) => {
-    const map = {
-      'Dr. Carlos Eduardo': 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop',
-      'Dra. Ana Beatrix': 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=400&fit=crop',
-      'Dr. Ricardo Santos': 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop',
-      'Dra. Mariana Luz': 'https://images.unsplash.com/photo-1559839734-2b71f1e3c770?w=400&h=400&fit=crop',
-      'Dr. Henrique Silva': 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=400&fit=crop',
-      'Dra. Letícia Costa': 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=400&h=400&fit=crop'
-    };
-    return map[nome] || `https://ui-avatars.com/api/?name=${encodeURIComponent(nome)}&background=0f172a&color=fff`;
-  };
-
   if (loading && (!agendamentos || agendamentos.length === 0)) return <Loading text="Carregando VitalStaff Hub..." />;
 
   return (
@@ -79,7 +70,7 @@ const DashboardStaff = () => {
           <h1>Centro de Controle</h1>
           <p>Monitoramento em tempo real • {format(new Date(), "eeee, dd 'de' MMMM", { locale: ptBR })}</p>
         </div>
-        <button className="btn-staff-plus">
+        <button className="btn-staff-plus" onClick={() => navigate('/agendar')}>
           <Plus size={20} /> Novo Atendimento
         </button>
       </header>
