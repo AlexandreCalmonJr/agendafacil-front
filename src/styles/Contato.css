@@ -3,7 +3,7 @@
 }
 
 .contato-header {
-  background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+  background: linear-gradient(135deg, var(--neutral-50) 0%, var(--neutral-100) 100%);
   padding: 100px 0 80px;
   text-align: center;
   position: relative;
@@ -12,18 +12,18 @@
 .contato-header h1 {
   font-size: 3rem;
   font-weight: 800;
-  color: #2d3748;
+  color: var(--neutral-800);
   margin: 20px 0;
   line-height: 1.2;
 }
 
 .contato-header h1 span {
-  color: var(--primary-color);
+  color: var(--primary-600);
 }
 
 .contato-header p {
   font-size: 1.1rem;
-  color: #718096;
+  color: var(--neutral-500);
   max-width: 600px;
   margin: 0 auto;
 }
@@ -52,7 +52,7 @@
 .info-card {
   background: white;
   padding: 30px;
-  border-radius: 20px;
+  border-radius: var(--radius-xl);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   display: flex;
   gap: 20px;
@@ -62,15 +62,15 @@
 }
 
 .info-card:hover {
-  transform: translateX(10px);
+  transform: translateX(4px);
 }
 
 .info-icon {
   width: 50px;
   height: 50px;
-  border-radius: 12px;
-  background: rgba(37, 99, 235, 0.1);
-  color: var(--primary-color);
+  border-radius: var(--radius-md);
+  background: var(--primary-50);
+  color: var(--primary-600);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,12 +78,12 @@
 
 .info-text h4 {
   font-size: 16px;
-  color: #2d3748;
+  color: var(--neutral-800);
   margin-bottom: 5px;
 }
 
 .info-text p {
-  color: #718096;
+  color: var(--neutral-500);
   font-size: 14px;
   margin: 0;
 }
@@ -92,7 +92,7 @@
   background: #25d366;
   color: white;
   padding: 18px;
-  border-radius: 15px;
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -106,15 +106,15 @@
 
 .whatsapp-float-btn:hover {
   background: #128c7e;
-  transform: translateY(-3px);
-  box-shadow: 0 15px 25px rgba(37, 211, 102, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(37, 211, 102, 0.3);
 }
 
 /* Form */
 .contato-form-container {
   background: white;
   padding: 50px;
-  border-radius: 30px;
+  border-radius: var(--radius-2xl);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
 }
 
@@ -139,28 +139,28 @@
 .form-group label {
   font-size: 14px;
   font-weight: 600;
-  color: #4a5568;
+  color: var(--neutral-600);
 }
 
 .form-group input, .form-group select, .form-group textarea {
   padding: 14px 18px;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  background: #f8fafc;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--neutral-200);
+  background: var(--neutral-50);
   font-size: 15px;
   transition: all 0.2s ease;
 }
 
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
   outline: none;
-  border-color: var(--primary-color);
+  border-color: var(--primary-500);
   background: white;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 0 0 4px var(--primary-50);
 }
 
 .form-feedback {
   padding: 15px;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -168,23 +168,23 @@
 }
 
 .form-feedback.success {
-  background: #f0fff4;
-  color: #276749;
-  border: 1px solid #c6f6d5;
+  background: var(--success-bg);
+  color: var(--success-text);
+  border: 1px solid var(--success-border);
 }
 
 .form-feedback.error {
-  background: #fff5f5;
-  color: #9b2c2c;
-  border: 1px solid #fed7d7;
+  background: var(--error-bg);
+  color: var(--error-text);
+  border: 1px solid var(--error-border);
 }
 
 .btn-submit {
-  background: var(--primary-color);
+  background: var(--primary-600);
   color: white;
   border: none;
   padding: 16px;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -196,9 +196,9 @@
 }
 
 .btn-submit:hover:not(:disabled) {
-  background: #1d4ed8;
+  background: var(--primary-700);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 8px 20px var(--primary-100);
 }
 
 .btn-submit:disabled {
@@ -215,12 +215,12 @@
 .map-section h3 {
   font-size: 24px;
   margin-bottom: 30px;
-  color: #2d3748;
+  color: var(--neutral-800);
 }
 
 .map-container {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
+  border-radius: var(--radius-xl);
   overflow: hidden;
 }
 

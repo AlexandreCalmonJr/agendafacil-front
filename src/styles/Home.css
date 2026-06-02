@@ -1,5 +1,5 @@
 /* Importação de fontes modernas */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 
 .landing-page {
   background: linear-gradient(160deg, #f0fdf4 0%, #ffffff 40%, #f0fdf4 100%);
@@ -39,7 +39,7 @@
   padding: 0.5rem 1.25rem;
   background: var(--primary-50);
   border: 1px solid var(--primary-100);
-  border-radius: 100px;
+  border-radius: var(--radius-pill);
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--primary-700);
@@ -49,7 +49,7 @@
 }
 
 .hero-content h1 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: clamp(2.5rem, 8vw, 4.5rem); /* Tamanho responsivo automático */
   font-weight: 900;
   line-height: 1.05;
@@ -84,7 +84,7 @@
   background: var(--gradient-primary);
   color: white;
   padding: 1rem 2.5rem;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -104,7 +104,7 @@
   border: 1px solid var(--neutral-200);
   color: var(--neutral-700);
   padding: 1rem 2.5rem;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   font-weight: 700;
   transition: all 0.3s;
   text-decoration: none;
@@ -124,7 +124,7 @@
   padding: 1.5rem 3.5rem;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
+  border-radius: var(--radius-xl);
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
@@ -157,7 +157,7 @@
 }
 
 .section-header h2 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 3rem;
   margin-bottom: 1rem;
 }
@@ -183,7 +183,7 @@
   background: white;
   border: 1px solid var(--neutral-100);
   padding: 2.5rem 2rem;
-  border-radius: 24px;
+  border-radius: var(--radius-xl);
   transition: all 0.3s ease;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
   flex-shrink: 0;
@@ -198,7 +198,7 @@
 .feature-card:hover {
   border-color: var(--primary-200);
   background: var(--neutral-50);
-  transform: translateY(-5px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
 
@@ -206,7 +206,7 @@
   width: 52px;
   height: 52px;
   background: var(--gradient-primary);
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -269,7 +269,7 @@
 .trust-image {
   height: 500px;
   background: url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800') center/cover;
-  border-radius: 40px;
+  border-radius: var(--radius-2xl);
   position: relative;
   box-shadow: 0 40px 80px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(0,0,0,0.05);
@@ -281,7 +281,7 @@
   left: -40px;
   background: white;
   padding: 1.5rem;
-  border-radius: 20px;
+  border-radius: var(--radius-xl);
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -344,7 +344,7 @@
 }
 
 .section-header h2 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 2.8rem;
   font-weight: 800;
   color: #1a202c;
@@ -373,7 +373,7 @@
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(12px);
   padding: 30px;
-  border-radius: 30px;
+  border-radius: var(--radius-xl);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(21, 128, 61, 0.12);
   display: flex;
@@ -386,7 +386,7 @@
 }
 
 .feature-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-2px);
   border-color: var(--primary-500);
   box-shadow: 0 20px 50px rgba(37, 99, 235, 0.12);
 }
@@ -457,7 +457,7 @@
   background: var(--primary-50);
   color: var(--primary-700);
   padding: 8px 16px;
-  border-radius: 100px;
+  border-radius: var(--radius-pill);
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 15px;
@@ -483,7 +483,7 @@
   height: 200px;
   background-size: cover;
   background-position: center;
-  border-radius: 20px;
+  border-radius: var(--radius-xl);
   position: relative;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
@@ -528,7 +528,7 @@
   text-decoration: none;
   background: white;
   padding: 30px;
-  border-radius: 24px;
+  border-radius: var(--radius-xl);
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -539,7 +539,7 @@
 .mini-news-item:hover {
   border-color: var(--primary-500);
   box-shadow: 0 12px 30px rgba(37, 99, 235, 0.06);
-  transform: translateY(-5px);
+  transform: translateY(-2px);
 }
 
 .mini-news-date {
@@ -570,7 +570,7 @@
   gap: 20px;
   background: white;
   padding: 20px;
-  border-radius: 20px;
+  border-radius: var(--radius-xl);
   box-shadow: 0 10px 25px rgba(0,0,0,0.03);
   align-items: center;
   border: 1px solid rgba(21, 128, 61, 0.08);
@@ -579,7 +579,7 @@
 .mini-update-card img {
   width: 90px;
   height: 90px;
-  border-radius: 15px;
+  border-radius: var(--radius-lg);
   object-fit: cover;
 }
 
@@ -588,7 +588,7 @@
   background: #ebf4ff;
   color: var(--primary-600);
   padding: 4px 10px;
-  border-radius: 100px;
+  border-radius: var(--radius-pill);
   text-transform: uppercase;
   font-weight: 700;
 }

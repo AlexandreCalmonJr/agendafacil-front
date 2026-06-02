@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { listarProfissionais, listarServicos, criarAgendamento, listarClientes, buscarDisponibilidade } from '../services/api';
+import Toast from './Toast';
 import { 
   Check, 
   ChevronRight, 
@@ -15,27 +16,27 @@ import {
 } from 'lucide-react';
 import '../styles/FormAgendamento.css';
 
-export default function FormAgendamento({ onSuccess, onCancel }) {
+export default function FormAgendamento({ onSuccess, onCancel, prefill }) {
   const usuarioLocal = JSON.parse(localStorage.getItem('usuario') || '{}');
   const isAdminOrRecepcao = ['admin', 'recepcionista'].includes(usuarioLocal?.perfil);
 
-  const [step, setStep] = useState(isAdminOrRecepcao ? 0 : 1);
+  const [step, setStep] = useState(0);
   const [profissionais, setProfissionais] = useState([]);
   const [servicos, setServicos] = useState([]);
   const [clientes, setClientes] = useState([]);
   const [buscaCliente, setBuscaCliente] = useState('');
   const [loading, setLoading] = useState(false);
   const [erro, setErro] = useState('');
-  const [sucesso, setSucesso] = useState('');
+  const [toast, setToast] = useState({ message: '', type: 'success' });
 
   const [form, setForm] = useState({
     cliente_id: isAdminOrRecepcao ? '' : (usuarioLocal?.cliente_id || 1),
-    profissional_id: '',
-    servico_id: '',
+    profissional_id: prefill?.profissional_id ? String(prefill.profissional_id) : '',
+    servico_id: prefill?.servico_id ? String(prefill.servico_id) : '',
     data: '',
     hora: '',
-    observacoes: '',
-    modalidade: 'presencial'
+    observacoes: prefill?.observacoes || '',
+    modalidade: prefill?.modalidade || 'presencial'
   });
 
   const [especialidadeFiltro, setEspecialidadeFiltro] = useState('');
@@ -58,7 +59,11 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
   useEffect(() => {
     if (form.profissional_id) {
       carregarServicos(form.profissional_id);
-      setForm(prev => ({ ...prev, servico_id: '', data: '', hora: '' }));
+      if (!prefill?.servico_id) {
+        setForm(prev => ({ ...prev, servico_id: '', data: '', hora: '' }));
+      } else {
+        setForm(prev => ({ ...prev, data: '', hora: '' }));
+      }
       setHorariosOcupados([]);
     }
   }, [form.profissional_id]);
@@ -106,19 +111,23 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
   };
 
   const nextStep = () => {
-    if (step === 0 && !form.cliente_id) {
+    if (step === 0 && isAdminOrRecepcao && !form.cliente_id) {
       setErro('Selecione um paciente');
       return;
     }
-    if (step === 1 && !form.profissional_id) {
+    if (step === 0 && !isAdminOrRecepcao && !form.profissional_id) {
       setErro('Selecione um profissional');
       return;
     }
-    if (step === 2 && !form.servico_id) {
+    if (step === 0 && isAdminOrRecepcao && !form.profissional_id) {
+      setErro('Selecione um profissional');
+      return;
+    }
+    if (step === 0 && !form.servico_id) {
       setErro('Selecione um serviço');
       return;
     }
-    if (step === 3 && (!form.data || !form.hora)) {
+    if (step === 1 && (!form.data || !form.hora)) {
       setErro('Selecione data e hora');
       return;
     }
@@ -145,7 +154,7 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
         modalidade: form.modalidade
       });
 
-      setSucesso('Agendamento criado com sucesso!');
+      setToast({ message: 'Agendamento criado com sucesso!', type: 'success' });
       setTimeout(() => {
         if (onSuccess) onSuccess();
       }, 1500);
@@ -177,82 +186,70 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
     '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'
   ];
 
-  // Steps indicator
   const especialidadesUnicas = [...new Set(profissionais.map(p => p.especialidade))];
   
   const profissionaisFiltrados = profissionais.filter(p => 
     !especialidadeFiltro || p.especialidade === especialidadeFiltro
   );
 
-  const stepsBase = [
-    { num: 1, label: 'Profissional' },
-    { num: 2, label: 'Serviço' },
-    { num: 3, label: 'Data/Hora' },
-    { num: 4, label: 'Confirmar' }
-  ];
-  const steps = isAdminOrRecepcao ? [
-    { num: 0, label: 'Paciente' },
-    ...stepsBase
-  ] : stepsBase;
+  const totalSteps = 3;
+
+  const steps = isAdminOrRecepcao
+    ? [{ num: 0, label: 'Paciente & Profissional' }, { num: 1, label: 'Data & Hora' }, { num: 2, label: 'Confirmar' }]
+    : [{ num: 0, label: 'Profissional & Serviço' }, { num: 1, label: 'Data & Hora' }, { num: 2, label: 'Confirmar' }];
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* Step indicator */}
       <div className="wizard-steps-container">
-        {steps.map((s) => (
+        {steps.map((s, idx) => (
           <div key={s.num} className={`wizard-step-unit ${step >= s.num ? 'active' : ''}`}>
             <div className="step-circle">
-              {step > s.num ? <Check size={16} /> : s.num}
+              {step > s.num ? <Check size={16} /> : s.num + 1}
             </div>
             <span className="step-label">{s.label}</span>
-            {s.num < 4 && <div className="step-line"></div>}
+            {idx < steps.length - 1 && <div className="step-line"></div>}
           </div>
         ))}
       </div>
 
-      {erro && <div className="alert alert-error">⚠️ {erro}</div>}
-      {sucesso && <div className="alert alert-success">✅ {sucesso}</div>}
+      {erro && <div className="alert alert-error"><Info size={14} /> {erro}</div>}
 
-      {step === 0 && isAdminOrRecepcao && (
-        <div className="wizard-content-step fade-in">
-          <div className="step-options-header">
-            <h3>Selecione o Paciente</h3>
-          </div>
-          <div style={{ marginBottom: '1.5rem' }}>
-            <input 
-              type="text" 
-              placeholder="🔍 Buscar paciente por nome..."
-              value={buscaCliente}
-              onChange={(e) => setBuscaCliente(e.target.value)}
-              className="form-input"
-            />
-          </div>
-          <div className="professional-selection-grid">
-            {clientes.filter(c => c.nome?.toLowerCase().includes(buscaCliente.toLowerCase())).map(c => (
-              <label key={c.id} className={`prof-selection-card ${form.cliente_id === String(c.id) ? 'selected' : ''}`}>
-                <input
-                  type="radio"
-                  name="cliente_id"
-                  value={c.id}
-                  checked={form.cliente_id === String(c.id)}
-                  onChange={handleChange}
-                />
-                <div className="prof-selection-info" style={{ marginLeft: 0 }}>
-                  <strong>{c.nome}</strong>
-                  <span>{c.email}</span>
-                </div>
-                {form.cliente_id === String(c.id) && <div className="selected-indicator"><Check size={14} /></div>}
-              </label>
-            ))}
-            {clientes.length > 0 && clientes.filter(c => c.nome?.toLowerCase().includes(buscaCliente.toLowerCase())).length === 0 && (
-              <p style={{ color: 'var(--neutral-500)', fontStyle: 'italic' }}>Nenhum paciente encontrado.</p>
-            )}
-          </div>
-        </div>
+      {toast.message && (
+        <Toast 
+          message={toast.message} 
+          type={toast.type} 
+          onClose={() => setToast({ message: '', type: 'success' })} 
+        />
       )}
 
-      {step === 1 && (
+      {/* STEP 0: Profissional + Serviço (paciente selector para admin no topo) */}
+      {step === 0 && (
         <div className="wizard-content-step fade-in">
+          {isAdminOrRecepcao && (
+            <div className="patient-selector-section">
+              <label className="form-label">Paciente</label>
+              <input 
+                type="text" 
+                placeholder="Buscar paciente por nome..."
+                value={buscaCliente}
+                onChange={(e) => setBuscaCliente(e.target.value)}
+                className="form-input"
+              />
+              <div className="patient-chips-row">
+                {clientes.filter(c => c.nome?.toLowerCase().includes(buscaCliente.toLowerCase())).slice(0, 6).map(c => (
+                  <button
+                    key={c.id}
+                    type="button"
+                    className={`patient-chip ${form.cliente_id === String(c.id) ? 'selected' : ''}`}
+                    onClick={() => setForm(prev => ({ ...prev, cliente_id: String(c.id) }))}
+                  >
+                    {c.nome}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div className="step-options-header">
             <h3>Selecione o Profissional</h3>
             <select 
@@ -284,42 +281,42 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
               </label>
             ))}
           </div>
+
+          {form.profissional_id && servicos.length > 0 && (
+            <>
+              <div className="step-options-header" style={{ marginTop: '1.5rem' }}>
+                <h3>Escolha o Serviço</h3>
+                <span className="selected-sub">com {selectedProf?.nome}</span>
+              </div>
+              <div className="service-selection-grid">
+                {servicos.map(serv => (
+                  <label key={serv.id} className={`service-selection-card ${form.servico_id === String(serv.id) ? 'selected' : ''}`}>
+                    <input
+                      type="radio"
+                      name="servico_id"
+                      value={serv.id}
+                      checked={form.servico_id === String(serv.id)}
+                      onChange={handleChange}
+                    />
+                    <div className="service-main-row">
+                      <div className="service-meta">
+                        <strong>{serv.nome}</strong>
+                        <p>{serv.descricao || 'Consulta de rotina com especialista.'}</p>
+                        <div className="service-duration"><Clock size={12} /> {serv.duracao_minutos} minutos</div>
+                      </div>
+                      <div className="service-price">R$ {Number(serv.preco).toFixed(2)}</div>
+                    </div>
+                    {form.servico_id === String(serv.id) && <div className="selected-indicator"><Check size={14} /></div>}
+                  </label>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       )}
 
-      {step === 2 && (
-        <div className="wizard-content-step fade-in">
-          <div className="step-options-header">
-            <h3>Escolha o Serviço</h3>
-            {selectedProf && <span className="selected-sub">com {selectedProf.nome}</span>}
-          </div>
-          
-          <div className="service-selection-grid">
-            {servicos.map(serv => (
-              <label key={serv.id} className={`service-selection-card ${form.servico_id === String(serv.id) ? 'selected' : ''}`}>
-                <input
-                  type="radio"
-                  name="servico_id"
-                  value={serv.id}
-                  checked={form.servico_id === String(serv.id)}
-                  onChange={handleChange}
-                />
-                <div className="service-main-row">
-                  <div className="service-meta">
-                    <strong>{serv.nome}</strong>
-                    <p>{serv.descricao || 'Consulta de rotina com especialista.'}</p>
-                    <div className="service-duration"><Clock size={12} /> {serv.duracao_minutos} minutos</div>
-                  </div>
-                  <div className="service-price">R$ {Number(serv.preco).toFixed(2)}</div>
-                </div>
-                {form.servico_id === String(serv.id) && <div className="selected-indicator"><Check size={14} /></div>}
-              </label>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {step === 3 && (
+      {/* STEP 1: Data/Hora + Modalidade */}
+      {step === 1 && (
         <div className="wizard-content-step fade-in">
           <div className="step-options-header">
             <h3>Data e Horário</h3>
@@ -377,15 +374,15 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
                       title={ocupado ? 'Horário já reservado' : `Agendar às ${h}`}
                     >
                       {h}
-                      {ocupado && <span style={{ fontSize: '0.6rem', display: 'block', opacity: 0.7 }}>Ocupado</span>}
+                      {ocupado && <span className="time-chip-occupied-label">Ocupado</span>}
                     </button>
                   );
                 })}
               </div>
               {form.data && horariosOcupados.length > 0 && (
-                <p style={{ fontSize: '0.75rem', color: 'var(--neutral-500)', marginTop: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span style={{ width: 10, height: 10, background: '#fecaca', borderRadius: 3, display: 'inline-block' }}></span>
-                  Horários em vermelho já estão ocupados para este profissional
+                <p className="time-hint">
+                  <span className="time-hint-dot"></span>
+                  Horários destacados já estão ocupados
                 </p>
               )}
             </div>
@@ -404,7 +401,8 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
         </div>
       )}
 
-      {step === 4 && (
+      {/* STEP 2: Confirmação */}
+      {step === 2 && (
         <div className="wizard-content-step fade-in">
           <div className="step-options-header">
             <h3>Confirmação Final</h3>
@@ -458,19 +456,19 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
 
       <div className="wizard-navigation">
         <div className="nav-left">
-          {step > (isAdminOrRecepcao ? 0 : 1) && (
+          {step > 0 && (
             <button type="button" className="btn-wizard prev" onClick={prevStep}>
               <ChevronLeft size={18} /> Voltar
             </button>
           )}
-          {onCancel && step === (isAdminOrRecepcao ? 0 : 1) && (
+          {onCancel && step === 0 && (
             <button type="button" className="btn-wizard cancel" onClick={onCancel}>
               Cancelar
             </button>
           )}
         </div>
         <div className="nav-right">
-          {step < 4 ? (
+          {step < 2 ? (
             <button type="button" className="btn-wizard next primary" onClick={nextStep}>
               Próximo <ChevronRight size={18} />
             </button>

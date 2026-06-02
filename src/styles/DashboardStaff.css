@@ -31,7 +31,7 @@
   background: rgba(21, 128, 61, 0.08);
   color: var(--primary-600);
   padding: 8px 16px;
-  border-radius: 100px;
+  border-radius: var(--radius-pill);
   font-size: 0.75rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -48,7 +48,7 @@
   background: var(--primary-600);
   color: white;
   padding: 12px 24px;
-  border-radius: 18px;
+  border-radius: var(--radius-lg);
   border: none;
   font-weight: 800;
   display: flex;
@@ -76,7 +76,7 @@
 .staff-metric-card {
   background: white;
   padding: 32px;
-  border-radius: 28px;
+  border-radius: var(--radius-xl);
   border: 1px solid var(--neutral-200);
   display: flex;
   align-items: center;
@@ -94,7 +94,7 @@
 .icon-box {
   width: 64px;
   height: 64px;
-  border-radius: 20px;
+  border-radius: var(--radius-xl);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,7 +116,7 @@
 .glass-card-staff {
   background: white;
   padding: 32px;
-  border-radius: 32px;
+  border-radius: var(--radius-2xl);
   border: 1px solid var(--neutral-200);
   margin-bottom: 40px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
@@ -127,6 +127,13 @@
 .chart-header { margin-bottom: 30px; }
 .chart-header h3 { font-size: 1.4rem; font-weight: 900; margin: 0; color: var(--neutral-900); }
 .chart-info { color: var(--neutral-500); font-size: 0.85rem; font-weight: 600; }
+
+.chart-loading {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 /* Table Operations Hub */
 .agenda-header-padded {
@@ -141,7 +148,7 @@
 .total-dia-badge { 
   background: var(--neutral-100); 
   padding: 6px 14px; 
-  border-radius: 100px; 
+  border-radius: var(--radius-pill); 
   font-size: 0.75rem; 
   font-weight: 700;
   color: var(--neutral-600);
@@ -176,7 +183,7 @@
   background: rgba(21, 128, 61, 0.08);
   color: var(--primary-700);
   padding: 6px 12px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-weight: 800;
   font-size: 0.9rem;
 }
@@ -185,14 +192,14 @@
 .paciente-cell span { font-size: 0.85rem; color: var(--neutral-500); font-weight: 600; }
 
 .doutor-cell { display: flex; align-items: center; gap: 14px; }
-.doutor-thumb { width: 44px; height: 44px; border-radius: 12px; object-fit: cover; }
+.doutor-thumb { width: 44px; height: 44px; border-radius: var(--radius-md); object-fit: cover; }
 
 .doutor-cell strong { display: block; font-size: 0.9rem; color: var(--neutral-900); }
 .sala-label { display: flex; align-items: center; gap: 4px; font-size: 0.75rem; color: var(--neutral-500); font-weight: 600; }
 
 .staff-badge {
   padding: 6px 12px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 0.7rem;
   font-weight: 900;
   text-transform: uppercase;
@@ -209,7 +216,7 @@
 
 .btn-staff-act {
   padding: 10px 18px;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   font-size: 0.8rem;
   font-weight: 800;
   cursor: pointer;

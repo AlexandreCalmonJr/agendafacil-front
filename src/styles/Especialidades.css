@@ -13,7 +13,7 @@
 }
 
 .especialidades-header h1 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 3.5rem;
   color: #1a202c;
   margin-bottom: 1.5rem;
@@ -37,7 +37,7 @@
 
 .especialidade-card {
   background: white;
-  border-radius: 32px;
+  border-radius: var(--radius-2xl);
   border: 1px solid rgba(0, 0, 0, 0.05);
   transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
@@ -48,7 +48,7 @@
 }
 
 .especialidade-card:hover {
-  transform: translateY(-12px);
+  transform: translateY(-2px);
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
   border-color: var(--primary-200);
 }
@@ -98,7 +98,7 @@
   display: block;
   width: 100%;
   padding: 16px;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   background: #f8fafc;
   color: var(--primary-700);
   font-weight: 700;

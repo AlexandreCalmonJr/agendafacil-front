@@ -14,7 +14,7 @@
 }
 
 .page-header h1 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 3.5rem;
   font-weight: 900;
   color: #1a202c;
@@ -39,7 +39,7 @@
 /* Card Principal - Ultra Clean Glass */
 .glass-card {
   background: white;
-  border-radius: 32px;
+  border-radius: var(--radius-2xl);
   border: 1px solid rgba(0, 0, 0, 0.05);
   transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
@@ -48,7 +48,7 @@
 }
 
 .glass-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-2px);
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
   border-color: var(--primary-200);
 }
@@ -78,7 +78,7 @@
 .prof-real-photo {
   width: 100%;
   height: 100%;
-  border-radius: 22px;
+  border-radius: var(--radius-xl);
   object-fit: cover;
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
@@ -109,7 +109,7 @@
   color: var(--primary-700);
   font-size: 11px;
   font-weight: 800;
-  border-radius: 100px;
+  border-radius: var(--radius-pill);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -151,7 +151,7 @@
 .btn-ver-servicos {
   flex: 1;
   padding: 12px;
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--primary-100);
   background: white;
   color: var(--primary-700);
@@ -169,7 +169,7 @@
 .btn-agendar-direct {
   flex: 1;
   padding: 12px;
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   background: var(--primary-600);
   color: white;
   text-decoration: none;
@@ -216,7 +216,7 @@
   align-items: center;
   padding: 14px 18px;
   background: white;
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   border: 1px solid rgba(0,0,0,0.03);
 }
 
@@ -255,3 +255,85 @@
   .page-header h1 { font-size: 2.5rem; }
   .prof-actions { flex-direction: column; }
 }
+
+/* ========== DARK MODE OVERRIDES ========== */
+html[data-vitalhub-theme="dark"] .vitalhub-portal .page-header h1 {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .page-header p {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-info-basic .prof-card-name {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-bio {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .detail-item {
+  color: var(--dark-text-tertiary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-details-minimal {
+  border-top-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-ver-servicos {
+  background: var(--dark-bg-tertiary);
+  color: var(--dark-text-primary);
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-ver-servicos:hover {
+  background: var(--dark-bg-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-agendar-direct,
+html[data-vitalhub-theme="dark"] .vitalhub-portal a.btn-agendar-direct {
+  color: white !important;
+  background: var(--primary-600);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .btn-agendar-direct:hover,
+html[data-vitalhub-theme="dark"] .vitalhub-portal a.btn-agendar-direct:hover {
+  background: var(--primary-500);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-badge {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--primary-400);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-status-dot {
+  border-color: var(--dark-bg-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .prof-services-explorer {
+  background: var(--dark-bg-primary);
+  border-top-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .services-title {
+  color: var(--dark-text-tertiary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .service-item-row {
+  background: var(--dark-bg-secondary);
+  border-color: var(--dark-border);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .service-name-text {
+  color: var(--dark-text-primary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .service-meta-text {
+  color: var(--dark-text-secondary);
+}
+
+html[data-vitalhub-theme="dark"] .vitalhub-portal .service-price-tag {
+  color: var(--primary-400);
+}
+
