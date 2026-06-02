@@ -14,7 +14,7 @@
 }
 
 .page-header h1 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 3.5rem;
   font-weight: 900;
   color: #1a202c;
@@ -39,7 +39,7 @@
 /* Card Principal - Ultra Clean Glass */
 .glass-card {
   background: white;
-  border-radius: 32px;
+  border-radius: var(--radius-2xl);
   border: 1px solid rgba(0, 0, 0, 0.05);
   transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
@@ -48,7 +48,7 @@
 }
 
 .glass-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-2px);
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
   border-color: var(--primary-200);
 }
@@ -78,7 +78,7 @@
 .prof-real-photo {
   width: 100%;
   height: 100%;
-  border-radius: 22px;
+  border-radius: var(--radius-xl);
   object-fit: cover;
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
@@ -109,7 +109,7 @@
   color: var(--primary-700);
   font-size: 11px;
   font-weight: 800;
-  border-radius: 100px;
+  border-radius: var(--radius-pill);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -151,7 +151,7 @@
 .btn-ver-servicos {
   flex: 1;
   padding: 12px;
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--primary-100);
   background: white;
   color: var(--primary-700);
@@ -169,7 +169,7 @@
 .btn-agendar-direct {
   flex: 1;
   padding: 12px;
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   background: var(--primary-600);
   color: white;
   text-decoration: none;
@@ -216,7 +216,7 @@
   align-items: center;
   padding: 14px 18px;
   background: white;
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   border: 1px solid rgba(0,0,0,0.03);
 }
 

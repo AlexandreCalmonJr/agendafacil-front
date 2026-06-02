@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { Clock, CheckCircle, Hourglass, Stethoscope, XCircle, CalendarCheck, Video, Building2, User, Calendar, DollarSign, Bell, FileText, RefreshCw } from 'lucide-react';
 import '../styles/AgendamentoCard.css';
 
 export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }) {
@@ -9,12 +10,12 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
   const data = dataHora.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
 
   const statusConfig = {
-    agendado: { label: 'Agendado', className: 'badge-agendado', icon: '🕐' },
-    confirmado: { label: 'Confirmado', className: 'badge-confirmado', icon: '✅' },
-    em_espera: { label: 'Em Espera', className: 'badge', icon: '⏳', style: { background: 'var(--warning)', color: 'black' } },
-    em_atendimento: { label: 'Atendendo', className: 'badge', icon: '👨‍⚕️', style: { background: 'var(--primary-500)', color: 'white' } },
-    cancelado: { label: 'Cancelado', className: 'badge-cancelado', icon: '❌' },
-    concluido: { label: 'Concluído', className: 'badge-concluido', icon: '✔️' }
+    agendado: { label: 'Agendado', className: 'badge-agendado', icon: <Clock size={13} /> },
+    confirmado: { label: 'Confirmado', className: 'badge-confirmado', icon: <CheckCircle size={13} /> },
+    em_espera: { label: 'Em Espera', className: 'badge', icon: <Hourglass size={13} />, style: { background: 'var(--warning)', color: 'black' } },
+    em_atendimento: { label: 'Atendendo', className: 'badge', icon: <Stethoscope size={13} />, style: { background: 'var(--primary-500)', color: 'white' } },
+    cancelado: { label: 'Cancelado', className: 'badge-cancelado', icon: <XCircle size={13} /> },
+    concluido: { label: 'Concluído', className: 'badge-concluido', icon: <CalendarCheck size={13} /> }
   };
 
   const statusInfo = statusConfig[agendamento.status] || statusConfig.agendado;
@@ -55,15 +56,15 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
           </span>
         </div>
         <div className="card-info">
-          <span>{agendamento.modalidade === 'teleconsulta' ? '📹 Teleconsulta' : '🏢 Presencial'}</span>
-          <span>👤 {agendamento.cliente_nome || 'Cliente'}</span>
-          <span>🩺 {agendamento.profissional_nome || 'Profissional'}</span>
-          <span>📅 {data}</span>
+          <span>{agendamento.modalidade === 'teleconsulta' ? <><Video size={14} /> Teleconsulta</> : <><Building2 size={14} /> Presencial</>}</span>
+          <span><User size={14} /> {agendamento.cliente_nome || 'Cliente'}</span>
+          <span><Stethoscope size={14} /> {agendamento.profissional_nome || 'Profissional'}</span>
+          <span><Calendar size={14} /> {data}</span>
           {agendamento.preco && (
-            <span>💰 R$ {Number(agendamento.preco).toFixed(2)}</span>
+            <span><DollarSign size={14} /> R$ {Number(agendamento.preco).toFixed(2)}</span>
           )}
           {agendamento.notificado && (
-            <span className="agendamento-notificado" title="Lembrete enviado com sucesso">🔔 Notificado</span>
+            <span className="agendamento-notificado" title="Lembrete enviado com sucesso"><Bell size={14} /> Notificado</span>
           )}
         </div>
         
@@ -75,7 +76,7 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
               rel="noopener noreferrer" 
               className="btn btn-sm"
             >
-              📹 Entrar na Teleconsulta
+              <Video size={14} /> Entrar na Teleconsulta
             </a>
           </div>
         )}
@@ -86,13 +87,13 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
               className="btn btn-sm btn-outline" 
               onClick={handleEditLink}
             >
-              🔗 {agendamento.link_telemedicina ? 'Alterar Link de Vídeo' : 'Definir Link de Vídeo'}
+              <RefreshCw size={14} /> {agendamento.link_telemedicina ? 'Alterar Link de Vídeo' : 'Definir Link de Vídeo'}
             </button>
           </div>
         )}
         {agendamento.observacoes && (
           <p className="agendamento-observacao">
-            📝 {agendamento.observacoes}
+            <FileText size={14} /> {agendamento.observacoes}
           </p>
         )}
       </div>
@@ -104,12 +105,23 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
             onClick={() => onAtualizar(agendamento)}
             title="Confirmar"
           >
-            ✓ Confirmar
+            <CheckCircle size={14} /> Confirmar
           </button>
         )}
         {isCancelable && (
-          <Link to="/agendar" className="btn btn-sm btn-outline" style={{ textDecoration: 'none' }}>
-            🔄 Reagendar
+          <Link 
+            to="/agendar" 
+            state={{ 
+              reagendar: true,
+              profissional_id: agendamento.profissional_id,
+              servico_id: agendamento.servico_id,
+              modalidade: agendamento.modalidade,
+              observacoes: agendamento.observacoes
+            }} 
+            className="btn btn-sm btn-outline" 
+            style={{ textDecoration: 'none' }}
+          >
+            <RefreshCw size={14} /> Reagendar
           </Link>
         )}
         {isCancelable && onCancelar && (
@@ -118,7 +130,7 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
             onClick={() => onCancelar(agendamento.id)}
             title="Cancelar"
           >
-            ✕ Cancelar
+            <XCircle size={14} /> Cancelar
           </button>
         )}
         <a 
@@ -129,7 +141,7 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
           title="Adicionar ao Google Agenda"
           style={{ textDecoration: 'none' }}
         >
-          📅 Agenda
+          <Calendar size={14} /> Agenda
         </a>
       </div>
     </div>

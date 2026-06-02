@@ -31,7 +31,7 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--glass-border);
   color: white;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 0.95rem;
   transition: all 0.3s;
 }
@@ -52,7 +52,7 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--glass-border);
   color: white;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 0.95rem;
   font-family: inherit;
   resize: vertical;
@@ -73,7 +73,7 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--glass-border);
   color: white;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.3s;
@@ -93,7 +93,7 @@
 /* Alerts */
 .alert {
   padding: 1rem;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   margin-bottom: 1rem;
   font-size: 0.9rem;
   display: flex;

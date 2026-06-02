@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   listarAgendamentos, 
@@ -15,7 +15,9 @@ import '../styles/DashboardStaff.css';
 
 const DashboardStaff = () => {
   const navigate = useNavigate();
-  // Hook customizado para gerenciar a chamada de agendamentos
+  const [chartData, setChartData] = useState([]);
+  const [loadingChart, setLoadingChart] = useState(true);
+  
   const { 
     data: agendamentos = [], 
     loading, 
@@ -28,7 +30,33 @@ const DashboardStaff = () => {
     fetchAgendamentos({ data: hoje });
   }, [fetchAgendamentos]);
 
-  // Metricas
+  useEffect(() => {
+    carregarDadosChart();
+  }, []);
+
+  const carregarDadosChart = async () => {
+    setLoadingChart(true);
+    try {
+      const promises = [];
+      for (let i = 6; i >= 0; i--) {
+        const data = subDays(new Date(), i);
+        const dataStr = format(data, 'yyyy-MM-dd');
+        const label = format(data, 'dd/MM');
+        promises.push(
+          listarAgendamentos({ data: dataStr })
+            .then(res => ({ date: label, pacientes: res.data.length }))
+            .catch(() => ({ date: label, pacientes: 0 }))
+        );
+      }
+      const results = await Promise.all(promises);
+      setChartData(results);
+    } catch (err) {
+      console.error('Erro ao carregar dados do chart:', err);
+    } finally {
+      setLoadingChart(false);
+    }
+  };
+
   const metricas = useMemo(() => {
     return (agendamentos || []).reduce((acc, curr) => {
       if (curr.status === 'em_espera' || curr.status === 'em_atendimento') acc.naClinica++;
@@ -75,7 +103,6 @@ const DashboardStaff = () => {
         </button>
       </header>
 
-      {/* Cards de Métricas Premium */}
       <div className="metrics-staff-grid">
         <div className="staff-metric-card">
           <div className="icon-box blue"><Users size={24} /></div>
@@ -104,17 +131,13 @@ const DashboardStaff = () => {
         <div className="glass-card-staff chart-box">
           <div className="chart-header">
             <h3>Fluxo de Pacientes (7 Dias)</h3>
-            <span className="chart-info">Evolução da demanda semanal</span>
+            <span className="chart-info">{loadingChart ? 'Carregando...' : 'Dados reais da clínica'}</span>
           </div>
-          <PatientsFlowChart data={[
-            { date: format(subDays(new Date(), 6), 'dd/MM'), pacientes: 12 },
-            { date: format(subDays(new Date(), 5), 'dd/MM'), pacientes: 18 },
-            { date: format(subDays(new Date(), 4), 'dd/MM'), pacientes: 15 },
-            { date: format(subDays(new Date(), 3), 'dd/MM'), pacientes: 22 },
-            { date: format(subDays(new Date(), 2), 'dd/MM'), pacientes: 30 },
-            { date: format(subDays(new Date(), 1), 'dd/MM'), pacientes: 25 },
-            { date: format(new Date(), 'dd/MM'), pacientes: metricas.totalDia },
-          ]} />
+          {loadingChart ? (
+            <div className="chart-loading"><Loading text="Carregando gráfico..." /></div>
+          ) : (
+            <PatientsFlowChart data={chartData} />
+          )}
         </div>
       </div>
 

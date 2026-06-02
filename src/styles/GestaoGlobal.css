@@ -24,7 +24,7 @@
   height: 50px;
   background: white;
   border: 1px solid var(--neutral-200);
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,7 +55,7 @@
   background: white;
   border: 1px solid var(--neutral-200);
   padding: 10px 18px;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -87,14 +87,14 @@
 
 .agenda-grid-premium::-webkit-scrollbar-thumb {
   background: var(--neutral-300);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
 }
 
 .doctor-column-premium {
   min-width: 320px;
   background: white;
   border: 1px solid var(--neutral-200);
-  border-radius: 24px;
+  border-radius: var(--radius-xl);
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -115,7 +115,7 @@
   width: 48px;
   height: 48px;
   background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -169,7 +169,7 @@
 
 .doctor-slots-list::-webkit-scrollbar-thumb {
   background: var(--neutral-300);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
 }
 
 .agenda-item-premium {
@@ -178,7 +178,7 @@
   padding: 16px;
   background: var(--neutral-50);
   border: 1px solid var(--neutral-200);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   transition: all 0.2s;
 }
 
@@ -234,7 +234,7 @@
   border: 1px dashed var(--neutral-300);
   color: var(--neutral-500);
   padding: 12px;
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   font-weight: 700;
   font-size: 0.85rem;
   display: flex;

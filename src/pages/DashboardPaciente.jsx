@@ -167,29 +167,6 @@ export default function DashboardPaciente() {
           </div>
         </div>
       </div>
-
-      {/* ESTILOS INLINE ADICIONAIS PARA O DASHBOARD */}
-      <style>{`
-        .action-card:hover {
-          transform: translateY(-5px);
-          border-color: var(--primary-500);
-          background: rgba(59, 130, 246, 0.05);
-        }
-        .history-list::-webkit-scrollbar {
-          width: 4px;
-        }
-        .history-list::-webkit-scrollbar-thumb {
-          background: var(--glass-border);
-          border-radius: 10px;
-        }
-        .history-item {
-          transition: all 0.2s;
-        }
-        .history-item:hover {
-          background: rgba(255,255,255,0.06) !important;
-          border-color: var(--primary-400) !important;
-        }
-      `}</style>
     </div>
   );
 }

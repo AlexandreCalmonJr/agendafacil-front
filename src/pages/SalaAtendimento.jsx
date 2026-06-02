@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { buscarAgendamento, buscarProntuario, salvarProntuario, atualizarAgendamento, buscarHistoricoSaude } from '../services/api';
 import Loading from '../components/Loading';
@@ -16,9 +16,13 @@ import {
   Activity,
   ClipboardList,
   Save,
-  CheckCircle2
+  CheckCircle2,
+  Timer,
+  AlertCircle
 } from 'lucide-react';
 import '../styles/SalaAtendimento.css';
+
+const AUTO_SAVE_INTERVAL = 30000;
 
 export default function SalaAtendimento() {
   const { id } = useParams();
@@ -31,6 +35,8 @@ export default function SalaAtendimento() {
   const [historicoPaciente, setHistoricoPaciente] = useState([]);
   const [mensagem, setMensagem] = useState('');
   const [showExamModal, setShowExamModal] = useState(false);
+  const [autoSaveStatus, setAutoSaveStatus] = useState('idle');
+  const [lastSaved, setLastSaved] = useState(null);
 
   const [prontuario, setProntuario] = useState({
     notas_clinicas: '',
@@ -38,9 +44,42 @@ export default function SalaAtendimento() {
     exames: ''
   });
 
+  const prontuarioRef = useRef(prontuario);
+  const hasUnsavedChanges = useRef(false);
+  const autoSaveTimerRef = useRef(null);
+
+  useEffect(() => {
+    prontuarioRef.current = prontuario;
+  }, [prontuario]);
+
   useEffect(() => {
     carregarDados();
+    return () => {
+      if (autoSaveTimerRef.current) clearInterval(autoSaveTimerRef.current);
+    };
   }, [id]);
+
+  const autoSave = useCallback(async () => {
+    if (!hasUnsavedChanges.current) return;
+    try {
+      setAutoSaveStatus('saving');
+      await salvarProntuario(id, prontuarioRef.current);
+      hasUnsavedChanges.current = false;
+      setAutoSaveStatus('saved');
+      setLastSaved(new Date());
+      setTimeout(() => setAutoSaveStatus('idle'), 2000);
+    } catch (err) {
+      setAutoSaveStatus('error');
+      setTimeout(() => setAutoSaveStatus('idle'), 3000);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    autoSaveTimerRef.current = setInterval(autoSave, AUTO_SAVE_INTERVAL);
+    return () => {
+      if (autoSaveTimerRef.current) clearInterval(autoSaveTimerRef.current);
+    };
+  }, [autoSave]);
 
   const carregarDados = async () => {
     setLoading(true);
@@ -70,6 +109,7 @@ export default function SalaAtendimento() {
   const handleProntuarioChange = (e) => {
     const { name, value } = e.target;
     setProntuario(prev => ({ ...prev, [name]: value }));
+    hasUnsavedChanges.current = true;
   };
 
   const handleSalvar = async () => {
@@ -77,7 +117,9 @@ export default function SalaAtendimento() {
     setMensagem('');
     try {
       await salvarProntuario(id, prontuario);
-      setMensagem('✅ Salvo com sucesso!');
+      hasUnsavedChanges.current = false;
+      setLastSaved(new Date());
+      setMensagem('Salvo com sucesso!');
       setTimeout(() => setMensagem(''), 3000);
     } catch (err) {
       alert(err.response?.data?.erro || 'Erro ao salvar prontuário.');
@@ -86,11 +128,20 @@ export default function SalaAtendimento() {
     }
   };
 
+  const handlePausar = async () => {
+    if (hasUnsavedChanges.current) {
+      await autoSave();
+    }
+    navigate('/atendimento');
+  };
+
   const handleConcluir = async () => {
     if (window.confirm('Tem certeza que deseja finalizar este atendimento?')) {
       setSaving(true);
       try {
-        await salvarProntuario(id, prontuario);
+        if (hasUnsavedChanges.current) {
+          await salvarProntuario(id, prontuario);
+        }
         await atualizarAgendamento(id, { status: 'concluido' });
         navigate('/atendimento');
       } catch (err) {
@@ -100,7 +151,6 @@ export default function SalaAtendimento() {
     }
   };
 
-  // Funções para Elite PDF Generator
   const handleDownloadPDF = (tipo) => {
     generateClinicPDF({
       ...agendamento,
@@ -110,13 +160,10 @@ export default function SalaAtendimento() {
 
   if (loading || !agendamento) return <Loading text="Conectando à sala segura..." />;
 
-  const dataAgendamento = new Date(agendamento.data_hora);
-
   return (
     <div className="sala-atendimento-premium fade-in">
       <div className="atendimento-workspace-layout">
         
-        {/* SIDEBAR PACIENTE PREMIUM */}
         <aside className="paciente-command-sidebar">
           <div className="paciente-profile-header">
             <div className="avatar-med-premium">
@@ -148,13 +195,12 @@ export default function SalaAtendimento() {
             <button className="btn-finish-premium" onClick={handleConcluir} disabled={saving}>
               <CheckCircle2 size={18} /> Finalizar Consulta
             </button>
-            <button className="btn-pause-premium" onClick={() => navigate('/atendimento')}>
+            <button className="btn-pause-premium" onClick={handlePausar} disabled={saving}>
               Pausar Atendimento
             </button>
           </div>
         </aside>
 
-        {/* WORKSPACE DE COMANDO */}
         <main className="atendimento-command-center">
           <nav className="command-tabs">
             <button className={`tab-btn ${activeTab === 'evolucao' ? 'active' : ''}`} onClick={() => setActiveTab('evolucao')}>
@@ -176,7 +222,12 @@ export default function SalaAtendimento() {
               <div className="editor-container fade-in">
                 <div className="editor-header">
                   <h3>Anotações Clínicas (SOAP)</h3>
-                  <span className="auto-save">{saving ? 'Salvando...' : 'Anotações seguras'}</span>
+                  <span className={`auto-save auto-save-${autoSaveStatus}`}>
+                    {autoSaveStatus === 'saving' && <><Timer size={12} /> Salvando automaticamente...</>}
+                    {autoSaveStatus === 'saved' && <><CheckCircle size={12} /> Salvo automaticamente</>}
+                    {autoSaveStatus === 'error' && <><AlertCircle size={12} /> Erro ao salvar</>}
+                    {autoSaveStatus === 'idle' && 'Anotações seguras'}
+                  </span>
                 </div>
                 <textarea
                   name="notas_clinicas"
@@ -223,11 +274,11 @@ export default function SalaAtendimento() {
                 ></textarea>
                 
                 <div className="quick-exam-viewer glass">
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <div className="exam-viewer-info">
                     <div className="icon-badge"><Archive size={20} /></div>
                     <div>
                       <strong>Exames Anexados pelo Paciente</strong>
-                      <p style={{ margin: 0, opacity: 0.6, fontSize: '0.8rem' }}>Arquivos disponíveis para visualização 360º</p>
+                      <p>Arquivos disponíveis para visualização 360º</p>
                     </div>
                   </div>
                   <button className="btn btn-sm btn-outline" onClick={() => setShowExamModal(true)} aria-label="Abrir visualizador de exames">
@@ -251,8 +302,8 @@ export default function SalaAtendimento() {
                         <strong>{h.servico_nome} | Dr(a). {h.profissional_nome}</strong>
                         <p>{h.notas_clinicas || 'Sem notas.'}</p>
                         <div className="mini-badges">
-                          {h.prescricoes && <span>💊 Medicamentos</span>}
-                          {h.exames && <span>🔬 Exames</span>}
+                          {h.prescricoes && <span>Medicamentos</span>}
+                          {h.exames && <span>Exames</span>}
                         </div>
                       </div>
                     </div>
@@ -263,8 +314,24 @@ export default function SalaAtendimento() {
 
             <footer className="command-footer">
               <div className="save-status">
-                {saving ? <div className="spinner-mini"></div> : <CheckCircle2 size={14} color="var(--primary-500)" />}
-                <span>{mensagem || (saving ? 'Sincronizando...' : 'Alterações salvas localmente')}</span>
+                {saving ? (
+                  <div className="spinner-mini"></div>
+                ) : autoSaveStatus === 'saving' ? (
+                  <Timer size={14} className="spin" />
+                ) : autoSaveStatus === 'saved' ? (
+                  <CheckCircle2 size={14} color="var(--primary-500)" />
+                ) : autoSaveStatus === 'error' ? (
+                  <AlertCircle size={14} color="var(--error-text)" />
+                ) : (
+                  <CheckCircle2 size={14} color="var(--primary-500)" />
+                )}
+                <span>
+                  {mensagem || (saving ? 'Sincronizando...' : 
+                    autoSaveStatus === 'saving' ? 'Salvando automaticamente...' :
+                    autoSaveStatus === 'saved' ? `Salvo automaticamente às ${lastSaved?.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}` :
+                    autoSaveStatus === 'error' ? 'Erro ao salvar automaticamente' :
+                    'Alterações salvas localmente')}
+                </span>
               </div>
               <button className="btn-save-premium" onClick={handleSalvar} disabled={saving}>
                 <Save size={18} /> Salvar Alterações
@@ -274,7 +341,6 @@ export default function SalaAtendimento() {
         </main>
       </div>
 
-      {/* MODAL SIMULADO DE EXAMES (FEATURE 5) */}
       {showExamModal && (
         <div className="exam-modal-overlay" onClick={() => setShowExamModal(false)}>
           <div className="exam-modal" onClick={e => e.stopPropagation()}>
@@ -286,8 +352,8 @@ export default function SalaAtendimento() {
               <div className="exam-file-sim">
                 <header>Ressonância Magnética_Abdomen.pdf</header>
                 <div className="sim-viewer">
-                  <p>📄 [ SIMULAÇÃO DE VISUALIZAÇÃO DE EXAMES ]</p>
-                  <p style={{ fontSize: '0.8rem', opacity: 0.5 }}>Imagens DICOM e Laudos em Alta Resolução</p>
+                  <p>[ SIMULAÇÃO DE VISUALIZAÇÃO DE EXAMES ]</p>
+                  <p className="sim-viewer-sub">Imagens DICOM e Laudos em Alta Resolução</p>
                 </div>
               </div>
             </div>

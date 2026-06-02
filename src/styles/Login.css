@@ -46,7 +46,7 @@
 }
 
 .login-titles h1 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 2.2rem;
   font-weight: 800;
   color: var(--neutral-900);
@@ -67,7 +67,7 @@
   background: var(--neutral-50);
   padding: 6px;
   margin-bottom: 2rem;
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--neutral-100);
 }
 
@@ -84,7 +84,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -122,7 +122,7 @@
   padding: 14px 16px;
   background: var(--neutral-50);
   border: 1px solid var(--neutral-200);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   font-size: 1rem;
   color: var(--neutral-900);
   transition: all 0.3s;
@@ -153,7 +153,7 @@
   background: var(--gradient-primary);
   color: white;
   border: none;
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   font-size: 1.1rem;
   font-weight: 800;
   cursor: pointer;
@@ -218,7 +218,7 @@
 .test-credentials {
   padding: 1rem;
   background: var(--primary-50);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   border: 1px solid var(--primary-100);
 
 }
@@ -253,7 +253,7 @@
 }
 
 .visual-content blockquote {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 2.2rem;
   font-weight: 600;
   color: var(--neutral-900);
@@ -277,7 +277,7 @@
   align-items: center;
   padding: 0.75rem 1.5rem;
   background: white;
-  border-radius: 100px;
+  border-radius: var(--radius-pill);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   margin-top: 3rem;
   position: relative;
@@ -287,7 +287,7 @@
   position: absolute;
   inset: -2px;
   background: var(--gradient-primary);
-  border-radius: 100px;
+  border-radius: var(--radius-pill);
   z-index: -1;
   opacity: 0.3;
   filter: blur(10px);
