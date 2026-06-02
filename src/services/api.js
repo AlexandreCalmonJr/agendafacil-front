@@ -67,7 +67,16 @@ export const buscarHistoricoSaude = (clienteId) =>
 
 // ========== AGENDAMENTOS ==========
 export const listarAgendamentos = (filtros = {}) =>
-  api.get('/agendamentos', { params: filtros });
+  api.get('/agendamentos', { params: filtros }).then(res => {
+    if (res.data && res.data.dados) {
+      return {
+        ...res,
+        data: res.data.dados,
+        paginacao: res.data.paginacao
+      };
+    }
+    return res;
+  });
 
 export const adicionarParticipante = (id, dados) =>
   api.post(`/agendamentos/${id}/participantes`, dados);
