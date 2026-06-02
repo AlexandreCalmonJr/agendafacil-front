@@ -80,7 +80,7 @@ export default function SalaAtendimento() {
       setMensagem('✅ Salvo com sucesso!');
       setTimeout(() => setMensagem(''), 3000);
     } catch (err) {
-      alert('Erro ao salvar prontuário.');
+      alert(err.response?.data?.erro || 'Erro ao salvar prontuário.');
     } finally {
       setSaving(false);
     }
@@ -94,7 +94,7 @@ export default function SalaAtendimento() {
         await atualizarAgendamento(id, { status: 'concluido' });
         navigate('/atendimento');
       } catch (err) {
-        alert('Erro ao finalizar atendimento.');
+        alert(err.response?.data?.erro || 'Erro ao finalizar atendimento.');
         setSaving(false);
       }
     }
