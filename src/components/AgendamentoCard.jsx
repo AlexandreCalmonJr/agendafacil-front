@@ -15,7 +15,6 @@ export default function AgendamentoCard({ agendamento, onCancelar, onAtualizar }
     concluido: { label: 'Concluído', className: 'badge-concluido', icon: '✔️' }
   };
 
-  const { usuario } = JSON.parse(localStorage.getItem('usuario') || '{}');
   const user = JSON.parse(localStorage.getItem('usuario') || '{}');
   
   const statusInfo = statusConfig[agendamento.status] || statusConfig.agendado;

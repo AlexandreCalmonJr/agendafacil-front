@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { listarAgendamentos, buscarHistoricoSaude } from '../services/api';
 import Loading from '../components/Loading';
 import { Calendar, Heart, Plus, Users, Clock, Clipboard, FileText, Sparkles } from 'lucide-react';
+import { generateClinicPDF } from '../utils/pdfGenerator';
 import '../styles/DashboardPaciente.css';
 
 export default function DashboardPaciente() {
@@ -157,10 +158,20 @@ export default function DashboardPaciente() {
 
                     <div className="item-actions-pac">
                       {item.prescricoes && (
-                        <button className="pac-action-btn"><FileText size={14} /> Receita</button>
+                        <button 
+                          className="pac-action-btn" 
+                          onClick={() => generateClinicPDF({ ...item, cliente_nome: item.cliente_nome || usuario.nome }, 'RECEITA')}
+                        >
+                          <FileText size={14} /> Receita
+                        </button>
                       )}
                       {item.exames && (
-                        <button className="pac-action-btn"><Clipboard size={14} /> Exames</button>
+                        <button 
+                          className="pac-action-btn" 
+                          onClick={() => generateClinicPDF({ ...item, cliente_nome: item.cliente_nome || usuario.nome }, 'EXAMES')}
+                        >
+                          <Clipboard size={14} /> Exames
+                        </button>
                       )}
                     </div>
                   </div>

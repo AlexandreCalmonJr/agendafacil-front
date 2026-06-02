@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   listarAgendamentos, 
   atualizarAgendamento 
@@ -12,6 +13,7 @@ import { Activity, DollarSign, Users, Calendar, MapPin, CheckCircle, CreditCard,
 import '../styles/DashboardStaff.css';
 
 const DashboardStaff = () => {
+  const navigate = useNavigate();
   // Hook customizado para gerenciar a chamada de agendamentos
   const { 
     data: agendamentos = [], 
@@ -79,7 +81,7 @@ const DashboardStaff = () => {
           <h1>Centro de Controle</h1>
           <p>Monitoramento em tempo real • {format(new Date(), "eeee, dd 'de' MMMM", { locale: ptBR })}</p>
         </div>
-        <button className="btn-staff-plus">
+        <button className="btn-staff-plus" onClick={() => navigate('/agendar')}>
           <Plus size={20} /> Novo Atendimento
         </button>
       </header>

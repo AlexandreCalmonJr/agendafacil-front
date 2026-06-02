@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { listarProfissionais, listarServicos, criarAgendamento, listarClientes } from '../services/api';
+import { listarProfissionais, listarServicos, criarAgendamento, listarClientes, buscarDisponibilidade } from '../services/api';
 import { 
   Check, 
   ChevronRight, 
@@ -71,7 +71,6 @@ export default function FormAgendamento({ onSuccess, onCancel }) {
 
   const carregarHorariosOcupados = async () => {
     try {
-      const { buscarDisponibilidade } = await import('../services/api');
       const res = await buscarDisponibilidade({
         data: form.data,
         profissional_id: form.profissional_id
