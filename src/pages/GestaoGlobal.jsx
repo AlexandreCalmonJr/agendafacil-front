@@ -70,7 +70,7 @@ const GestaoGlobal = () => {
                 <strong>{p.nome}</strong>
                 <span>{p.especialidade}</span>
               </div>
-              <button className="btn-more"><MoreHorizontal size={16} /></button>
+              <button className="btn-more" aria-label="Mais opções"><MoreHorizontal size={16} /></button>
             </div>
 
             <div className="doctor-slots-list">

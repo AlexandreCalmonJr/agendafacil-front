@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { listarProfissionais } from '../services/api';
+import { useAuth } from '../contexts/AuthContext';
 import logo from '../assets/image/logo.jpg';
 import '../styles/Header.css';
 
@@ -8,14 +8,10 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-
-  const usuarioStr = localStorage.getItem('usuario');
-  const usuario = usuarioStr ? JSON.parse(usuarioStr) : null;
-  const isLoggedIn = !!localStorage.getItem('token');
+  const { usuario, authenticated, logoutContext } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('usuario');
+    logoutContext();
     navigate('/login');
     setMenuOpen(false);
   };

@@ -186,7 +186,7 @@ export default function Login() {
               </p>
             ) : (
               <div className="test-credentials">
-                <p>Conta teste: <span>ana.silva@clinica.com / 123456</span></p>
+                <p>Acesse com suas credenciais profissionais.</p>
               </div>
             )}
           </div>

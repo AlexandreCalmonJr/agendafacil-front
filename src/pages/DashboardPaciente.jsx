@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import { listarAgendamentos, buscarHistoricoSaude } from '../services/api';
+import { getProfImage, getSaudacao } from '../utils/images';
 import Loading from '../components/Loading';
 import { Calendar, Heart, Plus, Users, Clock, Clipboard, FileText, Sparkles } from 'lucide-react';
 import { generateClinicPDF } from '../utils/pdfGenerator';
@@ -11,9 +13,7 @@ export default function DashboardPaciente() {
   const [historico, setHistorico] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
-  const usuarioStr = localStorage.getItem('usuario');
-  const usuario = usuarioStr ? JSON.parse(usuarioStr) : { nome: 'Paciente' };
+  const { usuario } = useAuth();
 
   useEffect(() => {
     carregarDados();
@@ -38,25 +38,6 @@ export default function DashboardPaciente() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const getProfImage = (nome) => {
-    const map = {
-      'Dr. Carlos Eduardo': 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop',
-      'Dra. Ana Beatrix': 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=400&fit=crop',
-      'Dr. Ricardo Santos': 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop',
-      'Dra. Mariana Luz': 'https://images.unsplash.com/photo-1559839734-2b71f1e3c770?w=400&h=400&fit=crop',
-      'Dr. Henrique Silva': 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=400&fit=crop',
-      'Dra. Letícia Costa': 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=400&h=400&fit=crop'
-    };
-    return map[nome] || `https://ui-avatars.com/api/?name=${encodeURIComponent(nome)}&background=15803d&color=fff`;
-  };
-
-  const getSaudacao = () => {
-    const hora = new Date().getHours();
-    if (hora < 12) return 'Bom dia';
-    if (hora < 18) return 'Boa tarde';
-    return 'Boa noite';
   };
 
   if (loading) return <Loading text="Preparando seu Portal de Saúde..." />;

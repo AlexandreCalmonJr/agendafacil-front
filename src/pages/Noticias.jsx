@@ -34,12 +34,12 @@ export default function Noticias() {
       <div className="noticias-grid">
         {noticias.length > 0 ? (
           noticias.map((item, index) => (
-            <div key={index} className="news-card">
+            <div key={item.link || index} className="news-card">
               <div className="news-image">
                 <span className="news-category">Saúde</span>
                 <img 
                   src={item.image || `https://images.unsplash.com/photo-1505751172107-16781432f22b?auto=format&fit=crop&q=80&w=800&sig=${index}`} 
-                  alt="" 
+                  alt={item.title || 'Notícia de saúde'} 
                   onError={(e) => {
                     e.target.src = 'https://images.unsplash.com/photo-1505751172107-16781432f22b?auto=format&fit=crop&q=80&w=800';
                     e.target.onerror = null;
