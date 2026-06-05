@@ -44,7 +44,7 @@
 .navbar-logo span {
   font-weight: 700;
   letter-spacing: -0.5px;
-  color: white; /* Cor branca para contrastar com o início verde do gradiente */
+  color: black;
 }
 
 .navbar-links {
